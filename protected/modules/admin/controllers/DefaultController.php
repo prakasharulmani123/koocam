@@ -34,7 +34,7 @@ class DefaultController extends Controller {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('logout', 'index', 'profile'),
+                'actions' => array('logout', 'index', 'profile', 'changePassword'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -125,6 +125,30 @@ class DefaultController extends Controller {
             endif;
         }
         $this->render('profile', compact('model'));
+    }
+    
+    public function actionChangePassword() {
+        $model = new Admin;
+        $model = Admin::model()->findByAttributes(array('admin_id' => Yii::app()->user->id));
+        $model->scenario = 'changePwd';
+
+        if (isset($_POST['Admin'])) {
+            $model->attributes = $_POST['Admin'];
+            $valid = $model->validate();
+            if ($valid) {
+                $model->password_hash = Myclass::encrypt($model->new_password);
+                if ($model->save()){
+                    Yii::app()->user->setFlash('success', 'Password changed successfully.');
+                    $this->redirect(array('changepassword'));
+                }
+                else{
+                    Yii::app()->user->setFlash('danger', 'Password can not be changed, Please try again.');
+                    $this->redirect(array('changepassword'));
+                }
+            }
+        }
+        
+        $this->render('changePassword', array('model' => $model));
     }
 
     public function actionError() {

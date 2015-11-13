@@ -15,6 +15,10 @@
  */
 class Admin extends CActiveRecord {
 
+    public $old_password;
+    public $new_password;
+    public $repeat_password;
+
     /**
      * @return string the associated database table name
      */
@@ -33,10 +37,20 @@ class Admin extends CActiveRecord {
             array('username, password_hash, password_reset_token, email', 'length', 'max' => 255),
             array('status', 'length', 'max' => 1),
             array('updated_at', 'safe'),
+            array('old_password, new_password, repeat_password', 'required', 'on' => 'changePwd'),
+            array('old_password', 'findPasswords', 'on' => 'changePwd'),
+            array('repeat_password', 'compare', 'compareAttribute' => 'new_password', 'on' => 'changePwd'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('admin_id, username, password_hash, password_reset_token, email, status, created_at, updated_at', 'safe', 'on' => 'search'),
         );
+    }
+
+    //matching the old password with your existing password.
+    public function findPasswords($attribute, $params) {
+        $user = Admin::model()->findByPk(Yii::app()->user->id);
+        if ($user->password_hash != Myclass::encrypt($this->old_password))
+            $this->addError($attribute, 'Old password is incorrect.');
     }
 
     /**

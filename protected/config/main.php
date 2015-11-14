@@ -8,7 +8,8 @@ return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'KOOCAM',
     // preloading 'log' component
-    'preload' => array('log', 'booster'),
+//    'preload' => array('log', 'booster'), //Hide by Nadesh at 2015-11-14, Removed 'booster' (Header, Sidebar not working)
+    'preload' => array('log'),
     // autoloading model and component classes
     'import' => array(
         'application.models.*',

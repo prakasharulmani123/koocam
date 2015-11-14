@@ -1,8 +1,9 @@
-
 <div class="navbar navbar-size-large navbar-default navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a href="#sidebar-menu" data-toggle="sidebar-menu" class="toggle pull-left visible-xs"><i class="fa fa-ellipsis-v"></i></a>
+            <a href="#sidebar-menu" data-toggle="sidebar-menu" class="toggle pull-left visible-xs">
+                <i class="fa fa-ellipsis-v"></i>
+            </a>
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
@@ -119,6 +120,7 @@
                         <img src="<?php echo $this->themeUrl?>/img/people/110/avatar5.png" alt="Bill" class="img-circle" width="40" /> <?php echo Yii::app()->user->name; ?> <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
+                        <li><?php echo CHtml::link('Change Password', array('/admin/default/changePassword')); ?></li>
                         <li><?php echo CHtml::link('Log out', array('/admin/default/logout')); ?></li>
                     </ul>
                 </li>

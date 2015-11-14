@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title><?php echo $this->title//CHtml::encode($this->title);        ?></title>
+        <title> <?php echo $this->title ?> </title>
         <?php
         $themeUrl = $this->themeUrl;
         $cs = Yii::app()->getClientScript();
@@ -72,33 +72,36 @@
 
         <?php
         $cs_pos_end = CClientScript::POS_END;
+        
+//Hide by Nadesh at 2015-11-14, Already inclued vendor-core.min.js....
+//        $cs->registerCoreScript('jquery'); 
 
-        $cs->registerCoreScript('jquery');
+//        $js = <<< EOD
+//    var colors = {
+//                "danger-color": "#e74c3c",
+//                "success-color": "#81b53e",
+//                "warning-color": "#f0ad4e",
+//                "inverse-color": "#2c3e50",
+//                "info-color": "#2d7cb5",
+//                "default-color": "#6e7882",
+//                "default-light-color": "#cfd9db",
+//                "purple-color": "#9D8AC7",
+//                "mustard-color": "#d4d171",
+//                "lightred-color": "#e15258",
+//                "body-bg": "#f6f6f6"
+//            };
+//            var config = {
+//                theme: "html",
+//                skins: {
+//                    "default": {
+//                        "primary-color": "#42a5f5"
+//                    }
+//                }
+//            };
+//EOD;
 
-        $js = <<< EOD
-    var colors = {
-                "danger-color": "#e74c3c",
-                "success-color": "#81b53e",
-                "warning-color": "#f0ad4e",
-                "inverse-color": "#2c3e50",
-                "info-color": "#2d7cb5",
-                "default-color": "#6e7882",
-                "default-light-color": "#cfd9db",
-                "purple-color": "#9D8AC7",
-                "mustard-color": "#d4d171",
-                "lightred-color": "#e15258",
-                "body-bg": "#f6f6f6"
-            };
-            var config = {
-                theme: "html",
-                skins: {
-                    "default": {
-                        "primary-color": "#42a5f5"
-                    }
-                }
-            };
-EOD;
-//        Yii::app()->clientScript->registerScript('_custom_js', $js);
+//        Yii::app()->clientScript->registerScript('_inline_script', $js);
+        
         $cs->registerScriptFile($themeUrl . '/js/vendor-core.min.js', $cs_pos_end);
         $cs->registerScriptFile($themeUrl . '/js/vendor-countdown.min.js', $cs_pos_end);
         $cs->registerScriptFile($themeUrl . '/js/vendor-tables.min.js', $cs_pos_end);

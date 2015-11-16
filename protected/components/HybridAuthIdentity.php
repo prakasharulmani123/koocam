@@ -2,7 +2,7 @@
 
 class HybridAuthIdentity extends CUserIdentity {
 
-    const VERSION = '2.1.2';
+    const VERSION = '2.6.0';
 
     /**
      *
@@ -45,12 +45,12 @@ class HybridAuthIdentity extends CUserIdentity {
                 "Facebook" => array(
                     "enabled" => true,
                     "keys" => array(
-                        "id" => "182581712086562",
-                        "secret" => "8291693dd6936297b8a7a487ddec6f2c",
+                        "id" => "506092249568171",
+                        "secret" => "9d672f389546c6957407b3a9d0b59038",
 //                        "id" => FB_APP_ID,
 //                        "secret" => FB_SECRET_ID
                     ),
-                    "scope" => "email",
+                    "scope"   => "email, user_about_me, user_birthday, user_hometown", // optional
                     "display" => "popup"
                 ),
                 "Live" => array(

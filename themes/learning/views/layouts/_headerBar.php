@@ -120,6 +120,7 @@
                         <img src="<?php echo $this->themeUrl?>/img/people/110/avatar5.png" alt="Bill" class="img-circle" width="40" /> <?php echo Yii::app()->user->name; ?> <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
+                        <li><?php echo CHtml::link('Edit Profile', array('/admin/default/profile')); ?></li>
                         <li><?php echo CHtml::link('Change Password', array('/admin/default/changePassword')); ?></li>
                         <li><?php echo CHtml::link('Log out', array('/admin/default/logout')); ?></li>
                     </ul>

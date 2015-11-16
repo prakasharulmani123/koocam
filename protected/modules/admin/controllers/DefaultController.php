@@ -72,6 +72,58 @@ class DefaultController extends Controller {
         $this->redirect(Yii::app()->getModule('admin')->user->loginUrl);
     }
 
+    public function actionProfile() {
+        $id = Yii::app()->user->id;
+        $model = Admin::model()->findByPk($id);
+
+        if (isset($_POST['Admin'])) {
+            $model->attributes = $_POST['Admin'];
+            if ($model->validate()) {
+                $model->save(false);
+                Yii::app()->user->setFlash('success', 'Profile updated successfully');
+                $this->refresh();
+            }
+        }
+        
+        $this->render('profile', compact('model'));
+    }
+
+    public function actionChangePassword() {
+        $model = new Admin;
+        $model = Admin::model()->findByAttributes(array('admin_id' => Yii::app()->user->id));
+        $model->scenario = 'changePwd';
+
+        if (isset($_POST['Admin'])) {
+            $model->attributes = $_POST['Admin'];
+            $valid = $model->validate();
+            if ($valid) {
+                $model->password_hash = Myclass::encrypt($model->new_password);
+                if ($model->save()) {
+                    Yii::app()->user->setFlash('success', 'Password changed successfully.');
+                    $this->refresh();
+                } else {
+                    Yii::app()->user->setFlash('danger', 'Password can not be changed, Please try again.');
+                    $this->refresh();
+                }
+            }
+        }
+
+        $this->render('changePassword', array('model' => $model));
+    }
+
+    public function actionError() {
+        if ($error = Yii::app()->errorHandler->error) {
+            if (Yii::app()->request->isAjaxRequest) {
+                echo $error['message'];
+                Yii::app()->end();
+            } else {
+                $name = Yii::app()->errorHandler->error['code'] . ' Error';
+                $message = Yii::app()->errorHandler->error['message'];
+                $this->render('error', compact('error', 'name', 'message'));
+            }
+        }
+    }
+
     public function actionRequestPasswordReset() {
         $model = new PasswordResetRequestForm();
         if (isset($_POST['PasswordResetRequestForm'])) {
@@ -110,60 +162,7 @@ class DefaultController extends Controller {
             'model' => $model,
         ));
     }
-
-    public function actionProfile() {
-        $id = Yii::app()->user->id;
-        $model = User::model()->findByPk($id);
-        $model->setScenario('update');
-
-        if (isset($_POST['User'])) {
-            $model->attributes = $_POST['User'];
-            if ($model->validate()):
-                $model->save(false);
-                Yii::app()->user->setFlash('success', 'Profile updated successfully');
-                $this->refresh();
-            endif;
-        }
-        $this->render('profile', compact('model'));
-    }
     
-    public function actionChangePassword() {
-        $model = new Admin;
-        $model = Admin::model()->findByAttributes(array('admin_id' => Yii::app()->user->id));
-        $model->scenario = 'changePwd';
-
-        if (isset($_POST['Admin'])) {
-            $model->attributes = $_POST['Admin'];
-            $valid = $model->validate();
-            if ($valid) {
-                $model->password_hash = Myclass::encrypt($model->new_password);
-                if ($model->save()){
-                    Yii::app()->user->setFlash('success', 'Password changed successfully.');
-                    $this->redirect(array('changepassword'));
-                }
-                else{
-                    Yii::app()->user->setFlash('danger', 'Password can not be changed, Please try again.');
-                    $this->redirect(array('changepassword'));
-                }
-            }
-        }
-        
-        $this->render('changePassword', array('model' => $model));
-    }
-
-    public function actionError() {
-        if ($error = Yii::app()->errorHandler->error) {
-            if (Yii::app()->request->isAjaxRequest) {
-                echo $error['message'];
-                Yii::app()->end();
-            } else {
-                $name = Yii::app()->errorHandler->error['code'] . ' Error';
-                $message = Yii::app()->errorHandler->error['message'];
-                $this->render('error', compact('error', 'name', 'message'));
-            }
-        }
-    }
-
     public function actionScreens($path) {
         if ($path) {
             $this->render('screens', compact('path'));
@@ -182,7 +181,6 @@ class DefaultController extends Controller {
             echo $exc->getTraceAsString();
         }
         exit;
-
 
         var_dump($mail->send('prakash.paramanandam@arkinfotec.com', $subject, $message));
         exit;

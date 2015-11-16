@@ -37,6 +37,7 @@ class Admin extends CActiveRecord {
             array('username, password_hash, password_reset_token, email', 'length', 'max' => 255),
             array('status', 'length', 'max' => 1),
             array('updated_at', 'safe'),
+            array('email', 'email'),
             array('old_password, new_password, repeat_password', 'required', 'on' => 'changePwd'),
             array('old_password', 'findPasswords', 'on' => 'changePwd'),
             array('repeat_password', 'compare', 'compareAttribute' => 'new_password', 'on' => 'changePwd'),

@@ -5,6 +5,13 @@ if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
 } else {
     $mailsendby = 'phpmail';
 }
+if (strpos($_SERVER['SERVER_NAME'], 'localhost') !== false) {
+    $fb_app_id = '1072911946066926';
+    $fb_sec_id = '9aee56441691bd738496f84d8daeb261';
+    
+    $google_app_id = '675517855666-ndue37r1cdhn72es30r1kkk545sm8ooi.apps.googleusercontent.com';
+    $google_sec_id = 'ahTkPog54J_DcMGI5NU-dSwk';
+}
 
 // this contains the application parameters that can be maintained via GUI
 // Custom Params Value
@@ -34,4 +41,9 @@ return array(
 
     'SITENAME' => 'Koocam',
     'EMAILHEADERIMAGE' => '',
+    
+    'FB_APP_ID' => $fb_app_id,
+    'FB_SECRET_ID' => $fb_sec_id,
+    'GOOGLE_APP_ID' => $google_app_id,
+    'GOOGLE_SECRET_ID' => $google_sec_id,
 );

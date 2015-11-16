@@ -1,6 +1,6 @@
 <?php
 
-class AdminModule extends CWebModule {
+class SiteModule extends CWebModule {
 
     public function init() {
         // this method is called when the module is being created
@@ -9,7 +9,8 @@ class AdminModule extends CWebModule {
         $this->setImport(array(
             'admin.components.*',
         ));
-        Yii::app()->theme = 'learning'; 
+        Yii::app()->theme = 'koocam'; 
+        
         $this->layoutPath = Yii::getPathOfAlias('webroot.themes.' . Yii::app()->theme->name . '.views.layouts');
         $this->layout = '//layouts/main';
 

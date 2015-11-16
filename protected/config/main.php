@@ -25,9 +25,19 @@ return array(
             // If removed, Gii defaults to localhost only. Edit carefully to taste.
             'ipFilters' => array('127.0.0.1', '::1'),
         ),
+        'site'
     ),
     // application components
     'components' => array(
+//        'clientScript' => array(
+//            'packages' => array(
+//                'jquery' => array(
+//                    'baseUrl' => '//code.jquery.com/',
+////                    'baseUrl' => 'http://localhost/wipocos_1/branches/dev/',
+//                    'js' => array('jquery-1.10.1.min.js', 'jquery-migrate-1.2.1.min.js'),
+//                ),
+//            )
+//        ),
         'booster' => array(
             'class' => 'application.extensions.yiibooster.components.Booster',
             'yiiCss' => false
@@ -61,7 +71,7 @@ return array(
     'defaultController' => '/admin/default/login',
     // using Yii::app()->params['paramName']
     'params' => require(dirname(__FILE__) . '/params.php'),
-    'theme' => 'learning',
+//    'theme' => 'learning',
     'sourceLanguage' => 'en_us',
     'language' => 'en_US',
 );

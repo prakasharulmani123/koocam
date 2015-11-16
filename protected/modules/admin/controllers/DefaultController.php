@@ -1,11 +1,9 @@
 <?php
 
 /**
- * Site controller
+ * Admin controller
  */
 class DefaultController extends Controller {
-
-    public $layout = '//layouts/column1';
 
     /**
      * @array action filters

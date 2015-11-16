@@ -22,7 +22,7 @@
             <?php echo $content; ?>
         </div>
         <?php $this->renderPartial('//layouts/_footer'); ?>
-        
+
         <?php
         $cs_pos_end = CClientScript::POS_END;
         $cs->registerScriptFile($themeUrl . '/js/jquery.1.11.3.min.js', $cs_pos_end);
@@ -30,6 +30,20 @@
         $cs->registerScriptFile($themeUrl . '/js/waypoints.min.js', $cs_pos_end);
         $cs->registerScriptFile($themeUrl . '/js/jquery.counterup.min.js', $cs_pos_end);
         $cs->registerScriptFile($themeUrl . '/js/owl.carousel.min.js', $cs_pos_end);
+        $login = Yii::app()->createAbsoluteUrl('/site/default/signupsocial');
+        $js = <<< EOD
+            jQuery(document).ready(function ($) {
+                $('.oAuthLogin').click(function(e) {
+                    var _frameUrl = "$login?provider=" + $(this).data('provider');
+                    window.open(_frameUrl, "SignIn", "width=580,height=410,toolbar=0,scrollbars=0,status=0,resizable=0,location=0,menuBar=0,left=400,top=150");
+                    e.preventDefault();
+                    return false;
+                });
+            });
+
+EOD;
+        
+        Yii::app()->clientScript->registerScript('home', $js);
         ?>
     </body>
 </html>

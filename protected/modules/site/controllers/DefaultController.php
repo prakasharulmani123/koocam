@@ -28,7 +28,7 @@ class DefaultController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'sociallogin', 'signupsocial'),
+                'actions' => array('index', 'sociallogin', 'signupsocial', 'login'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -44,6 +44,12 @@ class DefaultController extends Controller {
 
     public function actionIndex() {
         $this->render('index');
+    }
+
+    public function actionLogin() {
+        echo '<pre>';
+        print_r($_POST);
+        exit;
     }
 
     public function actionSociallogin() {
@@ -62,9 +68,8 @@ class DefaultController extends Controller {
 
             $haComp->adapter = $haComp->hybridAuth->authenticate($provider);
             $haComp->userProfile = $haComp->adapter->getUserProfile();
-
             $haComp->processLogin();  //further action based on successful login or re-direct user to the required url
-            $redirectUrl = $this->homeUrl;
+            $redirectUrl = Yii::app()->createAbsoluteUrl('/site/default/index');
             echo "<script type='text/javascript'>if(window.opener){window.opener.location = '$redirectUrl';window.close();}else{window.opener.location = '$redirectUrl';}</script>";
         } catch (Exception $e) {
             echo $e->getMessage();

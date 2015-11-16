@@ -45,13 +45,20 @@ class DefaultController extends Controller {
     public function actionIndex() {
         $this->render('index');
     }
-
+    
     public function actionLogin() {
         echo '<pre>';
         print_r($_POST);
         exit;
     }
 
+    protected function performAjaxValidation($model) {
+        if (isset($_POST['ajax'])) {
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
+    }
+    
     public function actionSociallogin() {
         Yii::import('application.components.HybridAuthIdentity');
         $path = Yii::getPathOfAlias('ext.HybridAuth');

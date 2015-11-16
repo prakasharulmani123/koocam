@@ -21,15 +21,15 @@ class UserIdentity extends CUserIdentity {
      * @return boolean whether authentication succeeds.
      */
     public function authenticate() {
-        $admin = Admin::model()->find('username = :U', array(':U' => $this->username));
+        $user = User::model()->find('username = :U', array(':U' => $this->username));
 
-        if ($admin === null):
+        if ($user === null):
             $this->errorCode = self::ERROR_USERNAME_INVALID;
 
-        elseif ($admin->status == 0):
+        elseif ($user->status == 0):
             $this->errorCode = self::ERROR_ACCOUNT_BLOCKED;
         else:
-            $is_correct_password = ($admin->password_hash !== Myclass::encrypt($this->password)) ? false : true;
+            $is_correct_password = ($user->password_hash !== Myclass::encrypt($this->password)) ? false : true;
 
             if ($is_correct_password):
                 $this->errorCode = self::ERROR_NONE;
@@ -39,7 +39,7 @@ class UserIdentity extends CUserIdentity {
         endif;
 
         if ($this->errorCode == self::ERROR_NONE):
-            $this->setUserData($admin);
+            $this->setUserData($user);
         endif;
 
         return !$this->errorCode;
@@ -50,19 +50,19 @@ class UserIdentity extends CUserIdentity {
     }
 
     public function autoLogin() {
-        $admin = User::model()->find('username = :U', array(':U' => $this->username));
-        if ($admin === null):
+        $user = User::model()->find('username = :U', array(':U' => $this->username));
+        if ($user === null):
             $this->errorCode = self::ERROR_USERNAME_INVALID;
         else:
-            $this->setUserData($admin);
+            $this->setUserData($user);
         endif;
         return !$this->errorCode;
     }
 
-    protected function setUserData($admin) {
-        $this->_id = $admin->admin_id;
-        $this->setState('name', $admin->username);
-        $this->setState('id', $admin->admin_id);
+    protected function setUserData($user) {
+        $this->_id = $user->user_id;
+        $this->setState('name', $user->username);
+        $this->setState('id', $user->user_id);
         return;
     }
 }

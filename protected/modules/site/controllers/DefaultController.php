@@ -47,9 +47,19 @@ class DefaultController extends Controller {
     }
     
     public function actionLogin() {
-        echo '<pre>';
-        print_r($_POST);
-        exit;
+        if (!Yii::app()->user->isGuest) {
+            $this->goHome();
+        }
+        
+        $model = new LoginForm;
+        $this->performAjaxValidation($model);
+        
+        if (isset($_POST['sign_in'])) {
+            $model->attributes = $_POST['LoginForm'];
+            if ($model->validate() && $model->login()):
+                $this->goHome();
+            endif;
+        }
     }
 
     protected function performAjaxValidation($model) {

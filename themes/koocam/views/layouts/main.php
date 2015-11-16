@@ -22,10 +22,16 @@
             <?php echo $content; ?>
         </div>
         <?php $this->renderPartial('//layouts/_footer'); ?>
+        <?php
+        $loginModel = new LoginForm;
+        $this->renderPartial('//layouts/_login', array('model' => $loginModel), false, true);
+//        $this->renderPartial('//layouts/_signup', array('model' => $loginModel), false, true); 
+        ?>
 
         <?php
         $cs_pos_end = CClientScript::POS_END;
-        $cs->registerScriptFile($themeUrl . '/js/jquery.1.11.3.min.js', $cs_pos_end);
+        $cs->registerCoreScript('jquery');
+//        $cs->registerScriptFile($themeUrl . '/js/jquery.1.11.3.min.js', $cs_pos_end);
         $cs->registerScriptFile($themeUrl . '/js/bootstrap.min.js', $cs_pos_end);
         $cs->registerScriptFile($themeUrl . '/js/waypoints.min.js', $cs_pos_end);
         $cs->registerScriptFile($themeUrl . '/js/jquery.counterup.min.js', $cs_pos_end);

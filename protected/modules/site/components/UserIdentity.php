@@ -21,7 +21,7 @@ class UserIdentity extends CUserIdentity {
      * @return boolean whether authentication succeeds.
      */
     public function authenticate() {
-        $user = User::model()->find('username = :U', array(':U' => $this->username));
+        $user = User::model()->find('username = :U OR email = :U', array(':U' => $this->username));
         
         if ($user === null):
             $this->errorCode = self::ERROR_USERNAME_INVALID;

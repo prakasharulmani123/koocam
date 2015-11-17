@@ -52,10 +52,9 @@ class DefaultController extends Controller {
         }
         
         $model = new LoginForm;
-        $this->performAjaxValidation($model);
-        
-        if (isset($_POST['sign_in'])) {
+        if (isset($_POST['LoginForm'])) {
             $model->attributes = $_POST['LoginForm'];
+            $this->performAjaxValidation($model);
             if ($model->validate() && $model->login()):
                 $this->goHome();
             endif;
@@ -65,6 +64,7 @@ class DefaultController extends Controller {
     protected function performAjaxValidation($model) {
         if (isset($_POST['ajax'])) {
             echo CActiveForm::validate($model);
+            exit;
             Yii::app()->end();
         }
     }

@@ -51,9 +51,9 @@ class DefaultController extends Controller {
             $this->goHome();
         }
 
-//        $this->performAjaxValidation($model);
-
         $model = new LoginForm;
+        $this->performAjaxValidation($model);
+        
         if (isset($_POST['LoginForm'])) {
             $model->attributes = $_POST['LoginForm'];
             if ($model->validate() && $model->login()):

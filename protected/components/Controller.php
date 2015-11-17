@@ -36,6 +36,7 @@ class Controller extends CController {
         $this->homeAbsoluteUrl = Yii::app()->createAbsoluteUrl(Yii::app()->controller->module->homeUrl[0]);
 
         CHtml::$errorSummaryCss = 'alert alert-danger';
+        CHtml::$errorMessageCss = 'text-danger';
 
         $this->flashMessages = Yii::app()->user->getFlashes();
         $this->themeUrl = Yii::app()->theme->baseUrl;

@@ -14,7 +14,7 @@
                             'clientOptions' => array(
                                 'validateOnSubmit' => true,
                             ),
-                            'enableAjaxValidation' => false,
+                            'enableAjaxValidation' => true,
                         ));
                 ?>
 

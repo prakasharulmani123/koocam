@@ -25,8 +25,8 @@
         <?php
         $loginModel = new LoginForm;
         $userModel = new User;
-        $this->renderPartial('//layouts/_login', array('model' => $loginModel), false, true);
-        $this->renderPartial('//layouts/_signup', array('model' => $userModel), false, true); 
+        $this->renderPartial('//layouts/_login', array('model' => $loginModel));
+        $this->renderPartial('//layouts/_signup', array('model' => $userModel)); 
         ?>
 
         <?php

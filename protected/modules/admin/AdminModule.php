@@ -12,7 +12,7 @@ class AdminModule extends CWebModule {
         $this->setImport(array(
             'admin.components.*',
         ));
-        Yii::app()->theme = 'learning_1_1_0'; 
+        Yii::app()->theme = 'learning_admin'; 
         $this->layoutPath = Yii::getPathOfAlias('webroot.themes.' . Yii::app()->theme->name . '.views.layouts');
 
         $this->setComponents(array(

@@ -90,7 +90,7 @@ class DefaultController extends Controller {
         $user = User::model()->findByAttributes(array(
             'user_id' => $userid,
             'user_activation_key' => $activationkey,
-            'user_last_login' => null
+            'user_last_login' => '0000-00-00 00:00:00'
             )
         );
         if (empty($user))

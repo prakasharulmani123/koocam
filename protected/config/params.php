@@ -35,7 +35,7 @@ return array(
     //Product Settings
     'SITEBASEURL' => 'http://wipocos.byethost16.com',
     'UPLOAD_DIR' => 'uploads',
-    'EMAILHEADERIMAGE' => '/themes/adminlte/img/fa-globe.png',
+    'EMAILHEADERIMAGE' => '/themes/koocam/img/logo.png',
 
     'PAGE_SIZE' => '10',
 

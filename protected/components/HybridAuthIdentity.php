@@ -116,7 +116,7 @@ class HybridAuthIdentity extends CUserIdentity {
             endif;
 
             $result = $this->registerNewUser($model, $newrecord);
-            $identity = new UserIdentity($result->email, 'anonyms');
+            $identity = new UserIdentity($result->username, 'anonyms');
             $identity->autoLogin();
             Yii::app()->user->login($identity);
 
@@ -138,47 +138,33 @@ class HybridAuthIdentity extends CUserIdentity {
             $model->status = 1;
         else:
             $model->status = 1;
-//            $model->user_last_login = date('Y-m-d h:i:s');
         endif;
-
-//        if (!empty($this->userProfile->photoURL) && ($newrecord || empty($patient->profile_picture))):
-//            if ($image = $patient->urlImageSave($this->userProfile->photoURL, rand()))
-//                $model->user_avatar = $image;
-//        endif;
-//        if (empty($patient->first_name))
-//            $patient->first_name = $this->userProfile->firstName;
-//        if (empty($patient->last_name))
-//            $patient->last_name = $this->userProfile->lastName;
-//        if (empty($patient->street))
-//            $patient->street = $this->userProfile->address;
-//        if (empty($patient->state)):
-//            $state = States::model()->find("stateName = '{$this->userProfile->region}'");
-//            if (!empty($state))
-//                $patient->state = $state->stateID;
-//        endif;
-//        if (empty($patient->city)):
-//            $city = Cities::model()->find("cityName = '{$this->userProfile->city}'");
-//            if (!empty($city))
-//                $patient->city = $city->cityID;
-//        endif;
-//
-//        if (empty($patient->zipcode))
-//            $patient->zipcode = $this->userProfile->zip;
-//        if (empty($model->mobile_number))
-//            $model->mobile_number = $this->userProfile->phone;
-
+        
         if ($model->validate()) {
             $model->save(false);
-
-//            if ($newrecord):
-//                JobuserController::registrationMail($model, $patient);
-//            endif;
-
+            if($newrecord){
+                $user_profile = new UserProfile;
+                $user_profile->user_id = $model->user_id;
+                $user_profile->prof_firstname = $this->userProfile->firstName;
+                $user_profile->prof_lastname = $this->userProfile->lastName;
+                $user_profile->prof_address = $this->userProfile->address;
+                $user_profile->prof_phone = $this->userProfile->phone;
+                
+                if ($user_profile->validate()) {
+                    $user_profile->save(false);
+                }
+            }
             return $model;
         } else {
             echo CHtml::errorSummary($model);
             exit;
         }
+        
+//        if (!empty($this->userProfile->photoURL) && ($newrecord || empty($patient->profile_picture))):
+//            if ($image = $patient->urlImageSave($this->userProfile->photoURL, rand()))
+//                $model->user_avatar = $image;
+//        endif;
+//        
     }
 
 }

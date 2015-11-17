@@ -32,7 +32,7 @@ class DefaultController extends Controller {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array(),
+                'actions' => array('logout'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -45,12 +45,12 @@ class DefaultController extends Controller {
     public function actionIndex() {
         $this->render('index');
     }
-    
+
     public function actionLogin() {
         if (!Yii::app()->user->isGuest) {
             $this->goHome();
         }
-        
+
         $model = new LoginForm;
         if (isset($_POST['LoginForm'])) {
             $model->attributes = $_POST['LoginForm'];
@@ -61,6 +61,11 @@ class DefaultController extends Controller {
         }
     }
 
+    public function actionLogout() {
+        Yii::app()->user->logout();
+        $this->redirect('index');
+    }
+
     protected function performAjaxValidation($model) {
         if (isset($_POST['ajax'])) {
             echo CActiveForm::validate($model);
@@ -68,7 +73,7 @@ class DefaultController extends Controller {
             Yii::app()->end();
         }
     }
-    
+
     public function actionSociallogin() {
         Yii::import('application.components.HybridAuthIdentity');
         $path = Yii::getPathOfAlias('ext.HybridAuth');
@@ -77,7 +82,6 @@ class DefaultController extends Controller {
 
     public function actionSignupsocial($provider) {
         try {
-
             Yii::import('application.components.HybridAuthIdentity');
             $haComp = new HybridAuthIdentity();
             if (!$haComp->validateProviderName($provider))
@@ -98,4 +102,5 @@ class DefaultController extends Controller {
 
         Yii::app()->end(true);
     }
+
 }

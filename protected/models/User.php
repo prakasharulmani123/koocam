@@ -119,5 +119,13 @@ class User extends CActiveRecord {
 //            )
         ));
     }
+    
+    public function beforeSave() {
+        if ($this->isNewRecord)
+            $this->created_at = new CDbExpression('NOW()');
+
+        $this->updated_at = new CDbExpression('NOW()');
+        return parent::beforeSave();
+    }
 
 }

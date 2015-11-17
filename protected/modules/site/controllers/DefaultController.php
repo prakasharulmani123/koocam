@@ -111,7 +111,7 @@ class DefaultController extends Controller {
                 "{NEXTSTEPURL}" => $loginlink,
             );
             $message = $mail->getMessage('activation', $trans_array);
-            $Subject = $mail->translate('{SITENAME}: Email Verfied');
+            $Subject = $mail->translate('{SITENAME}: Email Verified');
             $mail->send($user->email, $Subject, $message);
         endif;
         /////////////////////////

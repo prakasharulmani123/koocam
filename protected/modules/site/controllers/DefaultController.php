@@ -103,7 +103,7 @@ class DefaultController extends Controller {
             ///////////////////////////
             if (!empty($user->email)):
             $mail = new Sendmail;
-            $loginlink = Yii::app()->user->loginUrl;
+            $loginlink = $this->homeAbsoluteUrl;
             $trans_array = array(
                 "{SITENAME}" => SITENAME,
                 "{USERNAME}" => $user->username,

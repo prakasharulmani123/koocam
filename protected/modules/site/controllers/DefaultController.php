@@ -127,7 +127,6 @@ class DefaultController extends Controller {
     protected function performAjaxValidation($model) {
         if (isset($_POST['ajax'])) {
             echo CActiveForm::validate($model);
-            exit;
             Yii::app()->end();
         }
     }

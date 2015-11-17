@@ -74,6 +74,7 @@ class DefaultController extends Controller {
         $id = Yii::app()->user->id;
         $model = Admin::model()->findByPk($id);
 
+        $this->performAjaxValidation($model);
         if (isset($_POST['Admin'])) {
             $model->attributes = $_POST['Admin'];
             if ($model->validate()) {
@@ -91,6 +92,7 @@ class DefaultController extends Controller {
         $model = Admin::model()->findByAttributes(array('admin_id' => Yii::app()->user->id));
         $model->scenario = 'changePwd';
 
+        $this->performAjaxValidation($model);
         if (isset($_POST['Admin'])) {
             $model->attributes = $_POST['Admin'];
             $valid = $model->validate();
@@ -184,4 +186,10 @@ class DefaultController extends Controller {
         exit;
     }
 
+    protected function performAjaxValidation($model) {
+        if (isset($_POST['ajax'])) {
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
+    }
 }

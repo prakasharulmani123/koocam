@@ -29,6 +29,10 @@ $this->breadcrumbs = array(
                                 'htmlOptions' => array(
                                     'class' => 'form-horizontal',
                                 ),
+                                'clientOptions' => array(
+                                    'validateOnSubmit' => true,
+                                ),
+                                'enableAjaxValidation' => true,
                             ));
                             ?>
 

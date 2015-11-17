@@ -28,7 +28,7 @@ class DefaultController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'sociallogin', 'signupsocial', 'login'),
+                'actions' => array('index', 'sociallogin', 'signupsocial', 'login', 'register', 'activation'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -51,21 +51,79 @@ class DefaultController extends Controller {
             $this->goHome();
         }
 
+//        $this->performAjaxValidation($model);
+
         $model = new LoginForm;
         if (isset($_POST['LoginForm'])) {
             $model->attributes = $_POST['LoginForm'];
-            $this->performAjaxValidation($model);
             if ($model->validate() && $model->login()):
                 $this->goHome();
             endif;
         }
     }
 
-    public function actionLogout() {
-        Yii::app()->user->logout();
-        $this->redirect('index');
+    public function actionRegister() {
+        if (!Yii::app()->user->isGuest)
+            $this->goHome();
+
+        $model = new User('register');
+        $this->performAjaxValidation($model);
+
+        if (isset($_POST['User'])) {
+            $model->attributes = $_POST['User'];
+            $valid = $model->validate();
+            if ($valid) {
+                $model->addUser();
+                Yii::app()->user->setFlash('success', "Please check your mail for activation");
+                $this->goHome();
+            }
+        }
     }
 
+    public function actionLogout() {
+        Yii::app()->user->logout();
+        Yii::app()->user->setFlash('success', "You were logged out successfully");
+        $this->goHome();
+    }
+    
+    public function actionActivation($activationkey, $userid) {
+        $user = User::model()->findByAttributes(array(
+            'user_id' => $userid,
+            'user_activation_key' => $activationkey,
+            'user_last_login' => null
+            )
+        );
+        if (empty($user))
+            throw new CHttpException(404, 'The specified post cannot be found.');
+
+        $user = User::model()->findByPk($userid);
+        $user->setAttribute('status', '1');
+        $user->setAttribute('user_last_login', date('Y-m-d H:i:s'));
+        if ($user->save(false)) {
+            ///////////////////////////
+            if (!empty($user->email)):
+            $mail = new Sendmail;
+            $loginlink = Yii::app()->user->loginUrl;
+            $trans_array = array(
+                "{SITENAME}" => SITENAME,
+                "{USERNAME}" => $user->username,
+                "{EMAIL_ID}" => $user->email,
+                "{NEXTSTEPURL}" => $loginlink,
+            );
+            $message = $mail->getMessage('activation', $trans_array);
+            $Subject = $mail->translate('{SITENAME}: Email Verfied');
+            $mail->send($user->email, $Subject, $message);
+        endif;
+        /////////////////////////
+
+            Yii::app()->user->setFlash('success', "Your Email account verified. you can login");
+            $this->goHome();
+        } else {
+            echo var_dump($user->getErrors());
+        }
+        exit;
+    }
+    
     protected function performAjaxValidation($model) {
         if (isset($_POST['ajax'])) {
             echo CActiveForm::validate($model);
@@ -82,6 +140,7 @@ class DefaultController extends Controller {
 
     public function actionSignupsocial($provider) {
         try {
+
             Yii::import('application.components.HybridAuthIdentity');
             $haComp = new HybridAuthIdentity();
             if (!$haComp->validateProviderName($provider))
@@ -90,7 +149,7 @@ class DefaultController extends Controller {
             $haComp->adapter = $haComp->hybridAuth->authenticate($provider);
             $haComp->userProfile = $haComp->adapter->getUserProfile();
             $haComp->processLogin();  //further action based on successful login or re-direct user to the required url
-            $redirectUrl = Yii::app()->createAbsoluteUrl('/site/default/index');
+            $redirectUrl = $this->homeAbsoluteUrl;
             echo "<script type='text/javascript'>if(window.opener){window.opener.location = '$redirectUrl';window.close();}else{window.opener.location = '$redirectUrl';}</script>";
         } catch (Exception $e) {
             echo $e->getMessage();

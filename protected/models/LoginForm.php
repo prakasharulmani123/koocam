@@ -71,6 +71,15 @@ class LoginForm extends CFormModel {
         if ($this->_identity->errorCode === UserIdentity::ERROR_NONE):
             //$duration= 3600*24*30; // 30 days
             $duration = $this->rememberMe ? 3600 * 24 * 30 : 0; // 30 days
+
+            if (Yii::app()->user->getStateKeyPrefix() == '_user') {
+                $model = User::model()->findByPk($this->_identity->id);
+                if (!empty($model)) {
+                    $model->setAttribute('user_last_login', date('Y-m-d H:i:s'));
+                    $model->setAttribute('user_login_ip', Yii::app()->request->getUserHostAddress());
+                    $model->save(false);
+                }
+            }
             Yii::app()->user->login($this->_identity, $duration);
             MyClass::rememberMe($this->username, $this->rememberMe);
             return true;

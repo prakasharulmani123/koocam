@@ -10,12 +10,16 @@
  * @property string $password_reset_token
  * @property string $email
  * @property string $status
+ * @property string $user_activation_key
+ * @property string $user_login_ip
+ * @property string $user_last_login
  * @property string $live_status
  * @property string $created_at
- * @property string $updated_at
+ * @property string $modified_at
  */
-class User extends CActiveRecord {
+class User extends RActiveRecord {
 
+    public $confirm_password;
     /**
      * @return string the associated database table name
      */
@@ -30,13 +34,16 @@ class User extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('username, password_hash, email', 'required'),
+            array('username, password_hash, email, confirm_password', 'required', 'on' => 'register'),
+            array('username, email, password_hash', 'required', 'on' => 'insert'),
             array('username, password_hash, password_reset_token, email', 'length', 'max' => 255),
             array('status, live_status', 'length', 'max' => 1),
-            array('created_at, updated_at', 'safe'),
+            array('email, username', 'unique'),
+            array('password_hash', 'compare', 'compareAttribute' => 'confirm_password', 'on' => 'register'),
+            array('created_at, modified_at, user_activation_key, user_login_ip, user_last_login', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('user_id, username, password_hash, password_reset_token, email, status, live_status, created_at, updated_at', 'safe', 'on' => 'search'),
+            array('user_id, username, password_hash, password_reset_token, email, status, live_status, created_at, modified_at', 'safe', 'on' => 'search'),
         );
     }
 
@@ -57,13 +64,14 @@ class User extends CActiveRecord {
         return array(
             'user_id' => 'User',
             'username' => 'Username',
-            'password_hash' => 'Password Hash',
+            'password_hash' => 'Password',
             'password_reset_token' => 'Password Reset Token',
             'email' => 'Email',
             'status' => 'Status',
             'live_status' => 'A -> Available, B -> Busy, O -> Offline',
             'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'modified_at' => 'Updated At',
+            'confirm_password' => 'Confirm Password',
         );
     }
 
@@ -92,7 +100,7 @@ class User extends CActiveRecord {
         $criteria->compare('status', $this->status, true);
         $criteria->compare('live_status', $this->live_status, true);
         $criteria->compare('created_at', $this->created_at, true);
-        $criteria->compare('updated_at', $this->updated_at, true);
+        $criteria->compare('modified_at', $this->modified_at, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -119,13 +127,40 @@ class User extends CActiveRecord {
 //            )
         ));
     }
-    
-    public function beforeSave() {
-        if ($this->isNewRecord)
-            $this->created_at = new CDbExpression('NOW()');
 
-        $this->updated_at = new CDbExpression('NOW()');
+    public function beforeSave() {
+        if ($this->isNewRecord):
+            $this->user_login_ip = Yii::app()->request->getUserHostAddress();
+            $this->user_activation_key = Myclass::getRandomString();
+            $this->password_hash = Myclass::encrypt($this->password_hash);
+        endif;
+
         return parent::beforeSave();
     }
-
+    
+    public function addUser() {
+        $model = new User('insert');
+        $model->username = $this->username;
+        $model->email = $this->email;
+        $model->password_hash = $this->password_hash;
+        $model->status = '0';
+        $model->save(false);
+        ///////////////////////
+        $confirmationlink = SITEURL . '/site/default/activation?activationkey=' . $model->user_activation_key . '&userid=' . $model->user_id;
+        if (!empty($model->email)):
+            //$loginlink = Yii::app()->createAbsoluteUrl('/site/default/login');
+            $mail = new Sendmail;
+            $trans_array = array(
+                "{SITENAME}" => SITENAME,
+                "{USERNAME}" => $model->username,
+                "{EMAIL_ID}" => $model->email,
+                "{NEXTSTEPURL}" => $confirmationlink,
+            );
+            $message = $mail->getMessage('registration', $trans_array);
+            $Subject = $mail->translate('Confirmation Mail From {SITENAME}');
+            $mail->send($model->email, $Subject, $message);
+        endif;
+        ///////////////////
+        return;
+    }
 }

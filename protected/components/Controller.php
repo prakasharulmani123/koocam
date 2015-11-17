@@ -10,13 +10,14 @@ class Controller extends CController {
      * @var string the default layout for the controller view. Defaults to '//layouts/column1',
      * meaning using a single column layout. See 'protected/views/layouts/column1.php'.
      */
-    public $layout = '//layouts/column1';
+    public $layout = '';
 
     /**
      * @var array context menu items. This property will be assigned to {@link CMenu::items}.
      */
     public $menu = array();
-    protected $homeUrl = array('/site/default/index');
+    protected $homeUrl = '';
+    protected $homeAbsoluteUrl = '';
 
     /**
      * @var array the breadcrumbs of the current page. The value of this property will
@@ -30,6 +31,9 @@ class Controller extends CController {
 
     public function init() {
         parent::init();
+        $this->homeUrl = Yii::app()->controller->module->homeUrl;
+        $this->layout = Yii::app()->controller->module->layout;
+        $this->homeAbsoluteUrl = Yii::app()->createAbsoluteUrl(Yii::app()->controller->module->homeUrl[0]);
 
         CHtml::$errorSummaryCss = 'alert alert-danger';
 

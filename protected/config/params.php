@@ -17,7 +17,7 @@ if (strpos($_SERVER['SERVER_NAME'], 'localhost') !== false) {
 // Custom Params Value
 return array(
     //Global Settings
-    'EMAILLAYOUT' => 'db', // file(file concept) or db(db_concept)
+    'EMAILLAYOUT' => 'file', // file(file concept) or db(db_concept)
     'EMAILTEMPLATE' => '/mailtemplate/',
     'MAILSENDBY' => $mailsendby,
     //EMAIL Settings

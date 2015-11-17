@@ -24,24 +24,23 @@
                         </div>
 
                         <!-- Collect the nav links, forms, and other content for toggling -->
-                        <?php if (!Yii::app()->user->isGuest) { ?>
                             <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
-                                <ul class="nav navbar-nav">
-                                    <li><a href="#"> SELL YOUR TIME </a></li>
-                                    <li><a href="#"> HOW IT WORKS </a></li>
-                                    <li><a href="#"> Log out</a></li>
-                                </ul>
+                                <?php
+                                $this->widget('zii.widgets.CMenu', array(
+                                    'activateParents' => true,
+                                    'encodeLabel' => false,
+                                    'activateItems' => true,
+                                    'items' => array(
+                                        array('label' => 'SELL YOUR TIME', 'url' => '#' /* Yii::app()->homeUrl */),
+                                        array('label' => 'HOW IT WORKS', 'url' => '#'),
+                                        array('label' => 'LOG OUT', 'url' => array('/site/default/logout'), 'visible' => !Yii::app()->user->isGuest),
+                                        array('label' => 'LOGIN', 'url' => '#', 'linkOptions' => array('data-toggle' => "modal", 'data-target' => ".bs-example-modal-sm1"), 'visible' => Yii::app()->user->isGuest),
+                                        array('label' => 'SIGN UP', 'url' => '#', 'linkOptions' => array('data-toggle' => "modal", 'data-target' => ".bs-example-modal-sm"), 'visible' => Yii::app()->user->isGuest),
+                                    ),
+                                    'htmlOptions' => array('class' => 'nav navbar-nav')
+                                ));
+                                ?>
                             </div>
-                        <?php } else { ?>
-                            <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
-                                <ul class="nav navbar-nav">
-                                    <li><a href="#"> SELL YOUR TIME </a></li>
-                                    <li><a href="#"> HOW IT WORKS </a></li>
-                                    <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-sm1"> LOGIN </a></li>
-                                    <li class="active"><a href="#" data-toggle="modal" data-target=".bs-example-modal-sm"> SIGN UP</a></li>
-                                </ul>
-                            </div>
-                        <?php } ?>
                         <!-- /.navbar-collapse --> 
                     </nav>
                 </div>

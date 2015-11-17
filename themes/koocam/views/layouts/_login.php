@@ -8,13 +8,13 @@
             <div class="modal-body">
                 <?php
                 $form = $this->beginWidget('CActiveForm', array(
-                            'id' => 'login-form',
+                            'id' => 'loginss-form',
                             'action' => array('/site/default/login'),
                             'htmlOptions' => array('role' => 'form', 'class' => ''),
                             'clientOptions' => array(
                                 'validateOnSubmit' => true,
                             ),
-                            'enableAjaxValidation' => true,
+                            'enableAjaxValidation' => false,
                         ));
                 ?>
 

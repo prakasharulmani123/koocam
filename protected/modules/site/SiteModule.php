@@ -1,6 +1,9 @@
 <?php
 
 class SiteModule extends CWebModule {
+    
+    public $homeUrl = array('/site/default/index');
+    public $layout = '//layouts/column1';
 
     public function init() {
         // this method is called when the module is being created
@@ -16,16 +19,15 @@ class SiteModule extends CWebModule {
 
         $this->setComponents(array(
             'errorHandler' => array(
-                'errorAction' => '/admin/default/error'),
+                'errorAction' => '/site/default/error'),
             'user' => array(
                 'class' => 'CWebUser',
-                'loginUrl' => array('/admin/default/login'),
                 'allowAutoLogin' => true,
             )
         ));
 
-        Yii::app()->user->setStateKeyPrefix('_admin');
-        Yii::app()->user->loginUrl = Yii::app()->createUrl("/{$this->id}/default/login");
+        Yii::app()->user->setStateKeyPrefix('_site');
+        Yii::app()->user->loginUrl = Yii::app()->createUrl("/{$this->id}/default/index");
     }
 
     public function beforeControllerAction($controller, $action) {
@@ -36,5 +38,4 @@ class SiteModule extends CWebModule {
         } else
             return false;
     }
-
 }

@@ -58,53 +58,31 @@
         <?php
         $cs_pos_end = CClientScript::POS_END;
 
-        $cs->registerCoreScript('jquery');
-//        $cs->registerScriptFile($themeUrl . '/js/vendor/all.js', $cs_pos_end);
-        $cs->registerScriptFile($themeUrl . '/js/vendor/core/bootstrap.js', $cs_pos_end);
-        $cs->registerScriptFile($themeUrl . '/js/vendor/core/breakpoints.js', $cs_pos_end);
-        $cs->registerScriptFile($themeUrl . '/js/vendor/core/jquery.nicescroll.js', $cs_pos_end);
-        $cs->registerScriptFile($themeUrl . '/js/vendor/core/isotope.pkgd.js', $cs_pos_end);
-        $cs->registerScriptFile($themeUrl . '/js/vendor/core/packery-mode.pkgd.js', $cs_pos_end);
-        $cs->registerScriptFile($themeUrl . '/js/vendor/core/jquery.grid-a-licious.js', $cs_pos_end);
-        $cs->registerScriptFile($themeUrl . '/js/vendor/core/jquery.cookie.js', $cs_pos_end);
-        $cs->registerScriptFile($themeUrl . '/js/vendor/core/jquery-ui.custom.js', $cs_pos_end);
-        $cs->registerScriptFile($themeUrl . '/js/vendor/core/jquery.hotkeys.js', $cs_pos_end);
-        $cs->registerScriptFile($themeUrl . '/js/vendor/core/handlebars.js', $cs_pos_end);
-        $cs->registerScriptFile($themeUrl . '/js/vendor/core/load_image.js', $cs_pos_end);
-        $cs->registerScriptFile($themeUrl . '/js/vendor/core/jquery.debouncedresize.js', $cs_pos_end);
-        $cs->registerScriptFile($themeUrl . '/js/vendor/core/modernizr.js', $cs_pos_end);
-        $cs->registerScriptFile($themeUrl . '/js/vendor/core/velocity.js', $cs_pos_end);
-        $cs->registerScriptFile($themeUrl . '/js/vendor/tables/all.js', $cs_pos_end);
-        $cs->registerScriptFile($themeUrl . '/js/vendor/forms/all.js', $cs_pos_end);
-        $cs->registerScriptFile($themeUrl . '/js/vendor/media/slick.js', $cs_pos_end);
-        $cs->registerScriptFile($themeUrl . '/js/vendor/charts/flot/all.js', $cs_pos_end);
-        $cs->registerScriptFile($themeUrl . '/js/vendor/nestable/jquery.nestable.js', $cs_pos_end);
-        $cs->registerScriptFile($themeUrl . '/js/vendor/countdown/all.js', $cs_pos_end);
-        $cs->registerScriptFile($themeUrl . '/js/vendor/angular/all.js', $cs_pos_end);
+//        $cs->registerCoreScript('jquery');
+        $cs->registerScriptFile($themeUrl . '/js/vendor/all.js', $cs_pos_end);
+//        $cs->registerScriptFile($themeUrl . '/js/vendor/core/bootstrap.js', $cs_pos_end);
+//        $cs->registerScriptFile($themeUrl . '/js/vendor/core/breakpoints.js', $cs_pos_end);
+//        $cs->registerScriptFile($themeUrl . '/js/vendor/core/jquery.nicescroll.js', $cs_pos_end);
+//        $cs->registerScriptFile($themeUrl . '/js/vendor/core/isotope.pkgd.js', $cs_pos_end);
+//        $cs->registerScriptFile($themeUrl . '/js/vendor/core/packery-mode.pkgd.js', $cs_pos_end);
+//        $cs->registerScriptFile($themeUrl . '/js/vendor/core/jquery.grid-a-licious.js', $cs_pos_end);
+//        $cs->registerScriptFile($themeUrl . '/js/vendor/core/jquery.cookie.js', $cs_pos_end);
+//        $cs->registerScriptFile($themeUrl . '/js/vendor/core/jquery-ui.custom.js', $cs_pos_end);
+//        $cs->registerScriptFile($themeUrl . '/js/vendor/core/jquery.hotkeys.js', $cs_pos_end);
+//        $cs->registerScriptFile($themeUrl . '/js/vendor/core/handlebars.js', $cs_pos_end);
+//        $cs->registerScriptFile($themeUrl . '/js/vendor/core/load_image.js', $cs_pos_end);
+//        $cs->registerScriptFile($themeUrl . '/js/vendor/core/jquery.debouncedresize.js', $cs_pos_end);
+//        $cs->registerScriptFile($themeUrl . '/js/vendor/core/modernizr.js', $cs_pos_end);
+//        $cs->registerScriptFile($themeUrl . '/js/vendor/core/velocity.js', $cs_pos_end);
+//        $cs->registerScriptFile($themeUrl . '/js/vendor/tables/all.js', $cs_pos_end);
+//        $cs->registerScriptFile($themeUrl . '/js/vendor/forms/all.js', $cs_pos_end);
+//        $cs->registerScriptFile($themeUrl . '/js/vendor/media/slick.js', $cs_pos_end);
+//        $cs->registerScriptFile($themeUrl . '/js/vendor/charts/flot/all.js', $cs_pos_end);
+//        $cs->registerScriptFile($themeUrl . '/js/vendor/nestable/jquery.nestable.js', $cs_pos_end);
+//        $cs->registerScriptFile($themeUrl . '/js/vendor/countdown/all.js', $cs_pos_end);
+//        $cs->registerScriptFile($themeUrl . '/js/vendor/angular/all.js', $cs_pos_end);
         
         $cs->registerScriptFile($themeUrl . '/js/app/app.js', $cs_pos_end);
         ?>
-  <!-- Vendor Scripts Standalone Libraries -->
-  <!-- <script src="js/vendor/core/breakpoints.js"></script> -->
-  <!-- <script src="js/vendor/core/jquery.nicescroll.js"></script> -->
-  <!-- <script src="js/vendor/core/isotope.pkgd.js"></script> -->
-  <!-- <script src="js/vendor/core/packery-mode.pkgd.js"></script> -->
-  <!-- <script src="js/vendor/core/jquery.grid-a-licious.js"></script> -->
-  <!-- <script src="js/vendor/core/jquery.cookie.js"></script> -->
-  <!-- <script src="js/vendor/core/jquery-ui.custom.js"></script> -->
-  <!-- <script src="js/vendor/core/jquery.hotkeys.js"></script> -->
-  <!-- <script src="js/vendor/core/handlebars.js"></script> -->
-  <!-- <script src="js/vendor/core/jquery.hotkeys.js"></script> -->
-  <!-- <script src="js/vendor/core/load_image.js"></script> -->
-  <!-- <script src="js/vendor/core/jquery.debouncedresize.js"></script> -->
-  <!-- <script src="js/vendor/core/modernizr.js"></script> -->
-  <!-- <script src="js/vendor/core/velocity.js"></script> -->
-  <!-- <script src="js/vendor/tables/all.js"></script> -->
-  <!-- <script src="js/vendor/forms/all.js"></script> -->
-  <!-- <script src="js/vendor/media/slick.js"></script> -->
-  <!-- <script src="js/vendor/charts/flot/all.js"></script> -->
-  <!-- <script src="js/vendor/nestable/jquery.nestable.js"></script> -->
-  <!-- <script src="js/vendor/countdown/all.js"></script> -->
-  <!-- <script src="js/vendor/angular/all.js"></script> -->
     </body>
 </html>

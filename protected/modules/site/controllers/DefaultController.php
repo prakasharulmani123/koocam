@@ -28,7 +28,7 @@ class DefaultController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'sociallogin', 'signupsocial', 'login', 'register', 'activation'),
+                'actions' => array('index', 'sociallogin', 'signupsocial', 'login', 'register', 'activation', 'test'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -161,4 +161,20 @@ class DefaultController extends Controller {
         Yii::app()->end(true);
     }
 
+    public function actionTest() {
+            $mail = new Sendmail;
+            $loginlink = $this->homeAbsoluteUrl;
+            $trans_array = array(
+                "{SITENAME}" => SITENAME,
+                "{USERNAME}" => '$user->username',
+                "{EMAIL_ID}" => '$user->email',
+                "{NEXTSTEPURL}" => '$loginlink',
+            );
+            $message = $mail->getMessage('activation', $trans_array);
+            $Subject = $mail->translate('{SITENAME}: Email Verified');
+            echo '<pre>';
+            var_dump($mail->send('prakash.paramanandam@arkinfotec.com', $Subject, $message));
+            exit;
+        exit;
+    }
 }

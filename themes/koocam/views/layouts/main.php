@@ -14,6 +14,7 @@
         $cs->registerCssFile($themeUrl . '/css/responisve.css');
         $cs->registerCssFile($themeUrl . '/css/font-awesome.css');
         $cs->registerCssFile($themeUrl . '/css/owl.carousel.css');
+        $cs->registerCssFile($themeUrl . '/css/bootstrap-select.css');
         ?>
     </head>
     <body>
@@ -37,6 +38,8 @@
         $cs->registerScriptFile($themeUrl . '/js/waypoints.min.js', $cs_pos_end);
         $cs->registerScriptFile($themeUrl . '/js/jquery.counterup.min.js', $cs_pos_end);
         $cs->registerScriptFile($themeUrl . '/js/owl.carousel.min.js', $cs_pos_end);
+        $cs->registerScriptFile($themeUrl . '/js/bootstrap-select.js', $cs_pos_end);
+        
         $login = Yii::app()->createAbsoluteUrl('/site/default/signupsocial');
         $js = <<< EOD
             jQuery(document).ready(function ($) {
@@ -50,7 +53,7 @@
 
 EOD;
         
-        Yii::app()->clientScript->registerScript('home', $js);
+        Yii::app()->clientScript->registerScript('inline', $js);
         ?>
     </body>
 </html>

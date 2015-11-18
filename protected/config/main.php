@@ -38,10 +38,10 @@ return array(
                 ),
             )
         ),
-//        'booster' => array(
-//            'class' => 'application.extensions.yiibooster.components.Booster',
-//            'yiiCss' => false
-//        ),
+        'booster' => array(
+            'class' => 'application.extensions.yiibooster.components.Booster',
+            'yiiCss' => false
+        ),
         // uncomment the following to enable URLs in path-format
         'urlManager' => array(
             'urlFormat' => 'path',

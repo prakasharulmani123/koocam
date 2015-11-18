@@ -4,7 +4,7 @@ class AdminModule extends CWebModule {
 
     public $homeUrl = array('/admin/default/index');
     public $layout = '//layouts/column1';
-    
+
     public function init() {
         // this method is called when the module is being created
         // you may place code here to customize the module or the application
@@ -12,8 +12,10 @@ class AdminModule extends CWebModule {
         $this->setImport(array(
             'admin.components.*',
         ));
-        Yii::app()->theme = 'learning_admin'; 
+        Yii::app()->theme = 'learning_admin';
         $this->layoutPath = Yii::getPathOfAlias('webroot.themes.' . Yii::app()->theme->name . '.views.layouts');
+        
+        Yii::app()->getComponent("booster");
 
         $this->setComponents(array(
             'errorHandler' => array(
@@ -25,6 +27,7 @@ class AdminModule extends CWebModule {
             )
         ));
 
+        
         Yii::app()->user->setStateKeyPrefix('_admin');
         Yii::app()->user->loginUrl = Yii::app()->createUrl("/{$this->id}/default/login");
     }

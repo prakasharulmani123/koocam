@@ -14,6 +14,7 @@
         'activateItems' => true,
         'items' => array(
             array('label' => '<i class="fa fa-dashboard"></i> <span>Dashboard</span>', 'url' => array('/admin/default/index') /* Yii::app()->homeUrl */, 'visible' => '1'),
+            array('label' => '<i class="fa fa-th-list"></i> <span>Gig Category</span>', 'url' => array('/admin/gigCategory/index'), 'visible' => '1'),
 //            array('label' => '<i class="fa fa-cog"></i> <span>Administration</span>', 'url' => '#course-menu',
 //                'itemOptions' => array('class' => 'hasSubmenu'),
 //                'submenuOptions' => array('id' => 'course-menu'),

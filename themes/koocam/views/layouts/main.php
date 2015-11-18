@@ -15,6 +15,7 @@
         $cs->registerCssFile($themeUrl . '/css/font-awesome.css');
         $cs->registerCssFile($themeUrl . '/css/owl.carousel.css');
         $cs->registerCssFile($themeUrl . '/css/bootstrap-select.css');
+        $cs->registerCssFile($themeUrl . '/css/custom.css');
         ?>
     </head>
     <body>

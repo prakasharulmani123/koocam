@@ -16,9 +16,16 @@
  * @property string $live_status
  * @property string $created_at
  * @property string $modified_at
+ * 
+ * The followings are the available model relations:
+ * @property UserProfile $userProf
  */
 class User extends RActiveRecord {
 
+    public function getFullname() {
+        return $this->userProf->prof_firstname.' '.$this->userProf->prof_lastname;
+    }
+    
     public $confirm_password;
     /**
      * @return string the associated database table name
@@ -54,6 +61,7 @@ class User extends RActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
+            'userProf' => array(self::HAS_ONE, 'UserProfile', 'user_id'),
         );
     }
 

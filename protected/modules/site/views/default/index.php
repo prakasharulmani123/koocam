@@ -93,171 +93,24 @@ $themeUrl = $this->themeUrl;
             <div class="scroll-cont">
                 <div class="container">
                     <div class="owl-carousel">
+                        <?php $gigs = Gig::model()->active()->findAll(array('limit' => 10)); ?>
+                        <?php foreach ($gigs as $gig): ?>
                         <div class="courses-thumb-cont">
                             <div class="course-thumbimg">
                                 <div class="active-icon"> <img src="<?php echo $themeUrl ?>/img/online.png"  alt=""></div>
                                 <a href="#"> <img src="<?php echo $themeUrl ?>/img/course1.jpg"  alt=""> </a></div>
                             <div class="course-thumbdetails">
-                                <h2> <a href="#"> let's cam - together i'll teach u hebrew </a> </h2>
-                                <p> <span> <a href="#"> Michael Windzor </a> </span> </p>
+                                <h2> <a href="#"> <?php echo $gig->gig_title; ?> </a> </h2>
+                                <p> <span> <a href="#"> <?php echo $gig->tutor->fullname; ?> </a> </span> </p>
                                 <p> <img src="<?php echo $themeUrl ?>/img/rating.jpg"  alt=""></p>
                             </div>
                             <div class="coures-pricedetails">
-                                <div class="course-price"> <i class="fa fa-clock-o"></i> <b>20</b> <span> min </span> </div>
-                                <div class="course-price course-hour"> <i class="fa fa-dollar"></i> <b>75</b> </div>
+                                <div class="course-price"> <i class="fa fa-clock-o"></i> <b><?php echo $gig->totalminutes; ?></b> <span> min </span> </div>
+                                <div class="course-price course-hour"> <i class="fa fa-dollar"></i> <b><?php echo (int)$gig->gig_price; ?></b> </div>
                                 <div class="course-price letcame"> <a href="#"> Let's Cam <i class="fa fa-video-camera"></i></a> </div>
                             </div>
                         </div>
-                        <div class="courses-thumb-cont">
-                            <div class="course-thumbimg">
-                                <div class="active-icon"> <img src="<?php echo $themeUrl ?>/img/online.png"  alt=""></div>
-                                <a href="#"> <img src="<?php echo $themeUrl ?>/img/course1.jpg"  alt=""> </a></div>
-                            <div class="course-thumbdetails">
-                                <h2> <a href="#"> let's cam - together i'll teach u hebrew </a> </h2>
-                                <p> <span> <a href="#"> Michael Windzor </a> </span> </p>
-                                <p> <img src="<?php echo $themeUrl ?>/img/rating.jpg"  alt=""></p>
-                            </div>
-                            <div class="coures-pricedetails">
-                                <div class="course-price"> <i class="fa fa-clock-o"></i> <b>20</b> <span> min </span> </div>
-                                <div class="course-price course-hour"> <i class="fa fa-dollar"></i> <b>75</b> </div>
-                                <div class="course-price letcame"> <a href="#"> Let's Cam <i class="fa fa-video-camera"></i></a> </div>
-                            </div>
-                        </div>
-                        <div class="courses-thumb-cont">
-                            <div class="course-thumbimg">
-                                <div class="active-icon"> <img src="<?php echo $themeUrl ?>/img/online.png"  alt=""></div>
-                                <a href="#"> <img src="<?php echo $themeUrl ?>/img/course1.jpg"  alt=""> </a></div>
-                            <div class="course-thumbdetails">
-                                <h2> <a href="#"> let's cam - together i'll teach u hebrew </a> </h2>
-                                <p> <span> <a href="#"> Michael Windzor </a> </span> </p>
-                                <p> <img src="<?php echo $themeUrl ?>/img/rating.jpg"  alt=""></p>
-                            </div>
-                            <div class="coures-pricedetails">
-                                <div class="course-price"> <i class="fa fa-clock-o"></i> <b>20</b> <span> min </span> </div>
-                                <div class="course-price course-hour"> <i class="fa fa-dollar"></i> <b>75</b> </div>
-                                <div class="course-price letcame"> <a href="#"> Let's Cam <i class="fa fa-video-camera"></i></a> </div>
-                            </div>
-                        </div>
-                        <div class="courses-thumb-cont">
-                            <div class="course-thumbimg">
-                                <div class="active-icon"> <img src="<?php echo $themeUrl ?>/img/online.png"  alt=""></div>
-                                <a href="#"> <img src="<?php echo $themeUrl ?>/img/course1.jpg"  alt=""> </a></div>
-                            <div class="course-thumbdetails">
-                                <h2> <a href="#"> let's cam - together i'll teach u hebrew </a> </h2>
-                                <p> <span> <a href="#"> Michael Windzor </a> </span> </p>
-                                <p> <img src="<?php echo $themeUrl ?>/img/rating.jpg"  alt=""></p>
-                            </div>
-                            <div class="coures-pricedetails">
-                                <div class="course-price"> <i class="fa fa-clock-o"></i> <b>20</b> <span> min </span> </div>
-                                <div class="course-price course-hour"> <i class="fa fa-dollar"></i> <b>75</b> </div>
-                                <div class="course-price letcame"> <a href="#"> Let's Cam <i class="fa fa-video-camera"></i></a> </div>
-                            </div>
-                        </div>
-                        <div class="courses-thumb-cont">
-                            <div class="course-thumbimg">
-                                <div class="active-icon"> <img src="<?php echo $themeUrl ?>/img/online.png"  alt=""></div>
-                                <a href="#"> <img src="<?php echo $themeUrl ?>/img/course1.jpg"  alt=""> </a></div>
-                            <div class="course-thumbdetails">
-                                <h2> <a href="#"> let's cam - together i'll teach u hebrew </a> </h2>
-                                <p> <span> <a href="#"> Michael Windzor </a> </span> </p>
-                                <p> <img src="<?php echo $themeUrl ?>/img/rating.jpg"  alt=""></p>
-                            </div>
-                            <div class="coures-pricedetails">
-                                <div class="course-price"> <i class="fa fa-clock-o"></i> <b>20</b> <span> min </span> </div>
-                                <div class="course-price course-hour"> <i class="fa fa-dollar"></i> <b>75</b> </div>
-                                <div class="course-price letcame"> <a href="#"> Let's Cam <i class="fa fa-video-camera"></i></a> </div>
-                            </div>
-                        </div>
-                        <div class="courses-thumb-cont">
-                            <div class="course-thumbimg">
-                                <div class="active-icon"> <img src="<?php echo $themeUrl ?>/img/online.png"  alt=""></div>
-                                <a href="#"> <img src="<?php echo $themeUrl ?>/img/course1.jpg"  alt=""> </a></div>
-                            <div class="course-thumbdetails">
-                                <h2> <a href="#"> let's cam - together i'll teach u hebrew </a> </h2>
-                                <p> <span> <a href="#"> Michael Windzor </a> </span> </p>
-                                <p> <img src="<?php echo $themeUrl ?>/img/rating.jpg"  alt=""></p>
-                            </div>
-                            <div class="coures-pricedetails">
-                                <div class="course-price"> <i class="fa fa-clock-o"></i> <b>20</b> <span> min </span> </div>
-                                <div class="course-price course-hour"> <i class="fa fa-dollar"></i> <b>75</b> </div>
-                                <div class="course-price letcame"> <a href="#"> Let's Cam <i class="fa fa-video-camera"></i></a> </div>
-                            </div>
-                        </div>
-                        <div class="courses-thumb-cont">
-                            <div class="course-thumbimg">
-                                <div class="active-icon"> <img src="<?php echo $themeUrl ?>/img/online.png"  alt=""></div>
-                                <a href="#"> <img src="<?php echo $themeUrl ?>/img/course1.jpg"  alt=""> </a></div>
-                            <div class="course-thumbdetails">
-                                <h2> <a href="#"> let's cam - together i'll teach u hebrew </a> </h2>
-                                <p> <span> <a href="#"> Michael Windzor </a> </span> </p>
-                                <p> <img src="<?php echo $themeUrl ?>/img/rating.jpg"  alt=""></p>
-                            </div>
-                            <div class="coures-pricedetails">
-                                <div class="course-price"> <i class="fa fa-clock-o"></i> <b>20</b> <span> min </span> </div>
-                                <div class="course-price course-hour"> <i class="fa fa-dollar"></i> <b>75</b> </div>
-                                <div class="course-price letcame"> <a href="#"> Let's Cam <i class="fa fa-video-camera"></i></a> </div>
-                            </div>
-                        </div>
-                        <div class="courses-thumb-cont">
-                            <div class="course-thumbimg">
-                                <div class="active-icon"> <img src="<?php echo $themeUrl ?>/img/online.png"  alt=""></div>
-                                <a href="#"> <img src="<?php echo $themeUrl ?>/img/course1.jpg"  alt=""> </a></div>
-                            <div class="course-thumbdetails">
-                                <h2> <a href="#"> let's cam - together i'll teach u hebrew </a> </h2>
-                                <p> <span> <a href="#"> Michael Windzor </a> </span> </p>
-                                <p> <img src="<?php echo $themeUrl ?>/img/rating.jpg"  alt=""></p>
-                            </div>
-                            <div class="coures-pricedetails">
-                                <div class="course-price"> <i class="fa fa-clock-o"></i> <b>20</b> <span> min </span> </div>
-                                <div class="course-price course-hour"> <i class="fa fa-dollar"></i> <b>75</b> </div>
-                                <div class="course-price letcame"> <a href="#"> Let's Cam <i class="fa fa-video-camera"></i></a> </div>
-                            </div>
-                        </div>
-                        <div class="courses-thumb-cont">
-                            <div class="course-thumbimg">
-                                <div class="active-icon"> <img src="<?php echo $themeUrl ?>/img/online.png"  alt=""></div>
-                                <a href="#"> <img src="<?php echo $themeUrl ?>/img/course1.jpg"  alt=""> </a></div>
-                            <div class="course-thumbdetails">
-                                <h2> <a href="#"> let's cam - together i'll teach u hebrew </a> </h2>
-                                <p> <span> <a href="#"> Michael Windzor </a> </span> </p>
-                                <p> <img src="<?php echo $themeUrl ?>/img/rating.jpg"  alt=""></p>
-                            </div>
-                            <div class="coures-pricedetails">
-                                <div class="course-price"> <i class="fa fa-clock-o"></i> <b>20</b> <span> min </span> </div>
-                                <div class="course-price course-hour"> <i class="fa fa-dollar"></i> <b>75</b> </div>
-                                <div class="course-price letcame"> <a href="#"> Let's Cam <i class="fa fa-video-camera"></i></a> </div>
-                            </div>
-                        </div>
-                        <div class="courses-thumb-cont">
-                            <div class="course-thumbimg">
-                                <div class="active-icon"> <img src="<?php echo $themeUrl ?>/img/online.png"  alt=""></div>
-                                <a href="#"> <img src="<?php echo $themeUrl ?>/img/course1.jpg"  alt=""> </a></div>
-                            <div class="course-thumbdetails">
-                                <h2> <a href="#"> let's cam - together i'll teach u hebrew </a> </h2>
-                                <p> <span> <a href="#"> Michael Windzor </a> </span> </p>
-                                <p> <img src="<?php echo $themeUrl ?>/img/rating.jpg"  alt=""></p>
-                            </div>
-                            <div class="coures-pricedetails">
-                                <div class="course-price"> <i class="fa fa-clock-o"></i> <b>20</b> <span> min </span> </div>
-                                <div class="course-price course-hour"> <i class="fa fa-dollar"></i> <b>75</b> </div>
-                                <div class="course-price letcame"> <a href="#"> Let's Cam <i class="fa fa-video-camera"></i></a> </div>
-                            </div>
-                        </div>
-                        <div class="courses-thumb-cont">
-                            <div class="course-thumbimg">
-                                <div class="active-icon"> <img src="<?php echo $themeUrl ?>/img/online.png"  alt=""></div>
-                                <a href="#"> <img src="<?php echo $themeUrl ?>/img/course1.jpg"  alt=""> </a></div>
-                            <div class="course-thumbdetails">
-                                <h2> <a href="#"> let's cam - together i'll teach u hebrew </a> </h2>
-                                <p> <span> <a href="#"> Michael Windzor </a> </span> </p>
-                                <p> <img src="<?php echo $themeUrl ?>/img/rating.jpg"  alt=""></p>
-                            </div>
-                            <div class="coures-pricedetails">
-                                <div class="course-price"> <i class="fa fa-clock-o"></i> <b>20</b> <span> min </span> </div>
-                                <div class="course-price course-hour"> <i class="fa fa-dollar"></i> <b>75</b> </div>
-                                <div class="course-price letcame"> <a href="#"> Let's Cam <i class="fa fa-video-camera"></i></a> </div>
-                            </div>
-                        </div>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>

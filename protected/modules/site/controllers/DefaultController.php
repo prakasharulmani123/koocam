@@ -28,11 +28,11 @@ class DefaultController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'sociallogin', 'signupsocial', 'login', 'register', 'activation', 'test'),
+                'actions' => array('index', 'sociallogin', 'signupsocial', 'login', 'register', 'activation'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('logout'),
+                'actions' => array('logout', 'test'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -53,7 +53,7 @@ class DefaultController extends Controller {
 
         $model = new LoginForm;
         $this->performAjaxValidation($model);
-        
+
         if (isset($_POST['LoginForm'])) {
             $model->attributes = $_POST['LoginForm'];
             if ($model->validate() && $model->login()):
@@ -85,13 +85,13 @@ class DefaultController extends Controller {
         Yii::app()->user->setFlash('success', "You were logged out successfully");
         $this->goHome();
     }
-    
+
     public function actionActivation($activationkey, $userid) {
         $user = User::model()->findByAttributes(array(
             'user_id' => $userid,
             'user_activation_key' => $activationkey,
             'user_last_login' => '0000-00-00 00:00:00'
-            )
+                )
         );
         if (empty($user))
             throw new CHttpException(404, 'The specified post cannot be found.');
@@ -102,19 +102,19 @@ class DefaultController extends Controller {
         if ($user->save(false)) {
             ///////////////////////////
             if (!empty($user->email)):
-            $mail = new Sendmail;
-            $loginlink = $this->homeAbsoluteUrl;
-            $trans_array = array(
-                "{SITENAME}" => SITENAME,
-                "{USERNAME}" => $user->username,
-                "{EMAIL_ID}" => $user->email,
-                "{NEXTSTEPURL}" => $loginlink,
-            );
-            $message = $mail->getMessage('activation', $trans_array);
-            $Subject = $mail->translate('{SITENAME}: Email Verified');
-            $mail->send($user->email, $Subject, $message);
-        endif;
-        /////////////////////////
+                $mail = new Sendmail;
+                $loginlink = $this->homeAbsoluteUrl;
+                $trans_array = array(
+                    "{SITENAME}" => SITENAME,
+                    "{USERNAME}" => $user->username,
+                    "{EMAIL_ID}" => $user->email,
+                    "{NEXTSTEPURL}" => $loginlink,
+                );
+                $message = $mail->getMessage('activation', $trans_array);
+                $Subject = $mail->translate('{SITENAME}: Email Verified');
+                $mail->send($user->email, $Subject, $message);
+            endif;
+            /////////////////////////
 
             Yii::app()->user->setFlash('success', "Your Email account verified. you can login");
             $this->goHome();
@@ -123,7 +123,7 @@ class DefaultController extends Controller {
         }
         exit;
     }
-    
+
     protected function performAjaxValidation($model) {
         if (isset($_POST['ajax'])) {
             echo CActiveForm::validate($model);
@@ -162,19 +162,22 @@ class DefaultController extends Controller {
     }
 
     public function actionTest() {
-            $mail = new Sendmail;
-            $loginlink = $this->homeAbsoluteUrl;
-            $trans_array = array(
-                "{SITENAME}" => SITENAME,
-                "{USERNAME}" => '$user->username',
-                "{EMAIL_ID}" => '$user->email',
-                "{NEXTSTEPURL}" => '$loginlink',
-            );
-            $message = $mail->getMessage('activation', $trans_array);
-            $Subject = $mail->translate('{SITENAME}: Email Verified');
-            echo '<pre>';
-            var_dump($mail->send('prakash.paramanandam@arkinfotec.com', $Subject, $message));
-            exit;
+        echo 'hi';
+        exit;
+        $mail = new Sendmail;
+        $loginlink = $this->homeAbsoluteUrl;
+        $trans_array = array(
+            "{SITENAME}" => SITENAME,
+            "{USERNAME}" => '$user->username',
+            "{EMAIL_ID}" => '$user->email',
+            "{NEXTSTEPURL}" => '$loginlink',
+        );
+        $message = $mail->getMessage('activation', $trans_array);
+        $Subject = $mail->translate('{SITENAME}: Email Verified');
+        echo '<pre>';
+        var_dump($mail->send('prakash.paramanandam@arkinfotec.com', $Subject, $message));
+        exit;
         exit;
     }
+
 }

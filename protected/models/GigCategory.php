@@ -26,6 +26,15 @@ class GigCategory extends RActiveRecord {
         return '{{gig_category}}';
     }
 
+    public function scopes() {
+        $alias = $this->getTableAlias(false, false);
+        return array(
+            'active' => array('condition' => "$alias.status = '1'"),
+            'inactive' => array('condition' => "$alias.status = '0'"),
+            'deleted' => array('condition' => "$alias.status = '2'"),
+        );
+    }
+
     /**
      * @return array validation rules for model attributes.
      */
@@ -34,6 +43,7 @@ class GigCategory extends RActiveRecord {
         // will receive user inputs.
         return array(
             array('cat_name, created_at', 'required'),
+            array('cat_name', 'unique'),
             array('created_by, modified_by', 'numerical', 'integerOnly' => true),
             array('cat_name', 'length', 'max' => 100),
             array('cat_image', 'length', 'max' => 500),
@@ -103,7 +113,7 @@ class GigCategory extends RActiveRecord {
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'pagination' => array(
-                'pageSize' => 1,
+                'pageSize' => PAGE_SIZE,
             )
         ));
     }
@@ -125,5 +135,8 @@ class GigCategory extends RActiveRecord {
             )
         ));
     }
-
+    
+    public static function getCategoryList() {
+        return CHtml::listData(self::model()->findAll(), 'cat_id', 'cat_name');
+    }
 }

@@ -10,44 +10,48 @@
 /* @var $form CActiveForm */
 ?>
 
-<div class="row">
-    <div class="col-lg-12 col-xs-12">
-        <div class="box box-primary">
+<div class="page-section third">
+    <div class="panel panel-default">
+        <div class="panel-body">
             <?php echo "<?php \$form=\$this->beginWidget('CActiveForm', array(
 	'id'=>'" . $this->class2id($this->modelClass) . "-form',
-        'htmlOptions' => array('role' => 'form', 'class' => 'form-horizontal'),
+        'htmlOptions' => array('role' => 'form', 'class' => ''),
         'clientOptions'=>array(
             'validateOnSubmit'=>true,
         ),
 	'enableAjaxValidation'=>true,
 )); ?>\n"; ?>
-            <div class="box-body">
-                <?php
-                $restrict = $this->giiGenerateHiddenFields();
-                foreach ($this->tableSchema->columns as $column) {
-                    if ($column->autoIncrement || in_array($column->name, $restrict))
-                        continue;
-                    ?>
-                    <div class="form-group">
-                        <?php echo "<?php echo " . $this->generateActiveLabel($this->modelClass, $column) . "; ?>\n"; ?>
-                        <div class="col-sm-5">
-                        <?php echo "<?php echo " . $this->generateActiveField($this->modelClass, $column) . "; ?>\n"; ?>
-                        <?php echo "<?php echo \$form->error(\$model,'{$column->name}'); ?>\n"; ?>
-                        </div>
-                    </div>
 
-                    <?php
-                }
-                ?>
-            </div><!-- /.box-body -->
-            <div class="box-footer">
-                <div class="form-group">
-                    <div class="col-sm-0 col-sm-offset-2">
-                        <?php echo "<?php echo CHtml::submitButton(\$model->isNewRecord ? 'Create' : 'Save', array('class' => \$model->isNewRecord ? 'btn btn-success' : 'btn btn-primary')); ?>\n"; ?>
+            <?php
+            $restrict = $this->giiGenerateHiddenFields();
+            $activeFields = $this->giiGenerateActiveInActiveFields();
+
+            foreach ($this->tableSchema->columns as $column) {
+                if ($column->autoIncrement || in_array($column->name, $restrict))
+                    continue;
+
+                if (in_array($column->name, $activeFields)) {
+                    ?>
+                    <div class = "form-group checkbox checkbox-primary">
+                        <?php echo "<?php echo " . $this->generateActiveField($this->modelClass, $column) . "; ?>\n"; ?>
+                        <?php echo "<?php echo " . $this->generateActiveLabel($this->modelClass, $column) . "; ?>\n"; ?>
+                        <?php echo "<?php echo \$form->error(\$model,'{$column->name}'); ?>\n"; ?>
                     </div>
-                </div>
+                <?php } else { ?>
+                    <div class = "form-group form-control-material static">
+                        <?php echo "<?php echo " . $this->generateActiveField($this->modelClass, $column, array('class' => 'form-control')) . "; ?>\n";
+                        ?>
+                        <?php echo "<?php echo " . $this->generateActiveLabel($this->modelClass, $column) . "; ?>\n"; ?>
+                        <?php echo "<?php echo \$form->error(\$model,'{$column->name}'); ?>\n"; ?>
+                    </div>
+                <?php } ?>
+            <?php } ?>
+
+            <div class="form-group">
+                <?php echo "<?php echo CHtml::submitButton(\$model->isNewRecord ? 'Create' : 'Save', array('class' => \$model->isNewRecord ? 'btn btn-success' : 'btn btn-primary')); ?>\n"; ?>
             </div>
+
             <?php echo "<?php \$this->endWidget(); ?>\n"; ?>
         </div>
-    </div><!-- ./col -->
+    </div>
 </div>

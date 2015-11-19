@@ -42,7 +42,7 @@ class GigCategory extends RActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('cat_name, created_at', 'required'),
+            array('cat_name', 'required'),
             array('cat_name', 'unique'),
             array('created_by, modified_by', 'numerical', 'integerOnly' => true),
             array('cat_name', 'length', 'max' => 100),

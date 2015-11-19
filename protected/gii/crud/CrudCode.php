@@ -242,15 +242,15 @@ class CrudCode extends CCodeModel {
     }
 
     public function giiGenerateEnumFields() {
-        return array('Active', 'is_Admin');
+        return array('status');
     }
 
     public function giiGenerateActiveInActiveFields() {
-        return array('Active', 'is_Admin');
+        return array('status');
     }
 
     public function giiGenerateHiddenFields() {
-        return array('Created_Date', 'Rowversion', 'Created_By', 'Updated_By');
+        return array('modified_at', 'created_by', 'modified_by');
     }
 
 }

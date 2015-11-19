@@ -16,6 +16,9 @@ class MyActionButtonColumn extends TbButtonColumn {
 
     protected function initDefaultButtons() {
         $my_buttons = array(
+            'view' => array(
+                'options' => array('class' => 'btn btn-primary btn-xs')
+            ),
             'update' => array(
                 'options' => array('class' => 'btn btn-default btn-xs')
             ),

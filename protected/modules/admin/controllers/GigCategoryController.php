@@ -28,7 +28,7 @@ class GigCategoryController extends Controller {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('index', 'view', 'create', 'update', 'admin', 'delete', 'pdf', 'download'),
+                'actions' => array('index', 'view', 'create', 'update', 'delete'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -36,7 +36,7 @@ class GigCategoryController extends Controller {
             ),
         );
     }
-    
+
     /**
      * Lists all models.
      */
@@ -55,19 +55,9 @@ class GigCategoryController extends Controller {
      * @param integer $id the ID of the model to be displayed
      */
     public function actionView($id) {
-        $model = $this->loadModel($id);
-
-        $export = isset($_REQUEST['export']) && $_REQUEST['export'] == 'PDF';
-        $compact = compact('model', 'export');
-        if ($export) {
-            $mPDF1 = Yii::app()->ePdf->mpdf();
-            $stylesheet = $this->pdfStyles();
-            $mPDF1->WriteHTML($stylesheet, 1);
-            $mPDF1->WriteHTML($this->renderPartial('view', $compact, true));
-            $mPDF1->Output("GigCategory_view_{$id}.pdf", EYiiPdf::OUTPUT_TO_DOWNLOAD);
-        } else {
-            $this->render('view', $compact);
-        }
+        $this->render('view', array(
+            'model' => $this->loadModel($id),
+        ));
     }
 
     /**
@@ -84,7 +74,7 @@ class GigCategoryController extends Controller {
             $model->attributes = $_POST['GigCategory'];
             if ($model->save()) {
                 Yii::app()->user->setFlash('success', 'GigCategory Created Successfully!!!');
-                $this->redirect(array('/site/gigcategory/index'));
+                $this->redirect(array('/admin/gigCategory/index'));
             }
         }
 
@@ -108,7 +98,7 @@ class GigCategoryController extends Controller {
             $model->attributes = $_POST['GigCategory'];
             if ($model->save()) {
                 Yii::app()->user->setFlash('success', 'GigCategory Updated Successfully!!!');
-                $this->redirect(array('/site/gigcategory/index'));
+                $this->redirect(array('/admin/gigCategory/index'));
             }
         }
 
@@ -123,25 +113,14 @@ class GigCategoryController extends Controller {
      * @param integer $id the ID of the model to be deleted
      */
     public function actionDelete($id) {
-        try {
-            $model = $this->loadModel($id);
-            $model->delete();
-        } catch (CDbException $e) {
-            if ($e->errorInfo[1] == 1451) {
-                throw new CHttpException(400, Yii::t('err', 'Relation Restriction Error.'));
-            } else {
-                throw $e;
-            }
-        }
+        $this->loadModel($id)->delete();
 
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
         if (!isset($_GET['ajax'])) {
             Yii::app()->user->setFlash('success', 'GigCategory Deleted Successfully!!!');
-            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('/site/gigcategory/index'));
+            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
         }
     }
-
-    
 
     /**
      * Returns the data model based on the primary key given in the GET variable.

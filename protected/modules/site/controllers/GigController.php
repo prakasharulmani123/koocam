@@ -28,11 +28,11 @@ class GigController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array(),
+                'actions' => array(''),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create'),
+                'actions' => array('create', 'upload'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -41,17 +41,20 @@ class GigController extends Controller {
             ),
         );
     }
-    
+
+    /**
+     * 
+     */
     public function actionCreate() {
         $model = new Gig('create');
-        
+
         $this->performAjaxValidation($model);
-        
-        if(Yii::app()->request->isPostRequest && Yii::app()->request->getPost('Gig')){
+
+        if (Yii::app()->request->isPostRequest && Yii::app()->request->getPost('Gig')) {
             $model->attributes = Yii::app()->request->getPost('Gig');
             $model->tutor_id = Yii::app()->user->id;
-            if($model->save()){
-                if($model->is_extra == 1){
+            if ($model->save()) {
+                if ($model->is_extra == 1) {
                     $extra_model = new GigExtra;
                     $extra_model->attributes = array(
                         'extra_price' => $model->extra_price,
@@ -66,11 +69,32 @@ class GigController extends Controller {
         }
         $this->render('create', compact('model'));
     }
-    
+
+    public function actionUpload() {
+        Yii::import("ext.EAjaxUpload.qqFileUploader");
+
+        $folder = 'upload/temp/'; // folder for uploaded files
+        $allowedExtensions = array("jpg"); //array("jpg","jpeg","gif","exe","mov" and etc...
+        $sizeLimit = 10 * 1024 * 1024; // maximum file size in bytes
+        $uploader = new qqFileUploader($allowedExtensions, $sizeLimit);
+        $result = $uploader->handleUpload($folder);
+        $return = htmlspecialchars(json_encode($result), ENT_NOQUOTES);
+
+        $fileSize = filesize($folder . $result['filename']); //GETTING FILE SIZE
+        $fileName = $result['filename']; //GETTING FILE NAME
+
+        echo $return; // it's array
+    }
+
+    /**
+     * 
+     * @param type $model
+     */
     protected function performAjaxValidation($model) {
         if (isset($_POST['ajax'])) {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
     }
+
 }

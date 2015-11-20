@@ -35,6 +35,7 @@ class Gig extends RActiveRecord {
 
     const MIN_DURATION = '00:05';
     const MAX_DURATION = '02:00';
+    const ALLOW_FILE_TYPES = 'jpg, gif, png';
 
     /**
      * @return string the associated database table name
@@ -68,6 +69,8 @@ class Gig extends RActiveRecord {
             array('gig_price, extra_price', 'numerical', 'integerOnly' => false),
             array('gig_avail_visual, status', 'length', 'max' => 1),
             array('gig_title', 'unique'),
+            array('gig_media', 'file', 'types' => self::ALLOW_FILE_TYPES),
+            array('gig_media', 'mediaValidate'),
             array('gig_duration', 'durationValidate'),
             array('extra_price, extra_desc', 'extraValidate'),
             array(
@@ -82,6 +85,11 @@ class Gig extends RActiveRecord {
         );
     }
 
+    /**
+     * 
+     * @param type $attribute
+     * @param type $params
+     */
     public function durationValidate($attribute, $params) {
         if (strtotime($this->gig_duration) < strtotime(self::MIN_DURATION)) {
             $this->addError($attribute, "Duration should be minimum " . self::MIN_DURATION);
@@ -90,11 +98,24 @@ class Gig extends RActiveRecord {
         }
     }
 
+    /**
+     * 
+     * @param type $attribute
+     * @param type $params
+     */
     public function extraValidate($attribute, $params) {
         if ($this->is_extra == 'Y') {
             if ($this->$attribute == '')
                 $this->addError($attribute, "{$this->getAttributeLabel($attribute)} can not be blank.");
         }
+    }
+
+    /**
+     * 
+     * @param type $attribute
+     * @param type $params
+     */
+    public function mediaValidate($attribute, $params) {
     }
 
     /**
@@ -200,6 +221,10 @@ class Gig extends RActiveRecord {
     public function getTotalminutes() {
         $time = explode(":", $this->gig_duration);
         return intval($time[0]) * 60 + intval($time[1]);
+    }
+
+    public static function topInstructors() {
+        return Gig::model()->active()->findAll(array('limit' => 10));
     }
 
 }

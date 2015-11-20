@@ -93,7 +93,7 @@ $themeUrl = $this->themeUrl;
             <div class="scroll-cont">
                 <div class="container">
                     <div class="owl-carousel">
-                        <?php $gigs = Gig::model()->active()->findAll(array('limit' => 10)); ?>
+                        <?php $gigs = Gig::topInstructors(); ?>
                         <?php foreach ($gigs as $gig): ?>
                         <div class="courses-thumb-cont">
                             <div class="course-thumbimg">

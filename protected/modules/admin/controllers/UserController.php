@@ -107,7 +107,12 @@ class UserController extends Controller {
         $model->scenario = 'admin_edit';
         $model->password_hash = '';
 
+
         $userProfile = UserProfile::model()->findByAttributes(array('user_id' => $model->user_id));
+
+        if ($userProfile == '') {
+            $userProfile = new UserProfile;
+        }
 
         // Uncomment the following line if AJAX validation is needed
         $this->performAjaxValidation(array($model, $userProfile));
@@ -121,12 +126,12 @@ class UserController extends Controller {
             $valid = $userProfile->validate() && $valid;
 
             if ($valid) {
-                if($model->password_hash){
+                if ($model->password_hash) {
                     $model->password_hash = Myclass::encrypt($model->password_hash);
                 } else {
                     unset($model->password_hash);
                 }
-                
+
                 // use false parameter to disable validation
                 $model->save(false);
 

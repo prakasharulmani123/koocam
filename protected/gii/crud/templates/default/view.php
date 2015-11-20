@@ -11,9 +11,9 @@
 <?php
 $nameColumn = $this->guessNameColumn($this->tableSchema->columns);
 $label = $this->pluralize($this->class2name($this->modelClass));
-$classToName = $this->modelClass;
+$classLcName = lcfirst($this->modelClass);
 
-echo "\$this->title='View $classToName';\n";
+echo "\$this->title='View $this->modelClass';\n";
 echo "\$this->breadcrumbs=array(
 	'$label'=>array('index'),
 	\$this->title,
@@ -41,7 +41,7 @@ $activeFields = $this->giiGenerateActiveInActiveFields();
                     </div>
                     <div class="col-lg-4">
                         <?php echo "<?php"; ?>
-                        echo CHtml::link('<i class="fa fa-reply"></i> Back', array('/admin/<?php echo $classToName; ?>/index'), array("class" => "btn btn-inverse pull-right"));
+                        echo CHtml::link('<i class="fa fa-reply"></i> Back', array('/admin/<?php echo $classLcName; ?>/index'), array("class" => "btn btn-inverse pull-right"));
                         ?>
                     </div>
                 </div>
@@ -50,6 +50,7 @@ $activeFields = $this->giiGenerateActiveInActiveFields();
                 <?php echo "<?php"; ?> $this->widget('zii.widgets.CDetailView', array(
                 'data'=>$model,
                 'htmlOptions' => array('class'=>'table table-striped table-bordered'),
+                'nullDisplay' => '-',
                 'attributes'=>array(
                 <?php
                 foreach ($this->tableSchema->columns as $column)

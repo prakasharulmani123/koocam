@@ -1,25 +1,38 @@
 <?php $this->beginContent('//layouts/main'); ?>
-<?php
-$this->widget('zii.widgets.CBreadcrumbs', array(
-    'links' => $this->breadcrumbs,
-    'tagName' => 'ul', // container tag
-    'htmlOptions' => array('class' => 'breadcrumb'), // no attributes on container
-    'separator' => '', // no separator
-    'homeLink' => '<li><a href="' . Yii::app()->baseUrl . '/admin/default/index"><i class="fa fa-home"></i> Home</a></li>', // home link template
-    'activeLinkTemplate' => '<li><a href="{url}">{label}</a></li>', // active link template
-    'inactiveLinkTemplate' => '<li class="active">{label}</li>', // in-active link template
-));
-?>
-<?php if (isset($this->flashMessages)): ?>
-    <?php foreach ($this->flashMessages as $key => $message) { ?>
-        <div class="alert alert-<?php echo $key; ?> fade in">
-            <button type="button" class="close close-sm" data-dismiss="alert">
-                <i class="fa fa-times"></i>
-            </button>
-            <?php echo $message; ?>
-        </div>
-    <?php } ?>
-<?php endif ?>
 
-<?php echo $content; ?>
+<!-- sidebar effects INSIDE of st-pusher: -->
+<!-- st-effect-3, st-effect-6, st-effect-7, st-effect-8, st-effect-14 -->
+<!-- this is the wrapper for the content -->
+
+<div class="st-content">
+    <div class="st-content-inner padding-none">
+
+        <?php if (isset($this->flashMessages)): ?>
+            <?php foreach ($this->flashMessages as $key => $message) { ?>
+                <div class="alert alert-<?php echo $key; ?> fade in">
+                    <button type="button" class="close close-sm" data-dismiss="alert">
+                        <i class="fa fa-times"></i>
+                    </button>
+                    <?php echo $message; ?>
+                </div>
+            <?php } ?>
+        <?php endif ?>
+
+        <?php
+        $this->widget('zii.widgets.CBreadcrumbs', array(
+            'links' => $this->breadcrumbs,
+            'tagName' => 'ul', // container tag
+            'htmlOptions' => array('class' => 'breadcrumb'), // no attributes on container
+            'separator' => '', // no separator
+            'homeLink' => '<li><a href="' . Yii::app()->baseUrl . '/admin/default/index"><i class="fa fa-home"></i> Home</a></li>',
+            'activeLinkTemplate' => '<li><a href="{url}">{label}</a></li>', // active link template
+            'inactiveLinkTemplate' => '<li class="active">{label}</li>', // in-active link template
+        ));
+        ?>
+
+        <?php echo $content; ?>
+    </div>
+</div>
+<!-- /st-content-inner -->
+<!-- /st-content -->
 <?php $this->endContent(); ?>

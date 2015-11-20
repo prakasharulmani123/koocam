@@ -171,12 +171,12 @@ class CrudCode extends CCodeModel {
         }
     }
 
-    public function generateActiveLabel($modelClass, $column, $width = 'col-sm-2') {
-        return "\$form->labelEx(\$model,'{$column->name}',  array('class' => '{$width} control-label'))";
+    public function generateActiveLabel($modelClass, $column) {
+        return "\$form->labelEx(\$model,'{$column->name}')";
     }
 
-    public function generatesearchActiveLabel($modelClass, $column, $width = 'col-sm-2') {
-        return "\$form->labelEx(\$searchModel,'{$column->name}',  array('class' => '{$width} control-label'))";
+    public function generatesearchActiveLabel($modelClass, $column) {
+        return "\$form->labelEx(\$searchModel,'{$column->name}')";
     }
 
     public function generateActiveField($modelClass, $column) {

@@ -10,7 +10,7 @@
 
 <?php
 $label = $this->pluralize($this->class2name($this->modelClass));
-$classToName = $this->modelClass;
+$classLcName = lcfirst($this->modelClass);
 echo "\$this->title='$label';\n";
 echo "\$this->breadcrumbs=array(
 	\$this->title,
@@ -18,56 +18,50 @@ echo "\$this->breadcrumbs=array(
 ?>
 ?>
 
-<!-- sidebar effects INSIDE of st-pusher: -->
-<!-- st-effect-3, st-effect-6, st-effect-7, st-effect-8, st-effect-14 -->
-<!-- this is the wrapper for the content -->
-<div class="st-content">
-    <!-- extra div for emulating position:fixed of the menu -->
-    <div class="st-content-inner padding-none">
-        <div class="container-fluid">
-            <div class="page-section">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <h1 class="text-display-1 margin-none"> 
-                            <?php echo "<?php"; ?> echo $this->title; ?>
-                        </h1>
-                    </div>
-                    <div class="col-lg-4">
-                        <?php echo "<?php"; ?>
-                        echo CHtml::link('<i class="fa fa-plus"></i> Create <?php echo $classToName; ?>', array('/admin/<?php echo $classToName; ?>/create'), array("class" => "btn btn-warning pull-right"));
-                        ?>
-                    </div>
-                </div>
+<div class="container-fluid">
+    <div class="page-section">
+        <div class="row">
+            <div class="col-lg-8">
+                <h1 class="text-display-1 margin-none"> 
+                    <?php echo "<?php"; ?> echo $this->title; ?>
+                </h1>
             </div>
-            <div class="page-section third">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <?php
-                        $activeFields = $this->giiGenerateActiveInActiveFields();
-                        $restrict = $this->giiGenerateHiddenFields();
-                        ?>
-                        <?php echo "<?php\n"; ?>
-                        $gridColumns = array(
-                        <?php
-                        $count = 0;
-                        foreach ($this->tableSchema->columns as $column) {
-                            if ($column->isPrimaryKey) {
-                                echo "\t\tarray(
+            <div class="col-lg-4">
+                <?php echo "<?php"; ?>
+                echo CHtml::link('<i class="fa fa-plus"></i> Create <?php echo $classLcName; ?>', array('/admin/<?php echo $classLcName; ?>/create'), array("class" => "btn btn-warning pull-right"));
+                ?>
+            </div>
+        </div>
+    </div>
+    <div class="page-section third">
+        <div class="row">
+            <div class="col-lg-12">
+                <?php
+                $activeFields = $this->giiGenerateActiveInActiveFields();
+                $restrict = $this->giiGenerateHiddenFields();
+                ?>
+                <?php echo "<?php\n"; ?>
+                $gridColumns = array(
+                <?php
+                $count = 0;
+                foreach ($this->tableSchema->columns as $column) {
+                    if ($column->isPrimaryKey) {
+                        echo "\t\tarray(
                                     'class' => 'IndexColumn',
                                     'header' => '',
                                 ),";
-                            }
+                    }
 
-                            if (in_array($column->name, $restrict))
-                                continue;
+                    if (in_array($column->name, $restrict))
+                        continue;
 
-                            if (++$count == 7)
-                                echo "\t\t/*\n";
+                    if (++$count == 7)
+                        echo "\t\t/*\n";
 
-                            if (in_array($column->name, $activeFields)):
-                                $green = '<i class="fa fa-circle text-green-500"></i>';
-                                $red = '<i class="fa fa-circle text-red-500"></i>';
-                                echo "\t\tarray(
+                    if (in_array($column->name, $activeFields)):
+                        $green = '<i class="fa fa-circle text-green-500"></i>';
+                        $red = '<i class="fa fa-circle text-red-500"></i>';
+                        echo "\t\tarray(
                                     'header' => 'Status',
                                     'name' => '{$column->name}',
                                     'type' => 'raw',
@@ -75,37 +69,33 @@ echo "\$this->breadcrumbs=array(
                                         echo (\$data->{$column->name} == 1) ? '{$green}' : '{$red}';
                                     },
                                 ),\n";
-                            else:
-                                echo "\t\t'" . $column->name . "',\n";
-                            endif;
-                        }
-                        if ($count >= 7)
-                            echo "\t\t*/\n";
-                        ?>
-                        array(
-                        'header' => 'Action',
-                        'class' => 'application.components.MyActionButtonColumn',
-                        'htmlOptions' => array('class' => 'text-center'),
-                        'template' => '{view}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{update}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{delete}',
-                        )
-                        );
+                    else:
+                        echo "\t\t'" . $column->name . "',\n";
+                    endif;
+                }
+                if ($count >= 7)
+                    echo "\t\t*/\n";
+                ?>
+                array(
+                'header' => 'Action',
+                'class' => 'application.components.MyActionButtonColumn',
+                'htmlOptions' => array('class' => 'text-center'),
+                'template' => '{view}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{update}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{delete}',
+                )
+                );
 
-                        $this->widget('booster.widgets.TbExtendedGridView', array(
-                        'filter' => $model,
-                        'type' => 'striped bordered',
-                        'dataProvider' => $model->search(),
-                        'responsiveTable' => true,
-                        "itemsCssClass" => "table v-middle",
-                        'template' => '<div class="panel panel-default"><div class="table-responsive">{items}{pager}</div></div>',
-                        'columns' => $gridColumns
-                        )
-                        );
-                        ?>
-                    </div>
-                </div>
+                $this->widget('booster.widgets.TbExtendedGridView', array(
+                'filter' => $model,
+                'type' => 'striped bordered',
+                'dataProvider' => $model->search(),
+                'responsiveTable' => true,
+                "itemsCssClass" => "table v-middle",
+                'template' => '<div class="panel panel-default"><div class="table-responsive">{items}{pager}</div></div>',
+                'columns' => $gridColumns
+                )
+                );
+                ?>
             </div>
         </div>
     </div>
-    <!-- /st-content-inner -->
 </div>
-<!-- /st-content -->

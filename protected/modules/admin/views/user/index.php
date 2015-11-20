@@ -1,20 +1,24 @@
 <?php
-$this->title = 'Gig Categories';
+/* @var $this UserController */
+/* @var $dataProvider CActiveDataProvider */
+
+$this->title = 'Users';
 $this->breadcrumbs = array(
-    $this->title
+    $this->title,
 );
 ?>
 
-
+<!-- extra div for emulating position:fixed of the menu -->
 <div class="container-fluid">
     <div class="page-section">
         <div class="row">
             <div class="col-lg-8">
-                <h1 class="text-display-1 margin-none"><?php echo $this->title; ?></h1>
+                <h1 class="text-display-1 margin-none"> 
+                    <?php echo $this->title; ?>
+                </h1>
             </div>
             <div class="col-lg-4">
-                <?php
-                echo CHtml::link('<i class="fa fa-plus"></i> Create Gig Category', array('/admin/gigCategory/create'), array("class" => "btn btn-warning pull-right"));
+                <?php echo CHtml::link('<i class="fa fa-plus"></i> Create User', array('/admin/user/create'), array("class" => "btn btn-warning pull-right"));
                 ?>
             </div>
         </div>
@@ -28,13 +32,14 @@ $this->breadcrumbs = array(
                         'class' => 'IndexColumn',
                         'header' => '',
                     ),
-                    'cat_name',
+                    'username',
+                    'email',
                     array(
                         'header' => 'Status',
                         'name' => 'status',
                         'type' => 'raw',
                         'value' => function($data) {
-                            echo ($data->status == 1) ? "<i class='fa fa-circle text-green-500'></i>" : "<i class='fa fa-circle text-red-500'></i>";
+                            echo ($data->status == 1) ? '<i class="fa fa-circle text-green-500"></i>' : '<i class="fa fa-circle text-red-500"></i>';
                         },
                         'filter' => CHtml::activeDropDownList($model, 'status', array("1" => "Active", "0" => "In-Active"), array('class' => 'form-control', 'prompt' => 'All')),
                     ),

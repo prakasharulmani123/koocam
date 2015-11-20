@@ -27,7 +27,7 @@
  * The followings are the available model relations:
  * @property User $user
  */
-class UserProfile extends CActiveRecord {
+class UserProfile extends RActiveRecord {
 
     /**
      * @return string the associated database table name
@@ -43,7 +43,7 @@ class UserProfile extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('user_id, prof_firstname', 'required'),
+            array('prof_firstname', 'required'),
             array('user_id, created_by, modified_by', 'numerical', 'integerOnly' => true),
             array('prof_rating', 'numerical'),
             array('prof_firstname, prof_lastname', 'length', 'max' => 50),
@@ -75,19 +75,19 @@ class UserProfile extends CActiveRecord {
         return array(
             'prof_id' => 'Prof',
             'user_id' => 'User',
-            'prof_firstname' => 'Prof Firstname',
-            'prof_lastname' => 'Prof Lastname',
-            'prof_tag' => 'Prof Tag',
-            'prof_address' => 'Prof Address',
-            'prof_phone' => 'Prof Phone',
-            'prof_skype' => 'Prof Skype',
-            'prof_website' => 'Prof Website',
-            'prof_about' => 'Prof About',
-            'prof_languages' => 'Prof Languages',
-            'prof_interests' => 'Prof Interests',
-            'prof_rating' => 'Prof Rating',
-            'prof_picture' => 'Prof Picture',
-            'prof_cover_photo' => 'Prof Cover Photo',
+            'prof_firstname' => 'Firstname',
+            'prof_lastname' => 'Lastname',
+            'prof_tag' => 'Tag',
+            'prof_address' => 'Address',
+            'prof_phone' => 'Phone',
+            'prof_skype' => 'Skype',
+            'prof_website' => 'Website',
+            'prof_about' => 'About',
+            'prof_languages' => 'Languages',
+            'prof_interests' => 'Interests',
+            'prof_rating' => 'Rating',
+            'prof_picture' => 'Picture',
+            'prof_cover_photo' => 'Cover Photo',
             'created_at' => 'Created At',
             'modified_at' => 'Modified At',
             'created_by' => 'Created By',
@@ -156,14 +156,6 @@ class UserProfile extends CActiveRecord {
                 'pageSize' => PAGE_SIZE,
             )
         ));
-    }
-
-    public function beforeSave() {
-        if ($this->isNewRecord)
-            $this->created_at = new CDbExpression('NOW()');
-
-        $this->modified_at = new CDbExpression('NOW()');
-        return parent::beforeSave();
     }
 
 }

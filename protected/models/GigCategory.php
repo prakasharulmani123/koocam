@@ -72,9 +72,9 @@ class GigCategory extends RActiveRecord {
     public function attributeLabels() {
         return array(
             'cat_id' => 'Cat',
-            'cat_name' => 'Cat Name',
-            'cat_description' => 'Cat Description',
-            'cat_image' => 'Cat Image',
+            'cat_name' => 'Category Name',
+            'cat_description' => 'Category Description',
+            'cat_image' => 'Category Image',
             'status' => 'Status',
             'created_at' => 'Created At',
             'modified_at' => 'Modified At',

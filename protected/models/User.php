@@ -23,10 +23,11 @@
 class User extends RActiveRecord {
 
     public function getFullname() {
-        return $this->userProf->prof_firstname.' '.$this->userProf->prof_lastname;
+        return $this->userProf->prof_firstname . ' ' . $this->userProf->prof_lastname;
     }
-    
+
     public $confirm_password;
+
     /**
      * @return string the associated database table name
      */
@@ -43,9 +44,14 @@ class User extends RActiveRecord {
         return array(
             array('username, password_hash, email, confirm_password', 'required', 'on' => 'register'),
             array('username, email, password_hash', 'required', 'on' => 'insert'),
+            
+            array('username, email, password_hash', 'required', 'on' => 'admin_add'),
+            array('username, email', 'required', 'on' => 'admin_edit'),
+            
             array('username, password_hash, password_reset_token, email', 'length', 'max' => 255),
             array('status, live_status', 'length', 'max' => 1),
             array('email, username', 'unique'),
+            array('email', 'email'),
             array('password_hash', 'compare', 'compareAttribute' => 'confirm_password', 'on' => 'register'),
             array('created_at, modified_at, user_activation_key, user_login_ip, user_last_login', 'safe'),
             // The following rule is used by search().
@@ -112,9 +118,9 @@ class User extends RActiveRecord {
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
-//            'pagination' => array(
-//                'pageSize' => PAGE_SIZE,
-//            )
+            'pagination' => array(
+                'pageSize' => PAGE_SIZE,
+            )
         ));
     }
 
@@ -145,7 +151,7 @@ class User extends RActiveRecord {
 
         return parent::beforeSave();
     }
-    
+
     public function addUser() {
         $model = new User('insert');
         $model->username = $this->username;
@@ -171,4 +177,5 @@ class User extends RActiveRecord {
         ///////////////////
         return;
     }
+
 }

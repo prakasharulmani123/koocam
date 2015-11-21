@@ -35,7 +35,7 @@
                     <?php echo CHtml::submitButton('Login', array('class' => 'btn btn-default btn-lg explorebtn form-btn', 'name' => 'sign_in')) ?>
                 </div>
 
-                <div class="form-group">   <div class="spe"> <img src="<?php echo $this->themeUrl ?>/img/or.png" alt=""> </div> 
+                <div class="form-group">   <div class="spe"> <img src="<?php echo $this->themeUrl ?>/images/or.png" alt=""> </div> 
                     <div class="line"></div> </div>
                 <div class="form-group"> <button data-provider="facebook" class="btn btn-default  btn-lg explorebtn form-btn fb-btn oAuthLogin"> <i class="fa fa-facebook"></i> Facebook</button> </div>
                 <div class="form-group"> <button data-provider="google" class="btn btn-default  btn-lg explorebtn form-btn gplus-btn oAuthLogin"> <i class="fa fa-google-plus"></i> Google + </button> </div>

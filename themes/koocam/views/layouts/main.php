@@ -16,6 +16,7 @@
         $cs->registerCssFile($themeUrl . '/css/owl.carousel.css');
         $cs->registerCssFile($themeUrl . '/css/bootstrap-select.css');
         $cs->registerCssFile($themeUrl . '/css/custom.css');
+        $cs->registerCssFile($themeUrl . '/css/notification/smoke.min.css');
         ?>
     </head>
     <body>
@@ -40,6 +41,8 @@
         $cs->registerScriptFile($themeUrl . '/js/jquery.counterup.min.js', $cs_pos_end);
         $cs->registerScriptFile($themeUrl . '/js/owl.carousel.min.js', $cs_pos_end);
         $cs->registerScriptFile($themeUrl . '/js/bootstrap-select.js', $cs_pos_end);
+        $cs->registerScriptFile($themeUrl . '/js/bootstrap-select.js', $cs_pos_end);
+        $cs->registerScriptFile($themeUrl . '/js/notification/smoke.min.js', $cs_pos_end);
         
         $login = Yii::app()->createAbsoluteUrl('/site/default/signupsocial');
         $js = <<< EOD

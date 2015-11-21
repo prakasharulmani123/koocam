@@ -22,10 +22,10 @@
                 <span> Email : <?php echo CHtml::link('support@koocam.com', 'mailto:support@koocam.com'); ?></span> 
             </p>
             <p> 
-                <?php echo CHtml::link(CHtml::image($this->themeUrl.'/img/fb.png', '', array()), '#', array('target' => '_blank')); ?>
-                <?php echo CHtml::link(CHtml::image($this->themeUrl.'/img/twitter.png', '', array()), '#', array('target' => '_blank')); ?>
-                <?php echo CHtml::link(CHtml::image($this->themeUrl.'/img/gplus.png', '', array('width' => '32', 'height' => '32')), '#', array('target' => '_blank')); ?>
-                <?php echo CHtml::link(CHtml::image($this->themeUrl.'/img/youtube.png', '', array('width' => '32', 'height' => '32')), '#', array('target' => '_blank')); ?>
+                <?php echo CHtml::link(CHtml::image($this->themeUrl.'/images/fb.png', '', array()), '#', array('target' => '_blank')); ?>
+                <?php echo CHtml::link(CHtml::image($this->themeUrl.'/images/twitter.png', '', array()), '#', array('target' => '_blank')); ?>
+                <?php echo CHtml::link(CHtml::image($this->themeUrl.'/images/gplus.png', '', array('width' => '32', 'height' => '32')), '#', array('target' => '_blank')); ?>
+                <?php echo CHtml::link(CHtml::image($this->themeUrl.'/images/youtube.png', '', array('width' => '32', 'height' => '32')), '#', array('target' => '_blank')); ?>
             </p>
         </div>
     </div>

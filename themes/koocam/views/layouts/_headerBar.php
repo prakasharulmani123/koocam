@@ -5,7 +5,7 @@
             <div class="header-row1">
                 <div class="col-xs-9 col-sm-4 col-md-5 col-lg-5 logo"> 
                     <?php
-                    $text = CHtml::image($themeUrl . '/img/logo.png', '');
+                    $text = CHtml::image($themeUrl . '/images/logo.png', '');
                     echo CHtml::link($text, $this->homeUrl);
                     ?>
                 </div>
@@ -31,7 +31,7 @@
                                     'encodeLabel' => false,
                                     'activateItems' => true,
                                     'items' => array(
-                                        array('label' => 'SELL YOUR TIME', 'url' => '#' /* Yii::app()->homeUrl */),
+                                        array('label' => 'SELL YOUR TIME', 'url' => array('/site/gig/create')),
                                         array('label' => 'HOW IT WORKS', 'url' => '#'),
                                         array('label' => 'LOG OUT', 'url' => array('/site/default/logout'), 'visible' => !Yii::app()->user->isGuest),
                                         array('label' => 'LOGIN', 'url' => '#', 'linkOptions' => array('data-toggle' => "modal", 'data-target' => ".bs-example-modal-sm1"), 'visible' => Yii::app()->user->isGuest),

@@ -27,7 +27,7 @@ $themeUrl = $this->themeUrl;
             <?php
             $form = $this->beginWidget('CActiveForm', array(
                 'id' => 'gig-create-form',
-                'htmlOptions' => array('role' => 'form', 'class' => ''),
+                'htmlOptions' => array('role' => 'form', 'class' => '',  'enctype' => "multipart/form-data"),
                 'clientOptions' => array(
                     'validateOnSubmit' => true,
                 ),
@@ -53,8 +53,10 @@ $themeUrl = $this->themeUrl;
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
                                 <span class="btn btn-default btn-file">
-                                    <i class="fa fa-upload"></i>  Upload Video (or)  Photo <span> (Recomended Video) </span><input type="file">
+                                    <i class="fa fa-upload"></i>  Upload Video (or)  Photo <span> (Recomended Video) </span>
+                                        <?php echo $form->fileField($model, 'gig_media'); ?>
                                 </span>
+                                        <?php echo $form->error($model, 'gig_media'); ?> 
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
                                 <?php echo $form->textField($model, 'gig_tag', array('class' => 'form-control', 'placeholder' => $model->getAttributeLabel('gig_tag'))); ?> 
@@ -100,7 +102,8 @@ $themeUrl = $this->themeUrl;
                                 <?php echo $form->checkBox($model, 'gig_avail_visual', array('value' => 'Y', 'uncheckValue' => 'N')); ?>&nbsp;&nbsp; <?php echo $form->labelEx($model, 'gig_avail_visual'); ?>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 ">
-                                <?php echo $form->checkBox($model, 'is_age', array('value' => 'Y', 'uncheckValue' => 'N')); ?>&nbsp;&nbsp; <?php echo $form->labelEx($model, 'is_age'); ?>
+                                <?php echo $form->checkBox($model, 'is_age', array('value' => 'Y', 'uncheckValue' => '')); ?>&nbsp;&nbsp; <?php echo $form->labelEx($model, 'is_age'); ?>
+                                <?php echo $form->error($model, 'is_age'); ?> 
                             </div>
                         </div>
                         <div class="form-group">

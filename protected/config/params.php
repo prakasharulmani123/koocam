@@ -29,8 +29,8 @@ return array(
     'SMTPSECURE' => 'ssl', // Secure :tls or ssl
     'NOREPLYMAIL' => 'noreply@arkinfotec.com',
     'CONTACTMAIL' => 'noreply@arkinfotec.com',
-    'JS_SHORT_DATE_FORMAT' => 'yy-mm-dd',
-    'PHP_SHORT_DATE_FORMAT' => 'Y-m-d',
+    'JS_SHORT_DATE_FORMAT' => 'dd-mm-yy',
+    'PHP_SHORT_DATE_FORMAT' => 'd-m-Y',
 
     //Product Settings
     'SITEBASEURL' => 'http://wipocos.byethost16.com',

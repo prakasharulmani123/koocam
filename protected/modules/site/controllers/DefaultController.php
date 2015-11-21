@@ -81,7 +81,7 @@ class DefaultController extends Controller {
     }
 
     public function actionLogout() {
-        Yii::app()->user->logout();
+        Yii::app()->user->logout(false);
         Yii::app()->user->setFlash('success', "You were logged out successfully");
         $this->goHome();
     }

@@ -29,6 +29,12 @@ $themeUrl = $this->themeUrl;
 //            echo Yii::app()->tok->generateToken($sessionId, $role, $expire);
 //            exit;
 
+            echo CHtml::tag('div', array('id' => 'errorDiv', 'class' => 'text-danger', 'style' => 'word-wrap: break-word;'), '');
+            echo '<br />';
+            echo CHtml::tag('div', array('id' => 'subscribersDiv'), '');
+            echo '<br />';
+            echo CHtml::tag('div', array('id' => 'myPublisherDiv'), '');
+        
             $this->widget('ext.yii-opentok.EOpenTokWidget', array(
                 'key' => Yii::app()->tok->key,
                 'sessionId' => '2_MX40NTM5ODE1Mn5-MTQ0ODAwNTIzNDcwMX4wK0t1NSs4emNRR1pYdW5ZOVNLWG5wUXR-UH4',
@@ -55,13 +61,4 @@ $themeUrl = $this->themeUrl;
 $cs = Yii::app()->getClientScript();
 $cs_pos_end = CClientScript::POS_END;
 $cs->registerScriptFile("https://static.opentok.com/v2/js/opentok.min.js");
-//$cs->registerScriptFile("//static.opentok.com/webrtc/v2.2/js/TB.min.js");
-
-$js = <<< EOD
-    jQuery(document).ready(function ($) {
-    });
-
-EOD;
-
-Yii::app()->clientScript->registerScript('chat', $js);
 ?>

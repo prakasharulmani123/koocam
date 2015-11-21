@@ -13,7 +13,6 @@ class SiteModule extends CWebModule {
             'site.components.*',
         ));
         Yii::app()->theme = 'koocam'; 
-        
         $this->layoutPath = Yii::getPathOfAlias('webroot.themes.' . Yii::app()->theme->name . '.views.layouts');
 
         $this->setComponents(array(

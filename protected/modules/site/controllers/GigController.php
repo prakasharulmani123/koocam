@@ -28,7 +28,7 @@ class GigController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array(''),
+                'actions' => array('view'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -38,6 +38,7 @@ class GigController extends Controller {
             array('deny', // deny all users
                 'actions' => array(),
                 'users' => array('*'),
+                'deniedCallback' => array($this, 'deniedCallback'),
             ),
         );
     }
@@ -47,29 +48,54 @@ class GigController extends Controller {
      */
     public function actionCreate() {
         $model = new Gig('create');
-
         $this->performAjaxValidation($model);
-
         if (Yii::app()->request->isPostRequest && Yii::app()->request->getPost('Gig')) {
             $model->attributes = Yii::app()->request->getPost('Gig');
             $model->tutor_id = Yii::app()->user->id;
-            if ($model->save()) {
-                if ($model->is_extra == 1) {
-                    $extra_model = new GigExtra;
-                    $extra_model->attributes = array(
-                        'extra_price' => $model->extra_price,
-                        'extra_description' => $model->extra_desc,
-                        'gig_id' => $model->gig_id,
-                    );
-                    $extra_model->save();
+            $model->setAttribute('gig_media', isset($_FILES['Gig']['name']['gig_media']) ? $_FILES['Gig']['name']['gig_media'] : '');
+            if ($model->validate()) {
+                $model->setUploadDirectory(UPLOAD_DIR.'/users/'.Yii::app()->user->id);
+                $model->uploadFile();
+                if ($model->save()) {
+                    if ($model->is_extra == 1) {
+                        $extra_model = new GigExtra;
+                        $extra_model->attributes = array(
+                            'extra_price' => $model->extra_price,
+                            'extra_description' => $model->extra_desc,
+                            'gig_id' => $model->gig_id,
+                        );
+                        $extra_model->save();
+                    }
+                    Yii::app()->user->setFlash('success', "Gig created");
+                    $this->refresh();
                 }
-                Yii::app()->user->setFlash('success', "Gig created");
-                $this->refresh();
             }
         }
         $this->render('create', compact('model'));
     }
 
+    /**
+     * 
+     */
+    public function actionView($id) {
+        $model = $this->loadModel($id);
+        $this->render('view', compact('model'));
+    }
+
+   /**
+     * Returns the data model based on the primary key given in the GET variable.
+     * If the data model is not found, an HTTP exception will be raised.
+     * @param integer $id the ID of the model to be loaded
+     * @return AuthorAccount the loaded model
+     * @throws CHttpException
+     */
+    public function loadModel($id) {
+        $model = Gig::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'The requested page does not exist.');
+        return $model;
+    }
+    
     public function actionUpload() {
         Yii::import("ext.EAjaxUpload.qqFileUploader");
 

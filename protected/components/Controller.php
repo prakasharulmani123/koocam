@@ -45,4 +45,9 @@ class Controller extends CController {
     public function goHome() {
         $this->redirect($this->homeUrl);
     }
+    
+    public function deniedCallback() {
+        Yii::app()->user->setFlash('danger', "You must Login to Access !!!");
+        $this->goHome();
+    }
 }

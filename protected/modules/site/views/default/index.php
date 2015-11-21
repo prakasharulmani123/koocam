@@ -48,34 +48,34 @@ $themeUrl = $this->themeUrl;
             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 cate-cont">
                 <div class="cate-img">
                     <div class="cate-bg"> <a href="#"> learn english speaking </a> </div>
-                    <img src="<?php echo $themeUrl ?>/img/cate1.jpg" width="640" height="540" alt=""> </div>
+                    <img src="<?php echo $themeUrl ?>/images/cate1.jpg" width="640" height="540" alt=""> </div>
             </div>
             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 cate-cont">
                 <div class="cate-img">
                     <div class="cate-bg"> <a href="#"> learn violin </a> </div>
-                    <img src="<?php echo $themeUrl ?>/img/cate2.jpg" width="640" height="540" alt=""></div>
+                    <img src="<?php echo $themeUrl ?>/images/cate2.jpg" width="640" height="540" alt=""></div>
             </div>
             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 cate-cont">
                 <div class="cate-img">
                     <div class="cate-bg"> <a href="#"> learn writing 
                             french </a> </div>
-                    <img src="<?php echo $themeUrl ?>/img/cate3.jpg" width="640" height="540" alt=""> </div>
+                    <img src="<?php echo $themeUrl ?>/images/cate3.jpg" width="640" height="540" alt=""> </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 cate-cont">
                 <div class="cate-img">
                     <div class="cate-bg"> <a href="#"> learn english speaking </a> </div>
-                    <img src="<?php echo $themeUrl ?>/img/cate4.jpg" width="640" height="540" alt=""> </div>
+                    <img src="<?php echo $themeUrl ?>/images/cate4.jpg" width="640" height="540" alt=""> </div>
             </div>
             <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3  cate-cont">
                 <div class="cate-img">
                     <div class="cate-bg"> <a href="#"> programing 
                             languages</a> </div>
-                    <img src="<?php echo $themeUrl ?>/img/cate5.jpg" width="640" height="540" alt=""> </div>
+                    <img src="<?php echo $themeUrl ?>/images/cate5.jpg" width="640" height="540" alt=""> </div>
             </div>
             <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 cate-cont">
                 <div class="cate-img">
                     <div class="cate-bg"> <a href="#"> Flim & Media</a> </div>
-                    <img src="<?php echo $themeUrl ?>/img/cate6.jpg" width="640" height="540" alt=""> </div>
+                    <img src="<?php echo $themeUrl ?>/images/cate6.jpg" width="640" height="540" alt=""> </div>
             </div>
             <div class="explore-btn"> <a href="#" class="btn btn-default  btn-lg explorebtn"> Browse All Categories </a> </div>
         </div>
@@ -90,30 +90,10 @@ $themeUrl = $this->themeUrl;
                 <h2> top Instructor <br>
                     <span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. </span></h2>
             </div>
-            <div class="scroll-cont">
-                <div class="container">
-                    <div class="owl-carousel">
-                        <?php $gigs = Gig::topInstructors(); ?>
-                        <?php foreach ($gigs as $gig): ?>
-                        <div class="courses-thumb-cont">
-                            <div class="course-thumbimg">
-                                <div class="active-icon"> <img src="<?php echo $themeUrl ?>/img/online.png"  alt=""></div>
-                                <a href="#"> <img src="<?php echo $themeUrl ?>/img/course1.jpg"  alt=""> </a></div>
-                            <div class="course-thumbdetails">
-                                <h2> <a href="#"> <?php echo $gig->gig_title; ?> </a> </h2>
-                                <p> <span> <a href="#"> <?php echo $gig->tutor->fullname; ?> </a> </span> </p>
-                                <p> <img src="<?php echo $themeUrl ?>/img/rating.jpg"  alt=""></p>
-                            </div>
-                            <div class="coures-pricedetails">
-                                <div class="course-price"> <i class="fa fa-clock-o"></i> <b><?php echo $gig->totalminutes; ?></b> <span> min </span> </div>
-                                <div class="course-price course-hour"> <i class="fa fa-dollar"></i> <b><?php echo (int)$gig->gig_price; ?></b> </div>
-                                <div class="course-price letcame"> <a href="#"> Let's Cam <i class="fa fa-video-camera"></i></a> </div>
-                            </div>
-                        </div>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-            </div>
+            <?php 
+            $gigs = Gig::topInstructors();
+            $this->renderPartial('/gig/_gig_carousal', compact('gigs', 'themeUrl'));
+            ?>
         </div>
     </div>
 </div>
@@ -172,7 +152,7 @@ $themeUrl = $this->themeUrl;
                         <div class="item active">
                             <blockquote>
                                 <div class="row">
-                                    <div class="col-sm-12 text-center"> <img class="img-circle" src="<?php echo $themeUrl ?>/img/testimonails-img1.jpg" alt="" > </div>
+                                    <div class="col-sm-12 text-center"> <img class="img-circle" src="<?php echo $themeUrl ?>/images/testimonails-img1.jpg" alt="" > </div>
                                     <div class="col-sm-12 testimonial-content">
                                         <p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit!</p>
                                         <small>Someone famous</small> </div>
@@ -183,7 +163,7 @@ $themeUrl = $this->themeUrl;
                         <div class="item">
                             <blockquote>
                                 <div class="row">
-                                    <div class="col-sm-12 text-center"> <img class="img-circle" src="<?php echo $themeUrl ?>/img/testimonails-img1.jpg" alt="" > </div>
+                                    <div class="col-sm-12 text-center"> <img class="img-circle" src="<?php echo $themeUrl ?>/images/testimonails-img1.jpg" alt="" > </div>
                                     <div class="col-sm-12 testimonial-content">
                                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam auctor nec lacus ut tempor. Mauris.</p>
                                         <small>Someone famous</small> </div>
@@ -194,7 +174,7 @@ $themeUrl = $this->themeUrl;
                         <div class="item">
                             <blockquote>
                                 <div class="row">
-                                    <div class="col-sm-12 text-center"> <img class="img-circle" src="<?php echo $themeUrl ?>/img/testimonails-img1.jpg" alt="" > </div>
+                                    <div class="col-sm-12 text-center"> <img class="img-circle" src="<?php echo $themeUrl ?>/images/testimonails-img1.jpg" alt="" > </div>
                                     <div class="col-sm-12 testimonial-content">
                                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rutrum elit in arcu blandit, eget pretium nisl accumsan. Sed ultricies commodo tortor, eu pretium mauris.</p>
                                         <small>Someone famous</small> </div>
@@ -224,26 +204,6 @@ $js = <<< EOD
             interval: 5000,
         });
 
-        $('.owl-carousel').owlCarousel({
-            loop: true,
-            margin: 30,
-            responsiveClass: true,
-            dots: true,
-            autoplay: true,
-            autoplayTimeout: 5000,
-            responsive: {
-                0: {
-                    items: 1,
-                },
-                600: {
-                    items: 3,
-                },
-                1000: {
-                    items: 4,
-                }
-            }
-        });
-        
         $('.oAuthLogin').click(function(e) {
             var _frameUrl = "$login?provider=" + $(this).data('provider');
             window.open(_frameUrl, "SignIn", "width=580,height=410,toolbar=0,scrollbars=0,status=0,resizable=0,location=0,menuBar=0,left=400,top=150");

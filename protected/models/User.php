@@ -178,4 +178,13 @@ class User extends RActiveRecord {
         return;
     }
 
+    public function getLanguages() {
+        $lang = '';
+        $langArr = CJSON::decode($this->userProf->prof_languages);
+        $languages = Language::model()->findAllByAttributes(array('lang_Id' => $langArr));
+        foreach ($languages as $key => $language) {
+            $lang .= $language->lang_name.', ';
+        }
+        return rtrim($lang,', ');
+    }
 }

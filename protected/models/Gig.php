@@ -36,6 +36,8 @@ class Gig extends RActiveRecord {
     const MIN_DURATION = '00:05';
     const MAX_DURATION = '02:00';
     const ALLOW_FILE_TYPES = 'jpg, gif, png';
+    const MIN_AMT = 1;
+    const MAX_AMT = 10000;
 
     /**
      * @return string the associated database table name
@@ -43,6 +45,23 @@ class Gig extends RActiveRecord {
     public function tableName() {
         return '{{gig}}';
     }
+
+    /**
+     * 
+     * @return type
+     */
+    public function behaviors() {
+        return array(
+            'NUploadFile' => array(
+                'class' => 'ext.nuploadfile.NUploadFile',
+                'fileField' => 'gig_media',
+            )
+        );
+    }
+
+    /*     * *
+     * 
+     */
 
     public function scopes() {
         $alias = $this->getTableAlias(false, false);
@@ -61,15 +80,16 @@ class Gig extends RActiveRecord {
         // will receive user inputs.
         return array(
             array('gig_title, cat_id, gig_tag, gig_description, gig_duration, gig_price', 'required', 'on' => 'create'),
+            array('is_age', 'required', 'on' => 'create', 'message' => 'Age must be 16 years or greater'),
             array('tutor_id, cat_id, created_by, modified_by', 'numerical', 'integerOnly' => true),
             array('gig_title', 'length', 'max' => 100),
             array('gig_media', 'length', 'max' => 500),
             array('gig_tag', 'length', 'max' => 255),
             array('gig_price, extra_price', 'length', 'max' => 10),
-            array('gig_price, extra_price', 'numerical', 'integerOnly' => false),
+            array('gig_price, extra_price', 'numerical', 'integerOnly' => false, 'min' => self::MIN_AMT, 'max' => self::MAX_AMT),
             array('gig_avail_visual, status', 'length', 'max' => 1),
             array('gig_title', 'unique'),
-            array('gig_media', 'file', 'types' => self::ALLOW_FILE_TYPES),
+            array('gig_media', 'file', 'types' => self::ALLOW_FILE_TYPES, 'allowEmpty' => true, 'on' => 'create'),
             array('gig_media', 'mediaValidate'),
             array('gig_duration', 'durationValidate'),
             array('extra_price, extra_desc', 'extraValidate'),
@@ -116,6 +136,7 @@ class Gig extends RActiveRecord {
      * @param type $params
      */
     public function mediaValidate($attribute, $params) {
+        
     }
 
     /**
@@ -227,4 +248,7 @@ class Gig extends RActiveRecord {
         return Gig::model()->active()->findAll(array('limit' => 10));
     }
 
+    public function getUploadpath() {
+        return $this->getFilePath();
+    }
 }

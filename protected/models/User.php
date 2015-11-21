@@ -35,6 +35,16 @@ class User extends RActiveRecord {
         return '{{user}}';
     }
 
+    public function scopes() {
+        $alias = $this->getTableAlias(false, false);
+        return array(
+            'active' => array('condition' => "$alias.status = '1'"),
+            'inactive' => array('condition' => "$alias.status = '0'"),
+            'deleted' => array('condition' => "$alias.status = '2'"),
+            'all' => array('condition' => "$alias.status is not null"),
+        );
+    }
+
     /**
      * @return array validation rules for model attributes.
      */
@@ -44,10 +54,8 @@ class User extends RActiveRecord {
         return array(
             array('username, password_hash, email, confirm_password', 'required', 'on' => 'register'),
             array('username, email, password_hash', 'required', 'on' => 'insert'),
-            
             array('username, email, password_hash', 'required', 'on' => 'admin_add'),
             array('username, email', 'required', 'on' => 'admin_edit'),
-            
             array('username, password_hash, password_reset_token, email', 'length', 'max' => 255),
             array('status, live_status', 'length', 'max' => 1),
             array('email, username', 'unique'),
@@ -176,6 +184,10 @@ class User extends RActiveRecord {
         endif;
         ///////////////////
         return;
+    }
+    
+    public static function getUsersList($status = 'all') {
+        return CHtml::listData(self::model()->$status()->findAll(), 'user_id', 'username');
     }
 
     public function getLanguages() {

@@ -113,4 +113,11 @@ class Myclass extends CController {
         $str = preg_replace("/\t/", "\\t", $str);
         $str = preg_replace("/\r?\n/", "\\n", $str);
     }
+    
+    public static function getYesOrNo(){
+        return array(
+            "N" => "No",
+            "Y" => "Yes"
+        );
+    }
 }

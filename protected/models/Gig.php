@@ -32,6 +32,8 @@ class Gig extends RActiveRecord {
     public $extra_price;
     public $extra_desc;
     public $is_age;
+    public $tutorUserName;
+    public $gigCategory;
 
     const MIN_DURATION = '00:05';
     const MAX_DURATION = '02:00';
@@ -69,6 +71,7 @@ class Gig extends RActiveRecord {
             'active' => array('condition' => "$alias.status = '1'"),
             'inactive' => array('condition' => "$alias.status = '0'"),
             'deleted' => array('condition' => "$alias.status = '2'"),
+            'all' => array('condition' => "$alias.status is not null"),
         );
     }
 
@@ -80,8 +83,10 @@ class Gig extends RActiveRecord {
         // will receive user inputs.
         return array(
             array('gig_title, cat_id, gig_tag, gig_description, gig_duration, gig_price', 'required', 'on' => 'create'),
-            array('is_age', 'required', 'on' => 'create', 'message' => 'Age must be 16 years or greater'),
+            array('tutor_id, gig_title, cat_id, gig_tag, gig_description, gig_duration, gig_price', 'required', 'on' => 'admin_create'),
+            array('tutor_id, gig_title, cat_id, gig_tag, gig_description, gig_duration, gig_price', 'required', 'on' => 'admin_update'),
             array('tutor_id, cat_id, created_by, modified_by', 'numerical', 'integerOnly' => true),
+            array('is_age', 'required', 'on' => 'create', 'message' => 'Age must be 16 years or greater'),
             array('gig_title', 'length', 'max' => 100),
             array('gig_media', 'length', 'max' => 500),
             array('gig_tag', 'length', 'max' => 255),
@@ -98,7 +103,7 @@ class Gig extends RActiveRecord {
                 'match', 'pattern' => '/(2[0-3]|[01][0-9]):([0-5][0-9])/',
                 'message' => 'Invalid Format ',
             ),
-            array('gig_description, gig_duration, created_at, modified_at, is_extra, extra_price, extra_desc', 'safe'),
+            array('gig_description, gig_duration, created_at, modified_at, is_extra, extra_price, extra_desc, tutorUserName, gigCategory', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('gig_id, tutor_id, gig_title, cat_id, gig_media, gig_tag, gig_description, gig_duration, gig_price, gig_avail_visual, status, created_at, modified_at, created_by, modified_by', 'safe', 'on' => 'search'),
@@ -213,6 +218,11 @@ class Gig extends RActiveRecord {
         $criteria->compare('created_by', $this->created_by);
         $criteria->compare('modified_by', $this->modified_by);
 
+        $criteria->addSearchCondition('tutor.username', $this->tutorUserName);
+        $criteria->addSearchCondition('cat.cat_name', $this->gigCategory);
+
+        $criteria->with = array('tutor', 'cat');
+
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'pagination' => array(
@@ -251,4 +261,5 @@ class Gig extends RActiveRecord {
     public function getUploadpath() {
         return $this->getFilePath();
     }
+
 }

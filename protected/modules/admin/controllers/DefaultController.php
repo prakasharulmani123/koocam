@@ -38,7 +38,7 @@ class DefaultController extends Controller {
             array('deny', // deny all users
                 'actions' => array(),
                 'users' => array('*'),
-                'deniedCallback' => array($this, 'deniedCallback'),
+//                'deniedCallback' => array($this, 'deniedCallback'),
             ),
         );
     }

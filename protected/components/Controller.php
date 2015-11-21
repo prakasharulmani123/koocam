@@ -29,24 +29,6 @@ class Controller extends CController {
     public $themeUrl = '';
     public $title = '';
 
-    public function accessRules() {
-        return array(
-//            array('allow', // allow all users to perform 'index' and 'view' actions
-//                'actions' => array(''),
-//                'users' => array('*'),
-//            ),
-//            array('allow', // allow authenticated user to perform 'create' and 'update' actions
-//                'actions' => array(''),
-//                'users' => array('@'),
-//            ),
-            array('deny', // deny all users
-                'actions' => array(),
-                'users' => array('*'),
-//                'deniedCallback' => array($this, 'deniedCallback'),
-            ),
-        );
-    }
-    
     public function init() {
         parent::init();
         $this->homeUrl = Yii::app()->controller->module->homeUrl;

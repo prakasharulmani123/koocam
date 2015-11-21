@@ -41,7 +41,7 @@ $this->breadcrumbs = array(
                     <?php echo ' Remember Me'; ?><br /><br />
                     <?php echo CHtml::submitButton('Login', array('class' => 'btn btn-primary', 'name' => 'sign_in')) ?><br /><br />
                     <!--<a href="website-student-dashboard.html" class="btn btn-primary">Login <i class="fa fa-fw fa-unlock-alt"></i></a>-->
-                    <p><?php echo CHtml::link('I forgot my password', array('/site/user/forgot')) ?></p>
+                    <p><?php // echo CHtml::link('I forgot my password', array('/site/user/forgot')) ?></p>
                     <!--<a href="sign-up.html" class="link-text-color">Create account</a>-->
                     <?php $this->endWidget(); ?>
                 </div>

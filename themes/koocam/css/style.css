@@ -25,7 +25,7 @@ img {
 }
 
 #home {
-	background: url(../img/home2.jpg) no-repeat center center;
+	background: url(../images/home2.jpg) no-repeat center center;
 	background-color: #222;
 	background-size: cover;
 	padding: 0;
@@ -205,7 +205,7 @@ margin-top:20px;
 	font-size:55px;
 	font-weight:bold;
 	line-height:25px;
-	background:url(../img/line.jpg) center bottom no-repeat;
+	background:url(../images/line.jpg) center bottom no-repeat;
 	padding-bottom:15px;
 }
 
@@ -449,7 +449,7 @@ a:hover
 
 
 .testimonials-cont {
-	background: url(../img/testimonails-bg.jpg) no-repeat center center;
+	background: url(../images/testimonails-bg.jpg) no-repeat center center;
 	background-color: #222;
 	background-size: cover;
 	padding: 40px 0px;
@@ -805,7 +805,7 @@ border-radius: 5px;
 }
 
 #inner-banner {
-	background: url(../img/inner-banner.jpg) no-repeat center center;
+	background: url(../images/inner-banner.jpg) no-repeat center center;
 	background-color: #222;
 	background-size: cover;
 	padding: 0;

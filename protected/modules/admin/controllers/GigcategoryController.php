@@ -1,6 +1,6 @@
 <?php
 
-class GigCategoryController extends Controller {
+class GigcategoryController extends Controller {
     /**
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
      * using two-column layout. See 'protected/views/layouts/column2.php'.
@@ -73,9 +73,14 @@ class GigCategoryController extends Controller {
 
         if (isset($_POST['GigCategory'])) {
             $model->attributes = $_POST['GigCategory'];
-            if ($model->save()) {
-                Yii::app()->user->setFlash('success', 'GigCategory Created Successfully!!!');
-                $this->redirect(array('/admin/gigCategory/index'));
+            $model->setAttribute('cat_image', isset($_FILES['GigCategory']['name']['cat_image']) ? $_FILES['GigCategory']['name']['cat_image'] : '');
+            if ($model->validate()) {
+                $model->setUploadDirectory(UPLOAD_DIR);
+                $model->uploadFile();
+                if ($model->save()) {
+                    Yii::app()->user->setFlash('success', 'GigCategory Created Successfully!!!');
+                    $this->redirect(array('/admin/gigcategory/index'));
+                }
             }
         }
 
@@ -97,9 +102,14 @@ class GigCategoryController extends Controller {
 
         if (isset($_POST['GigCategory'])) {
             $model->attributes = $_POST['GigCategory'];
-            if ($model->save()) {
-                Yii::app()->user->setFlash('success', 'GigCategory Updated Successfully!!!');
-                $this->redirect(array('/admin/gigCategory/index'));
+            $model->setAttribute('cat_image', isset($_FILES['GigCategory']['name']['cat_image']) ? $_FILES['GigCategory']['name']['cat_image'] : '');
+            if ($model->validate()) {
+                $model->setUploadDirectory(UPLOAD_DIR);
+                $model->uploadFile();
+                if ($model->save()) {
+                    Yii::app()->user->setFlash('success', 'GigCategory Updated Successfully!!!');
+                    $this->redirect(array('/admin/gigcategory/index'));
+                }
             }
         }
 

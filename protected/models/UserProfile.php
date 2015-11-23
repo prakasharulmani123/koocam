@@ -111,26 +111,27 @@ class UserProfile extends RActiveRecord {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
+        $alias = $this->getTableAlias(false, false);
 
-        $criteria->compare('prof_id', $this->prof_id);
-        $criteria->compare('user_id', $this->user_id);
-        $criteria->compare('prof_firstname', $this->prof_firstname, true);
-        $criteria->compare('prof_lastname', $this->prof_lastname, true);
-        $criteria->compare('prof_tag', $this->prof_tag, true);
-        $criteria->compare('prof_address', $this->prof_address, true);
-        $criteria->compare('prof_phone', $this->prof_phone, true);
-        $criteria->compare('prof_skype', $this->prof_skype, true);
-        $criteria->compare('prof_website', $this->prof_website, true);
-        $criteria->compare('prof_about', $this->prof_about, true);
-        $criteria->compare('prof_languages', $this->prof_languages, true);
-        $criteria->compare('prof_interests', $this->prof_interests, true);
-        $criteria->compare('prof_rating', $this->prof_rating);
-        $criteria->compare('prof_picture', $this->prof_picture, true);
-        $criteria->compare('prof_cover_photo', $this->prof_cover_photo, true);
-        $criteria->compare('created_at', $this->created_at, true);
-        $criteria->compare('modified_at', $this->modified_at, true);
-        $criteria->compare('created_by', $this->created_by);
-        $criteria->compare('modified_by', $this->modified_by);
+        $criteria->compare($alias.'.prof_id', $this->prof_id);
+        $criteria->compare($alias.'.user_id', $this->user_id);
+        $criteria->compare($alias.'.prof_firstname', $this->prof_firstname, true);
+        $criteria->compare($alias.'.prof_lastname', $this->prof_lastname, true);
+        $criteria->compare($alias.'.prof_tag', $this->prof_tag, true);
+        $criteria->compare($alias.'.prof_address', $this->prof_address, true);
+        $criteria->compare($alias.'.prof_phone', $this->prof_phone, true);
+        $criteria->compare($alias.'.prof_skype', $this->prof_skype, true);
+        $criteria->compare($alias.'.prof_website', $this->prof_website, true);
+        $criteria->compare($alias.'.prof_about', $this->prof_about, true);
+        $criteria->compare($alias.'.prof_languages', $this->prof_languages, true);
+        $criteria->compare($alias.'.prof_interests', $this->prof_interests, true);
+        $criteria->compare($alias.'.prof_rating', $this->prof_rating);
+        $criteria->compare($alias.'.prof_picture', $this->prof_picture, true);
+        $criteria->compare($alias.'.prof_cover_photo', $this->prof_cover_photo, true);
+        $criteria->compare($alias.'.created_at', $this->created_at, true);
+        $criteria->compare($alias.'.modified_at', $this->modified_at, true);
+        $criteria->compare($alias.'.created_by', $this->created_by);
+        $criteria->compare($alias.'.modified_by', $this->modified_by);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

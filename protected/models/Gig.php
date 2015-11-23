@@ -31,13 +31,17 @@ class Gig extends RActiveRecord {
     public $is_extra;
     public $extra_price;
     public $extra_desc;
+    public $extra_file;
     public $is_age;
     public $tutorUserName;
     public $gigCategory;
 
     const MIN_DURATION = '00:05';
     const MAX_DURATION = '02:00';
-    const ALLOW_FILE_TYPES = 'jpg, gif, png';
+    const GIG_ALLOW_FILE_TYPES = 'jpg, gif, png';
+    const GIG_ALLOW_FILE_SIZE = 5; //In MB
+    const EXTRA_ALLOW_FILE_TYPES = 'jpg, gif, png, pdf, doc';
+    const EXTRA_ALLOW_FILE_SIZE = 5; //In MB
     const MIN_AMT = 1;
     const MAX_AMT = 10000;
 
@@ -94,7 +98,8 @@ class Gig extends RActiveRecord {
             array('gig_price, extra_price', 'numerical', 'integerOnly' => false, 'min' => self::MIN_AMT, 'max' => self::MAX_AMT),
             array('gig_avail_visual, status', 'length', 'max' => 1),
             array('gig_title', 'unique'),
-            array('gig_media', 'file', 'types' => self::ALLOW_FILE_TYPES, 'allowEmpty' => true, 'on' => 'create'),
+            array('gig_media', 'file', 'types' => self::GIG_ALLOW_FILE_TYPES, 'maxSize'=>1024 * 1024 * self::GIG_ALLOW_FILE_SIZE, 'tooLarge' => 'File has to be smaller than '.self::GIG_ALLOW_FILE_SIZE.'MB', 'allowEmpty' => true, 'on' => 'create'),
+            array('extra_file', 'file', 'types' => self::EXTRA_ALLOW_FILE_TYPES, 'maxSize'=>1024 * 1024 * self::EXTRA_ALLOW_FILE_SIZE, 'tooLarge' => 'File has to be smaller than '.self::GIG_ALLOW_FILE_SIZE.'MB', 'allowEmpty' => true, 'on' => 'create'),
             array('gig_media', 'mediaValidate'),
             array('gig_duration', 'durationValidate'),
             array('extra_price, extra_desc', 'extraValidate'),
@@ -103,7 +108,7 @@ class Gig extends RActiveRecord {
                 'match', 'pattern' => '/(2[0-3]|[01][0-9]):([0-5][0-9])/',
                 'message' => 'Invalid Format ',
             ),
-            array('gig_description, gig_duration, created_at, modified_at, is_extra, extra_price, extra_desc, tutorUserName, gigCategory', 'safe'),
+            array('gig_description, gig_duration, created_at, modified_at, is_extra, extra_price, extra_desc, tutorUserName, gigCategory, extra_file', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('gig_id, tutor_id, gig_title, cat_id, gig_media, gig_tag, gig_description, gig_duration, gig_price, gig_avail_visual, status, created_at, modified_at, created_by, modified_by', 'safe', 'on' => 'search'),
@@ -201,22 +206,23 @@ class Gig extends RActiveRecord {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
+        $alias = $this->getTableAlias(false, false);
 
-        $criteria->compare('gig_id', $this->gig_id);
-        $criteria->compare('tutor_id', $this->tutor_id);
-        $criteria->compare('gig_title', $this->gig_title, true);
-        $criteria->compare('cat_id', $this->cat_id);
-        $criteria->compare('gig_media', $this->gig_media, true);
-        $criteria->compare('gig_tag', $this->gig_tag, true);
-        $criteria->compare('gig_description', $this->gig_description, true);
-        $criteria->compare('gig_duration', $this->gig_duration, true);
-        $criteria->compare('gig_price', $this->gig_price, true);
-        $criteria->compare('gig_avail_visual', $this->gig_avail_visual, true);
-        $criteria->compare('status', $this->status, true);
-        $criteria->compare('created_at', $this->created_at, true);
-        $criteria->compare('modified_at', $this->modified_at, true);
-        $criteria->compare('created_by', $this->created_by);
-        $criteria->compare('modified_by', $this->modified_by);
+        $criteria->compare($alias.'.gig_id', $this->gig_id);
+        $criteria->compare($alias.'.tutor_id', $this->tutor_id);
+        $criteria->compare($alias.'.gig_title', $this->gig_title, true);
+        $criteria->compare($alias.'.cat_id', $this->cat_id);
+        $criteria->compare($alias.'.gig_media', $this->gig_media, true);
+        $criteria->compare($alias.'.gig_tag', $this->gig_tag, true);
+        $criteria->compare($alias.'.gig_description', $this->gig_description, true);
+        $criteria->compare($alias.'.gig_duration', $this->gig_duration, true);
+        $criteria->compare($alias.'.gig_price', $this->gig_price, true);
+        $criteria->compare($alias.'.gig_avail_visual', $this->gig_avail_visual, true);
+        $criteria->compare($alias.'.status', $this->status, true);
+        $criteria->compare($alias.'.created_at', $this->created_at, true);
+        $criteria->compare($alias.'.modified_at', $this->modified_at, true);
+        $criteria->compare($alias.'.created_by', $this->created_by);
+        $criteria->compare($alias.'.modified_by', $this->modified_by);
 
         $criteria->addSearchCondition('tutor.username', $this->tutorUserName);
         $criteria->addSearchCondition('cat.cat_name', $this->gigCategory);

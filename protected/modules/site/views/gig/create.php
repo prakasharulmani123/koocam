@@ -27,7 +27,7 @@ $themeUrl = $this->themeUrl;
             <?php
             $form = $this->beginWidget('CActiveForm', array(
                 'id' => 'gig-create-form',
-                'htmlOptions' => array('role' => 'form', 'class' => '',  'enctype' => "multipart/form-data"),
+                'htmlOptions' => array('role' => 'form', 'class' => '', 'enctype' => "multipart/form-data"),
                 'clientOptions' => array(
                     'validateOnSubmit' => true,
                 ),
@@ -54,9 +54,9 @@ $themeUrl = $this->themeUrl;
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
                                 <span class="btn btn-default btn-file">
                                     <i class="fa fa-upload"></i>  Upload Video (or)  Photo <span> (Recomended Video) </span>
-                                        <?php echo $form->fileField($model, 'gig_media'); ?>
+                                    <?php echo $form->fileField($model, 'gig_media'); ?>
                                 </span>
-                                        <?php echo $form->error($model, 'gig_media'); ?> 
+                                <?php echo $form->error($model, 'gig_media'); ?> 
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
                                 <?php echo $form->textField($model, 'gig_tag', array('class' => 'form-control', 'placeholder' => $model->getAttributeLabel('gig_tag'))); ?> 
@@ -92,9 +92,16 @@ $themeUrl = $this->themeUrl;
                                 <?php echo $form->textField($model, 'extra_price', array('class' => 'form-control', 'placeholder' => $model->getAttributeLabel('extra_price'))); ?> 
                                 <?php echo $form->error($model, 'extra_price'); ?> 
                             </div>
-                            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-9 ">
+                            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-6 ">
                                 <?php echo $form->textField($model, 'extra_desc', array('class' => 'form-control', 'placeholder' => $model->getAttributeLabel('extra_desc'))); ?> 
                                 <?php echo $form->error($model, 'extra_desc'); ?> 
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 ">
+                                <span class="btn btn-default btn-file">
+                                    <i class="fa fa-upload"></i>  Upload File 
+                                <?php echo $form->fileField($model, 'extra_file'); ?>
+                                </span>
+                                <?php echo $form->error($model, 'extra_file'); ?> 
                             </div>
                         </div>
                         <div class="form-group">

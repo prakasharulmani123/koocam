@@ -1,5 +1,6 @@
 <?php
 /* @var $this DefaultController */
+/* @var $category GigCategory */
 
 $this->title = 'Koocam - Home';
 $themeUrl = $this->themeUrl;
@@ -45,38 +46,55 @@ $themeUrl = $this->themeUrl;
                 <h2> Popular CATEGORY <br/>
                     <span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. </span></h2>
             </div>
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 cate-cont">
+            <?php 
+            $categories = GigCategory::popularCategory();
+            $col = array(
+                0 => array(
+                    'xs' => 12, 
+                    'sm' => 4, 
+                    'md' => 4, 
+                    'lg' => 4, 
+                ),
+                1 => array(
+                    'xs' => 12, 
+                    'sm' => 4, 
+                    'md' => 4, 
+                    'lg' => 4, 
+                ),
+                2 => array(
+                    'xs' => 12, 
+                    'sm' => 4, 
+                    'md' => 4, 
+                    'lg' => 4, 
+                ),
+                3 => array(
+                    'xs' => 12, 
+                    'sm' => 6, 
+                    'md' => 6, 
+                    'lg' => 6, 
+                ),
+                4 => array(
+                    'xs' => 12, 
+                    'sm' => 3, 
+                    'md' => 3, 
+                    'lg' => 3, 
+                ),
+                5 => array(
+                    'xs' => 12, 
+                    'sm' => 3, 
+                    'md' => 3, 
+                    'lg' => 3, 
+                ),
+            );
+            foreach ($categories as $key => $category):
+            ?>
+            <div class="col-xs-<?php echo $col[$key]['xs'] ?> col-sm-<?php echo $col[$key]['sm'] ?> col-md-<?php echo $col[$key]['md'] ?> col-lg-<?php echo $col[$key]['lg'] ?> cate-cont">
                 <div class="cate-img">
-                    <div class="cate-bg"> <a href="#"> learn english speaking </a> </div>
-                    <img src="<?php echo $themeUrl ?>/images/cate1.jpg" width="640" height="540" alt=""> </div>
+                    <div class="cate-bg"> <a href="#"> <?php echo $category->cat_name; ?> </a> </div>
+                    <?php echo CHtml::image($category->getFilePath(), '', array('width' => "640", 'height' => "540")); ?>
+                </div>
             </div>
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 cate-cont">
-                <div class="cate-img">
-                    <div class="cate-bg"> <a href="#"> learn violin </a> </div>
-                    <img src="<?php echo $themeUrl ?>/images/cate2.jpg" width="640" height="540" alt=""></div>
-            </div>
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 cate-cont">
-                <div class="cate-img">
-                    <div class="cate-bg"> <a href="#"> learn writing 
-                            french </a> </div>
-                    <img src="<?php echo $themeUrl ?>/images/cate3.jpg" width="640" height="540" alt=""> </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 cate-cont">
-                <div class="cate-img">
-                    <div class="cate-bg"> <a href="#"> learn english speaking </a> </div>
-                    <img src="<?php echo $themeUrl ?>/images/cate4.jpg" width="640" height="540" alt=""> </div>
-            </div>
-            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3  cate-cont">
-                <div class="cate-img">
-                    <div class="cate-bg"> <a href="#"> programing 
-                            languages</a> </div>
-                    <img src="<?php echo $themeUrl ?>/images/cate5.jpg" width="640" height="540" alt=""> </div>
-            </div>
-            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 cate-cont">
-                <div class="cate-img">
-                    <div class="cate-bg"> <a href="#"> Flim & Media</a> </div>
-                    <img src="<?php echo $themeUrl ?>/images/cate6.jpg" width="640" height="540" alt=""> </div>
-            </div>
+            <?php endforeach; ?>
             <div class="explore-btn"> <a href="#" class="btn btn-default  btn-lg explorebtn"> Browse All Categories </a> </div>
         </div>
     </div>

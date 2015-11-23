@@ -9,7 +9,7 @@
  * @property integer $user_id
  * @property string $com_comment
  * @property double $com_rating
- * @property string $com_status
+ * @property string $status
  * @property string $created_at
  * @property string $modified_at
  *
@@ -36,11 +36,11 @@ class GigComments extends RActiveRecord {
             array('gig_id, user_id, com_comment, created_at', 'required'),
             array('gig_id, user_id', 'numerical', 'integerOnly' => true),
             array('com_rating', 'numerical'),
-            array('com_status', 'length', 'max' => 1),
+            array('status', 'length', 'max' => 1),
             array('modified_at', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('com_id, gig_id, user_id, com_comment, com_rating, com_status, created_at, modified_at', 'safe', 'on' => 'search'),
+            array('com_id, gig_id, user_id, com_comment, com_rating, status, created_at, modified_at', 'safe', 'on' => 'search'),
         );
     }
 
@@ -66,7 +66,7 @@ class GigComments extends RActiveRecord {
             'user_id' => 'User',
             'com_comment' => 'Com Comment',
             'com_rating' => 'Com Rating',
-            'com_status' => '0 -> In-Active, 1 -> Approved, 2 -> --',
+            'status' => '0 -> In-Active, 1 -> Approved, 2 -> --',
             'created_at' => 'Created At',
             'modified_at' => 'Modified At',
         );
@@ -88,15 +88,16 @@ class GigComments extends RActiveRecord {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
+        $alias = $this->getTableAlias(false, false);
 
-        $criteria->compare('com_id', $this->com_id);
-        $criteria->compare('gig_id', $this->gig_id);
-        $criteria->compare('user_id', $this->user_id);
-        $criteria->compare('com_comment', $this->com_comment, true);
-        $criteria->compare('com_rating', $this->com_rating);
-        $criteria->compare('com_status', $this->com_status, true);
-        $criteria->compare('created_at', $this->created_at, true);
-        $criteria->compare('modified_at', $this->modified_at, true);
+        $criteria->compare($alias.'.com_id', $this->com_id);
+        $criteria->compare($alias.'.gig_id', $this->gig_id);
+        $criteria->compare($alias.'.user_id', $this->user_id);
+        $criteria->compare($alias.'.com_comment', $this->com_comment, true);
+        $criteria->compare($alias.'.com_rating', $this->com_rating);
+        $criteria->compare($alias.'.status', $this->status, true);
+        $criteria->compare($alias.'.created_at', $this->created_at, true);
+        $criteria->compare($alias.'.modified_at', $this->modified_at, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

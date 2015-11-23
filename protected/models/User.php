@@ -113,16 +113,17 @@ class User extends RActiveRecord {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
+        $alias = $this->getTableAlias(false, false);
 
-        $criteria->compare('user_id', $this->user_id);
-        $criteria->compare('username', $this->username, true);
-        $criteria->compare('password_hash', $this->password_hash, true);
-        $criteria->compare('password_reset_token', $this->password_reset_token, true);
-        $criteria->compare('email', $this->email, true);
-        $criteria->compare('status', $this->status, true);
-        $criteria->compare('live_status', $this->live_status, true);
-        $criteria->compare('created_at', $this->created_at, true);
-        $criteria->compare('modified_at', $this->modified_at, true);
+        $criteria->compare($alias.'.user_id', $this->user_id);
+        $criteria->compare($alias.'.username', $this->username, true);
+        $criteria->compare($alias.'.password_hash', $this->password_hash, true);
+        $criteria->compare($alias.'.password_reset_token', $this->password_reset_token, true);
+        $criteria->compare($alias.'.email', $this->email, true);
+        $criteria->compare($alias.'.status', $this->status, true);
+        $criteria->compare($alias.'.live_status', $this->live_status, true);
+        $criteria->compare($alias.'.created_at', $this->created_at, true);
+        $criteria->compare($alias.'.modified_at', $this->modified_at, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

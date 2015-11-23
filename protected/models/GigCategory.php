@@ -26,6 +26,15 @@ class GigCategory extends RActiveRecord {
         return '{{gig_category}}';
     }
 
+    public function behaviors() {
+        return array(
+            'NUploadFile' => array(
+                'class' => 'ext.nuploadfile.NUploadFile',
+                'fileField' => 'cat_image',
+            )
+        );
+    }
+    
     public function scopes() {
         $alias = $this->getTableAlias(false, false);
         return array(
@@ -100,16 +109,17 @@ class GigCategory extends RActiveRecord {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
+        $alias = $this->getTableAlias(false, false);
 
-        $criteria->compare('cat_id', $this->cat_id);
-        $criteria->compare('cat_name', $this->cat_name, true);
-        $criteria->compare('cat_description', $this->cat_description, true);
-        $criteria->compare('cat_image', $this->cat_image, true);
-        $criteria->compare('status', $this->status, true);
-        $criteria->compare('created_at', $this->created_at, true);
-        $criteria->compare('modified_at', $this->modified_at, true);
-        $criteria->compare('created_by', $this->created_by);
-        $criteria->compare('modified_by', $this->modified_by);
+        $criteria->compare($alias.'.cat_id', $this->cat_id);
+        $criteria->compare($alias.'.cat_name', $this->cat_name, true);
+        $criteria->compare($alias.'.cat_description', $this->cat_description, true);
+        $criteria->compare($alias.'.cat_image', $this->cat_image, true);
+        $criteria->compare($alias.'.status', $this->status, true);
+        $criteria->compare($alias.'.created_at', $this->created_at, true);
+        $criteria->compare($alias.'.modified_at', $this->modified_at, true);
+        $criteria->compare($alias.'.created_by', $this->created_by);
+        $criteria->compare($alias.'.modified_by', $this->modified_by);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -139,5 +149,9 @@ class GigCategory extends RActiveRecord {
     
     public static function getCategoryList($status = 'all') {
         return CHtml::listData(self::model()->$status()->findAll(), 'cat_id', 'cat_name');
+    }
+    
+    public static function popularCategory($limit = 6) {
+        return GigCategory::model()->active()->findAll(array('limit' => $limit));
     }
 }

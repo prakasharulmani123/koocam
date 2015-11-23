@@ -21,7 +21,7 @@
                 'submenuOptions' => array('id' => 'gig-menu'),
                 'visible' => '1',
                 'items' => array(
-                    array('label' => '<i class="fa fa-th-list"></i> <span>Gig Category</span>', 'url' => array('/admin/gigCategory/index'), 'visible' => '1'),
+                    array('label' => '<i class="fa fa-th-list"></i> <span>Gig Category</span>', 'url' => array('/admin/gigcategory/index'), 'visible' => '1'),
                     array('label' => '<i class="fa fa-th-list"></i> <span>Gig</span>', 'url' => array('/admin/gig/index'), 'visible' => '1'),
                 ),
             ),

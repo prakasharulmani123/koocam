@@ -54,17 +54,22 @@ class GigController extends Controller {
             $model->tutor_id = Yii::app()->user->id;
             $model->setAttribute('gig_media', isset($_FILES['Gig']['name']['gig_media']) ? $_FILES['Gig']['name']['gig_media'] : '');
             if ($model->validate()) {
-                $model->setUploadDirectory(UPLOAD_DIR.'/users/'.Yii::app()->user->id);
+                $model->setUploadDirectory(UPLOAD_DIR . '/users/' . Yii::app()->user->id);
                 $model->uploadFile();
-                if ($model->save()) {
+                if ($model->save(false)) {
                     if ($model->is_extra == 1) {
                         $extra_model = new GigExtra;
                         $extra_model->attributes = array(
                             'extra_price' => $model->extra_price,
                             'extra_description' => $model->extra_desc,
                             'gig_id' => $model->gig_id,
+                            'extra_file' => isset($_FILES['Gig']['name']['extra_file']) ? $_FILES['Gig']['name']['extra_file'] : '',
                         );
-                        $extra_model->save();
+                        if ($extra_model->validate()) {
+                            $extra_model->setUploadDirectory(UPLOAD_DIR . '/users/' . Yii::app()->user->id);
+                            $extra_model->uploadFile();
+                            $extra_model->save(false);
+                        }
                     }
                     Yii::app()->user->setFlash('success', "Gig created");
                     $this->refresh();
@@ -82,7 +87,7 @@ class GigController extends Controller {
         $this->render('view', compact('model'));
     }
 
-   /**
+    /**
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
      * @param integer $id the ID of the model to be loaded
@@ -95,7 +100,7 @@ class GigController extends Controller {
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
     }
-    
+
     public function actionUpload() {
         Yii::import("ext.EAjaxUpload.qqFileUploader");
 

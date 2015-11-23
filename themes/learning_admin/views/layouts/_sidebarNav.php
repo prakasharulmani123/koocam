@@ -16,6 +16,7 @@
         'items' => array(
             array('label' => '<i class="fa fa-dashboard"></i> <span>Dashboard</span>', 'url' => array('/admin/default/index'), 'visible' => '1'),
             array('label' => '<i class="fa fa-users"></i> <span>Users Management</span>', 'url' => array('/admin/user/index'), 'visible' => '1'),
+            array('label' => '<i class="fa fa-users"></i> <span>CMS Management</span>', 'url' => array('/admin/cms/index'), 'visible' => '1'),
             array('label' => '<i class="fa fa-th-list"></i> <span>Gig Management</span>', 'url' => '#gig-menu',
                 'itemOptions' => array('class' => 'hasSubmenu'),
                 'submenuOptions' => array('id' => 'gig-menu'),

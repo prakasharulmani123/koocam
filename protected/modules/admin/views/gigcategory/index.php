@@ -14,7 +14,7 @@ $this->breadcrumbs = array(
             </div>
             <div class="col-lg-4">
                 <?php
-                echo CHtml::link('<i class="fa fa-plus"></i> Create Gig Category', array('/admin/gigCategory/create'), array("class" => "btn btn-warning pull-right"));
+                echo CHtml::link('<i class="fa fa-plus"></i> Create Gig Category', array('/admin/gigcategory/create'), array("class" => "btn btn-warning pull-right"));
                 ?>
             </div>
         </div>

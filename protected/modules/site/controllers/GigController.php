@@ -53,22 +53,32 @@ class GigController extends Controller {
             $model->attributes = Yii::app()->request->getPost('Gig');
             $model->tutor_id = Yii::app()->user->id;
             $model->setAttribute('gig_media', isset($_FILES['Gig']['name']['gig_media']) ? $_FILES['Gig']['name']['gig_media'] : '');
+
             if ($model->validate()) {
                 $model->setUploadDirectory(UPLOAD_DIR . '/users/' . Yii::app()->user->id);
                 $model->uploadFile();
-                if ($model->save(false)) {
-                    if ($model->is_extra == 1) {
+                if ($model->save()) {
+                    if ($model->is_extra == 'Y') {
                         $extra_model = new GigExtra;
                         $extra_model->attributes = array(
                             'extra_price' => $model->extra_price,
                             'extra_description' => $model->extra_desc,
                             'gig_id' => $model->gig_id,
-                            'extra_file' => isset($_FILES['Gig']['name']['extra_file']) ? $_FILES['Gig']['name']['extra_file'] : '',
                         );
+                        $extra_model->setAttribute('extra_file', isset($_FILES['Gig']['name']['extra_file']) ? $_FILES['Gig']['name']['extra_file'] : '');
                         if ($extra_model->validate()) {
-                            $extra_model->setUploadDirectory(UPLOAD_DIR . '/users/' . Yii::app()->user->id);
-                            $extra_model->uploadFile();
-                            $extra_model->save(false);
+                            /* temp solution */
+                            if (!empty($_FILES['Gig']['name']['extra_file'])) {
+                                $extra_model->setUploadDirectory(UPLOAD_DIR . '/users/' . Yii::app()->user->id);
+                                $upl_dir = $extra_model->getUploadDirectory();
+                                $newName = trim(md5(time())) . '.' . CFileHelper::getExtension($_FILES['Gig']['name']['extra_file']);
+                                $dir = DIRECTORY_SEPARATOR . strtolower(get_class($extra_model)) . DIRECTORY_SEPARATOR;
+                                if (move_uploaded_file($_FILES['Gig']['tmp_name']['extra_file'], $upl_dir . $newName))
+                                    $extra_model->extra_file = $dir . $newName;
+//                            $extra_model->uploadFile();
+                            }
+                            /* end */
+                            $extra_model->save();
                         }
                     }
                     Yii::app()->user->setFlash('success', "Gig created");
@@ -82,8 +92,8 @@ class GigController extends Controller {
     /**
      * 
      */
-    public function actionView($id) {
-        $model = $this->loadModel($id);
+    public function actionView($slug) {
+        $model = $this->loadModelSlug($slug);
         $this->render('view', compact('model'));
     }
 
@@ -126,6 +136,13 @@ class GigController extends Controller {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
+    }
+
+    public function loadModelSlug($slug) {
+        $model = Gig::model()->findByAttributes(array('slug' => $slug));
+        if ($model === null)
+            throw new CHttpException(404, 'The requested page does not exist.');
+        return $model;
     }
 
 }

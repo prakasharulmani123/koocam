@@ -8,6 +8,7 @@
  * @property integer $gig_id
  * @property string $extra_price
  * @property string $extra_description
+ * @property string $extra_file
  * @property string $created_by
  * @property string $modified_by
  *
@@ -50,7 +51,7 @@ class GigExtra extends CActiveRecord {
             array('gig_id', 'numerical', 'integerOnly' => true),
             array('extra_price', 'length', 'max' => 10),
             array('extra_file', 'length', 'max' => 500),
-            array('extra_file', 'file', 'types' => self::ALLOW_FILE_TYPES, 'maxSize'=>1024 * 1024 * self::ALLOW_FILE_SIZE, 'tooLarge' => 'File has to be smaller than '.self::ALLOW_FILE_SIZE.'MB', 'allowEmpty' => true),
+//            array('extra_file', 'file', 'types' => self::ALLOW_FILE_TYPES, 'maxSize'=>1024 * 1024 * self::ALLOW_FILE_SIZE, 'tooLarge' => 'File has to be smaller than '.self::ALLOW_FILE_SIZE.'MB', 'allowEmpty' => true),
             array('created_by, modified_by, extra_file', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.

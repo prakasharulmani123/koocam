@@ -61,6 +61,12 @@ class Gig extends RActiveRecord {
             'NUploadFile' => array(
                 'class' => 'ext.nuploadfile.NUploadFile',
                 'fileField' => 'gig_media',
+            ),
+            'SlugBehavior' => array(
+                'class' => 'application.models.behaviors.SlugBehavior',
+                'slug_col' => 'slug',
+                'title_col' => 'gig_title',
+                'overwrite' => true
             )
         );
     }
@@ -98,8 +104,8 @@ class Gig extends RActiveRecord {
             array('gig_price, extra_price', 'numerical', 'integerOnly' => false, 'min' => self::MIN_AMT, 'max' => self::MAX_AMT),
             array('gig_avail_visual, status', 'length', 'max' => 1),
             array('gig_title', 'unique'),
-            array('gig_media', 'file', 'types' => self::GIG_ALLOW_FILE_TYPES, 'maxSize'=>1024 * 1024 * self::GIG_ALLOW_FILE_SIZE, 'tooLarge' => 'File has to be smaller than '.self::GIG_ALLOW_FILE_SIZE.'MB', 'allowEmpty' => true, 'on' => 'create'),
-            array('extra_file', 'file', 'types' => self::EXTRA_ALLOW_FILE_TYPES, 'maxSize'=>1024 * 1024 * self::EXTRA_ALLOW_FILE_SIZE, 'tooLarge' => 'File has to be smaller than '.self::GIG_ALLOW_FILE_SIZE.'MB', 'allowEmpty' => true, 'on' => 'create'),
+            array('gig_media', 'file', 'types' => self::GIG_ALLOW_FILE_TYPES, 'maxSize' => 1024 * 1024 * self::GIG_ALLOW_FILE_SIZE, 'tooLarge' => 'File has to be smaller than ' . self::GIG_ALLOW_FILE_SIZE . 'MB', 'allowEmpty' => true, 'on' => 'create'),
+            array('extra_file', 'file', 'types' => self::EXTRA_ALLOW_FILE_TYPES, 'maxSize' => 1024 * 1024 * self::EXTRA_ALLOW_FILE_SIZE, 'tooLarge' => 'File has to be smaller than ' . self::GIG_ALLOW_FILE_SIZE . 'MB', 'allowEmpty' => true, 'on' => 'create'),
             array('gig_media', 'mediaValidate'),
             array('gig_duration', 'durationValidate'),
             array('extra_price, extra_desc', 'extraValidate'),
@@ -208,21 +214,21 @@ class Gig extends RActiveRecord {
         $criteria = new CDbCriteria;
         $alias = $this->getTableAlias(false, false);
 
-        $criteria->compare($alias.'.gig_id', $this->gig_id);
-        $criteria->compare($alias.'.tutor_id', $this->tutor_id);
-        $criteria->compare($alias.'.gig_title', $this->gig_title, true);
-        $criteria->compare($alias.'.cat_id', $this->cat_id);
-        $criteria->compare($alias.'.gig_media', $this->gig_media, true);
-        $criteria->compare($alias.'.gig_tag', $this->gig_tag, true);
-        $criteria->compare($alias.'.gig_description', $this->gig_description, true);
-        $criteria->compare($alias.'.gig_duration', $this->gig_duration, true);
-        $criteria->compare($alias.'.gig_price', $this->gig_price, true);
-        $criteria->compare($alias.'.gig_avail_visual', $this->gig_avail_visual, true);
-        $criteria->compare($alias.'.status', $this->status, true);
-        $criteria->compare($alias.'.created_at', $this->created_at, true);
-        $criteria->compare($alias.'.modified_at', $this->modified_at, true);
-        $criteria->compare($alias.'.created_by', $this->created_by);
-        $criteria->compare($alias.'.modified_by', $this->modified_by);
+        $criteria->compare($alias . '.gig_id', $this->gig_id);
+        $criteria->compare($alias . '.tutor_id', $this->tutor_id);
+        $criteria->compare($alias . '.gig_title', $this->gig_title, true);
+        $criteria->compare($alias . '.cat_id', $this->cat_id);
+        $criteria->compare($alias . '.gig_media', $this->gig_media, true);
+        $criteria->compare($alias . '.gig_tag', $this->gig_tag, true);
+        $criteria->compare($alias . '.gig_description', $this->gig_description, true);
+        $criteria->compare($alias . '.gig_duration', $this->gig_duration, true);
+        $criteria->compare($alias . '.gig_price', $this->gig_price, true);
+        $criteria->compare($alias . '.gig_avail_visual', $this->gig_avail_visual, true);
+        $criteria->compare($alias . '.status', $this->status, true);
+        $criteria->compare($alias . '.created_at', $this->created_at, true);
+        $criteria->compare($alias . '.modified_at', $this->modified_at, true);
+        $criteria->compare($alias . '.created_by', $this->created_by);
+        $criteria->compare($alias . '.modified_by', $this->modified_by);
 
         $criteria->addSearchCondition('tutor.username', $this->tutorUserName);
         $criteria->addSearchCondition('cat.cat_name', $this->gigCategory);

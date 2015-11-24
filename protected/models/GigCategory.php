@@ -31,6 +31,12 @@ class GigCategory extends RActiveRecord {
             'NUploadFile' => array(
                 'class' => 'ext.nuploadfile.NUploadFile',
                 'fileField' => 'cat_image',
+            ),
+            'SlugBehavior' => array(
+                'class' => 'application.models.behaviors.SlugBehavior',
+                'slug_col' => 'slug',
+                'title_col' => 'cat_name',
+                'overwrite' => true
             )
         );
     }

@@ -10,7 +10,7 @@
             <?php
             $form = $this->beginWidget('CActiveForm', array(
                 'id' => 'gig-category-form',
-                'htmlOptions' => array('role' => 'form', 'class' => ''),
+                'htmlOptions' => array('role' => 'form', 'class' => '', 'enctype' => "multipart/form-data"),
                 'clientOptions' => array(
                     'validateOnSubmit' => true,
                 ),

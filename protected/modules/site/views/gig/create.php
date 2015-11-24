@@ -87,7 +87,10 @@ $themeUrl = $this->themeUrl;
                                 <?php echo $form->checkBox($model, 'is_extra', array('value' => 'Y', 'uncheckValue' => 'N')); ?>&nbsp;&nbsp;<?php echo $form->labelEx($model, 'is_extra'); ?>
                             </div>
                         </div>
-                        <div class="form-group hide" id="extras_div">
+                        <?php
+                        $hide = $model->is_extra == 'N' ? '' : 'hide';
+                        ?>
+                        <div class="form-group <?php echo $hide; ?>" id="extras_div">
                             <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 ">
                                 <?php echo $form->textField($model, 'extra_price', array('class' => 'form-control', 'placeholder' => $model->getAttributeLabel('extra_price'))); ?> 
                                 <?php echo $form->error($model, 'extra_price'); ?> 

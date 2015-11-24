@@ -8,4 +8,6 @@ return array(
     '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
     '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
     'login'=>'/site/users/login',
+    'gig/<slug:[a-zA-Z0-9-]+>/' => 'site/gig/view',
+    'category/<slug:[a-zA-Z0-9-]+>/' => 'site/gigcategory/view',
 );

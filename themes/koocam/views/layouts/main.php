@@ -29,21 +29,21 @@
         $loginModel = new LoginForm;
         $userModel = new User;
         $this->renderPartial('//layouts/_login', array('model' => $loginModel));
-        $this->renderPartial('//layouts/_signup', array('model' => $userModel)); 
+        $this->renderPartial('//layouts/_signup', array('model' => $userModel));
         ?>
 
         <?php
         $cs_pos_end = CClientScript::POS_END;
         $cs->registerCoreScript('jquery');
 //        $cs->registerScriptFile($themeUrl . '/js/jquery.1.11.3.min.js', $cs_pos_end);
-        $cs->registerScriptFile($themeUrl . '/js/bootstrap.min.js', $cs_pos_end);
+        $cs->registerScriptFile($themeUrl . '/js/bootstrap.min.js');
         $cs->registerScriptFile($themeUrl . '/js/waypoints.min.js', $cs_pos_end);
         $cs->registerScriptFile($themeUrl . '/js/jquery.counterup.min.js', $cs_pos_end);
         $cs->registerScriptFile($themeUrl . '/js/owl.carousel.min.js', $cs_pos_end);
         $cs->registerScriptFile($themeUrl . '/js/bootstrap-select.js', $cs_pos_end);
         $cs->registerScriptFile($themeUrl . '/js/bootstrap-select.js', $cs_pos_end);
         $cs->registerScriptFile($themeUrl . '/js/notification/smoke.min.js', $cs_pos_end);
-        
+
         $login = Yii::app()->createAbsoluteUrl('/site/default/signupsocial');
         $js = <<< EOD
             jQuery(document).ready(function ($) {
@@ -56,7 +56,7 @@
             });
 
 EOD;
-        
+
         Yii::app()->clientScript->registerScript('inline', $js);
         ?>
     </body>

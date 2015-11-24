@@ -14,6 +14,7 @@ return array(
     'import' => array(
         'application.models.*',
         'application.components.*',
+        'ext.editable.*',
     ),
     'modules' => array(
         'admin',
@@ -32,9 +33,9 @@ return array(
         'clientScript' => array(
             'packages' => array(
                 'jquery' => array(
-                    'baseUrl' => '//code.jquery.com/',
-//                    'baseUrl' => 'http://localhost/wipocos_1/branches/dev/',
-                    'js' => array('jquery-1.11.3.min.js', 'jquery-migrate-1.2.1.min.js'),
+//                    'baseUrl' => '//code.jquery.com/',
+                    'baseUrl' => 'http://localhost/koocam/branches/dev/themes/koocam/js/',
+                    'js' => array('jquery-1.10.2.min.js', 'jquery-migrate-1.2.1.min.js'),
                 ),
             )
         ),

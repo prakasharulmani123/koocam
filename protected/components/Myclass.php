@@ -120,4 +120,18 @@ class Myclass extends CController {
             "Y" => "Yes"
         );
     }
+    
+    public static function priceLimitation() {
+        /* min. minutes => min. price */
+        $limitations = array(
+            '00:05' => 5,
+            '00:30' => 10,
+            '01:00' => 10,
+        );
+        $limits = array();
+        foreach ($limitations as $minute => $price) {
+            $limits[strtotime($minute)] = $price;
+        }
+        return $limits;
+    }
 }

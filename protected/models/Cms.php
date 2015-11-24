@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table '{{cms}}':
  * @property integer $cms_id
- * @property string $cms_slug
+ * @property string $slug
  * @property string $cms_title
  * @property string $cms_description
  * @property string $cms_meta_keywords
@@ -27,7 +27,7 @@ class Cms extends RActiveRecord {
         return array(
             'SlugBehavior' => array(
                 'class' => 'application.models.behaviors.SlugBehavior',
-                'slug_col' => 'cms_slug',
+                'slug_col' => 'slug',
                 'title_col' => 'cms_title',
                 'overwrite' => false
             )
@@ -42,12 +42,13 @@ class Cms extends RActiveRecord {
         // will receive user inputs.
         return array(
             array('cms_title, cms_description', 'required'),
-            array('cms_slug, cms_title', 'length', 'max' => 255),
+            array('cms_description', 'compare', 'compareValue' => '<br>', 'operator' => '!=', 'message' => 'Description cannot be blank'),
+            array('slug, cms_title', 'length', 'max' => 255),
             array('status', 'length', 'max' => 1),
             array('cms_meta_keywords, cms_meta_description, modified_at', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('cms_id, cms_slug, cms_title, cms_description, cms_meta_keywords, cms_meta_description, status, created_at, modified_at', 'safe', 'on' => 'search'),
+            array('cms_id, slug, cms_title, cms_description, cms_meta_keywords, cms_meta_description, status, created_at, modified_at', 'safe', 'on' => 'search'),
         );
     }
 
@@ -67,11 +68,11 @@ class Cms extends RActiveRecord {
     public function attributeLabels() {
         return array(
             'cms_id' => 'Cms',
-            'cms_slug' => 'Cms Slug',
-            'cms_title' => 'Cms Title',
-            'cms_description' => 'Cms Description',
-            'cms_meta_keywords' => 'Cms Meta Keywords',
-            'cms_meta_description' => 'Cms Meta Description',
+            'slug' => 'Cms Slug',
+            'cms_title' => 'Title',
+            'cms_description' => 'Description',
+            'cms_meta_keywords' => 'Meta Keywords',
+            'cms_meta_description' => 'Meta Description',
             'status' => 'Status',
             'created_at' => 'Created At',
             'modified_at' => 'Modified At',
@@ -96,7 +97,7 @@ class Cms extends RActiveRecord {
         $criteria = new CDbCriteria;
 
         $criteria->compare('cms_id', $this->cms_id);
-        $criteria->compare('cms_slug', $this->cms_slug, true);
+        $criteria->compare('slug', $this->slug, true);
         $criteria->compare('cms_title', $this->cms_title, true);
         $criteria->compare('cms_description', $this->cms_description, true);
         $criteria->compare('cms_meta_keywords', $this->cms_meta_keywords, true);

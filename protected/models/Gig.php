@@ -14,6 +14,7 @@
  * @property string $gig_duration
  * @property string $gig_price
  * @property string $gig_avail_visual
+ * @property string $is_extra
  * @property string $status
  * @property string $created_at
  * @property string $modified_at
@@ -28,22 +29,23 @@
  */
 class Gig extends RActiveRecord {
 
-    public $is_extra;
     public $extra_price;
-    public $extra_desc;
+    public $extra_description;
     public $extra_file;
     public $is_age;
     public $tutorUserName;
     public $gigCategory;
 
     const MIN_DURATION = '00:05';
-    const MAX_DURATION = '02:00';
+    const MAX_DURATION = '01:00';
     const GIG_ALLOW_FILE_TYPES = 'jpg, gif, png';
     const GIG_ALLOW_FILE_SIZE = 5; //In MB
     const EXTRA_ALLOW_FILE_TYPES = 'jpg, gif, png, pdf, doc';
     const EXTRA_ALLOW_FILE_SIZE = 5; //In MB
-    const MIN_AMT = 1;
-    const MAX_AMT = 10000;
+    const GIG_MIN_AMT = 5;
+    const GIG_MAX_AMT = 100000;
+    const EXTRA_MIN_AMT = 5;
+    const EXTRA_MAX_AMT = 100000;
 
     /**
      * @return string the associated database table name
@@ -92,7 +94,7 @@ class Gig extends RActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('gig_title, cat_id, gig_tag, gig_description, gig_duration, gig_price', 'required', 'on' => 'create'),
+            array('gig_title, cat_id, gig_tag, gig_description, gig_duration, gig_price', 'required'),
             array('tutor_id, gig_title, cat_id, gig_tag, gig_description, gig_duration, gig_price', 'required', 'on' => 'admin_create'),
             array('tutor_id, gig_title, cat_id, gig_tag, gig_description, gig_duration, gig_price', 'required', 'on' => 'admin_update'),
             array('tutor_id, cat_id, created_by, modified_by', 'numerical', 'integerOnly' => true),
@@ -101,20 +103,22 @@ class Gig extends RActiveRecord {
             array('gig_media', 'length', 'max' => 500),
             array('gig_tag', 'length', 'max' => 255),
             array('gig_price, extra_price', 'length', 'max' => 10),
-            array('gig_price, extra_price', 'numerical', 'integerOnly' => false, 'min' => self::MIN_AMT, 'max' => self::MAX_AMT),
+            array('gig_price', 'numerical', 'integerOnly' => false, 'min' => self::GIG_MIN_AMT, 'max' => self::GIG_MAX_AMT),
+            array('extra_price', 'numerical', 'integerOnly' => false, 'min' => self::EXTRA_MIN_AMT, 'max' => self::EXTRA_MAX_AMT),
             array('gig_avail_visual, status', 'length', 'max' => 1),
             array('gig_title', 'unique'),
             array('gig_media', 'file', 'types' => self::GIG_ALLOW_FILE_TYPES, 'maxSize' => 1024 * 1024 * self::GIG_ALLOW_FILE_SIZE, 'tooLarge' => 'File has to be smaller than ' . self::GIG_ALLOW_FILE_SIZE . 'MB', 'allowEmpty' => true, 'on' => 'create'),
             array('extra_file', 'file', 'types' => self::EXTRA_ALLOW_FILE_TYPES, 'maxSize' => 1024 * 1024 * self::EXTRA_ALLOW_FILE_SIZE, 'tooLarge' => 'File has to be smaller than ' . self::GIG_ALLOW_FILE_SIZE . 'MB', 'allowEmpty' => true, 'on' => 'create'),
             array('gig_media', 'mediaValidate'),
             array('gig_duration', 'durationValidate'),
-            array('extra_price, extra_desc', 'extraValidate'),
+            array('gig_price', 'priceValidate'),
+            array('extra_price, extra_description', 'extraValidate'),
             array(
                 'gig_duration',
                 'match', 'pattern' => '/(2[0-3]|[01][0-9]):([0-5][0-9])/',
                 'message' => 'Invalid Format ',
             ),
-            array('gig_description, gig_duration, created_at, modified_at, is_extra, extra_price, extra_desc, tutorUserName, gigCategory, extra_file', 'safe'),
+            array('gig_description, gig_duration, created_at, modified_at, is_extra, extra_price, extra_description, tutorUserName, gigCategory, extra_file', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('gig_id, tutor_id, gig_title, cat_id, gig_media, gig_tag, gig_description, gig_duration, gig_price, gig_avail_visual, status, created_at, modified_at, created_by, modified_by', 'safe', 'on' => 'search'),
@@ -151,6 +155,38 @@ class Gig extends RActiveRecord {
      * @param type $attribute
      * @param type $params
      */
+    public function priceValidate($attribute, $params) {
+        $limits = Myclass::priceLimitation();
+        $prev_timestamp = key(array(current($limits)));
+        $given_timestamp = strtotime($this->gig_duration);
+        $given_price = $this->gig_price;
+        
+        $i = 1;
+        $iMax = count($limits);
+        
+        foreach ($limits as $calc_timestamp => $calc_price) {
+            if($given_price < $calc_price){
+                if(($given_timestamp > $prev_timestamp && $given_timestamp <= $calc_timestamp)){
+                    $error = true;
+                    $err_price = $calc_price;
+                }else if($given_timestamp > $calc_timestamp && $i == $iMax){
+                    $error = true;
+                    $err_price = $calc_price;
+                }
+            }
+            $prev_timestamp = $calc_timestamp;
+            $i++;
+        }
+        
+        if($error)
+            $this->addError($attribute, "Gig price must be minumum {$err_price}");
+    }
+
+    /**
+     * 
+     * @param type $attribute
+     * @param type $params
+     */
     public function mediaValidate($attribute, $params) {
         
     }
@@ -164,7 +200,7 @@ class Gig extends RActiveRecord {
         return array(
             'cat' => array(self::BELONGS_TO, 'GigCategory', 'cat_id'),
             'gigComments' => array(self::HAS_MANY, 'GigComments', 'gig_id'),
-            'gigExtras' => array(self::HAS_MANY, 'GigExtra', 'gig_id'),
+            'gigExtras' => array(self::HAS_ONE, 'GigExtra', 'gig_id'),
             'tutor' => array(self::BELONGS_TO, 'User', 'tutor_id'),
         );
     }
@@ -186,7 +222,7 @@ class Gig extends RActiveRecord {
             'gig_avail_visual' => 'Will be available on visual chat',
             'is_extra' => 'Extras',
             'extra_price' => 'Extra Price',
-            'extra_desc' => 'Extra Description',
+            'extra_description' => 'Extra Description',
             'is_age' => 'I am atleast 16years Old',
             'status' => 'Status',
             'created_at' => 'Created At',
@@ -274,4 +310,12 @@ class Gig extends RActiveRecord {
         return $this->getFilePath();
     }
 
+    protected function afterFind() {
+        if($this->is_extra == 'Y'){
+            $this->extra_price = $this->gigExtras->extra_price;
+            $this->extra_description = $this->gigExtras->extra_description;
+            $this->extra_file = $this->gigExtras->extra_file;
+        }
+        return parent::afterFind();
+    }
 }

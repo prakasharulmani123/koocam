@@ -47,7 +47,7 @@ $this->rightCornerLink = CHtml::link('<i class="fa fa-plus"></i> Create gig', ar
                     array(
                         'header' => 'Action',
                         'class' => 'application.components.MyActionButtonColumn',
-                        'htmlOptions' => array('class' => 'text-center'),
+                        'htmlOptions' => array('class' => 'text-center', 'style' => 'width: 150px;'),
                         'template' => '{view}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{update}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{delete}',
                     )
                 );

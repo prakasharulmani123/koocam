@@ -17,8 +17,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'cms_slug'); ?>
-		<?php echo $form->textField($model,'cms_slug',array('class'=>'form-control','size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->label($model,'slug'); ?>
+		<?php echo $form->textField($model,'slug',array('class'=>'form-control','size'=>60,'maxlength'=>255)); ?>
 	</div>
 
 	<div class="row">

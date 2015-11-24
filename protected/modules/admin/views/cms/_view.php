@@ -9,8 +9,8 @@
 	<?php echo CHtml::link(CHtml::encode($data->cms_id), array('view', 'id'=>$data->cms_id)); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('cms_slug')); ?>:</b>
-	<?php echo CHtml::encode($data->cms_slug); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('slug')); ?>:</b>
+	<?php echo CHtml::encode($data->slug); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('cms_title')); ?>:</b>

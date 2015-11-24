@@ -32,7 +32,7 @@ class GigController extends Controller {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'upload'),
+                'actions' => array('create', 'upload', 'update'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -62,7 +62,7 @@ class GigController extends Controller {
                         $extra_model = new GigExtra;
                         $extra_model->attributes = array(
                             'extra_price' => $model->extra_price,
-                            'extra_description' => $model->extra_desc,
+                            'extra_description' => $model->extra_description,
                             'gig_id' => $model->gig_id,
                         );
                         $extra_model->setAttribute('extra_file', isset($_FILES['Gig']['name']['extra_file']) ? $_FILES['Gig']['name']['extra_file'] : '');
@@ -87,6 +87,49 @@ class GigController extends Controller {
             }
         }
         $this->render('create', compact('model'));
+    }
+
+    public function actionUpdate($id) {
+        $model = $this->loadModel($id);
+        $this->performAjaxValidation($model);
+        if (Yii::app()->request->isPostRequest && Yii::app()->request->getPost('Gig')) {
+            $model->attributes = Yii::app()->request->getPost('Gig');
+            $model->tutor_id = Yii::app()->user->id;
+            $model->setAttribute('gig_media', isset($_FILES['Gig']['name']['gig_media']) ? $_FILES['Gig']['name']['gig_media'] : '');
+
+            if ($model->validate()) {
+                $model->setUploadDirectory(UPLOAD_DIR . '/users/' . Yii::app()->user->id);
+                $model->uploadFile();
+                if ($model->save()) {
+                    if ($model->is_extra == 'Y') {
+                        $extra_model = new GigExtra;
+                        $extra_model->attributes = array(
+                            'extra_price' => $model->extra_price,
+                            'extra_description' => $model->extra_description,
+                            'gig_id' => $model->gig_id,
+                        );
+                        $extra_model->setAttribute('extra_file', isset($_FILES['Gig']['name']['extra_file']) ? $_FILES['Gig']['name']['extra_file'] : '');
+                        if ($extra_model->validate()) {
+                            /* temp solution */
+                            if (!empty($_FILES['Gig']['name']['extra_file'])) {
+                                $extra_model->setUploadDirectory(UPLOAD_DIR . '/users/' . Yii::app()->user->id);
+                                $upl_dir = $extra_model->getUploadDirectory();
+                                $newName = trim(md5(time())) . '.' . CFileHelper::getExtension($_FILES['Gig']['name']['extra_file']);
+                                $dir = DIRECTORY_SEPARATOR . strtolower(get_class($extra_model)) . DIRECTORY_SEPARATOR;
+                                if (move_uploaded_file($_FILES['Gig']['tmp_name']['extra_file'], $upl_dir . $newName))
+                                    $extra_model->extra_file = $dir . $newName;
+//                            $extra_model->uploadFile();
+                            }
+                            /* end */
+                            $extra_model->save();
+                        }
+                    }
+                    Yii::app()->user->setFlash('success', "Gig created");
+                    $this->refresh();
+                }
+            }
+        }
+        $this->render('update', compact('model'));
     }
 
     /**

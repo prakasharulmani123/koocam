@@ -6,23 +6,11 @@ $this->title = 'Users';
 $this->breadcrumbs = array(
     $this->title,
 );
+$this->rightCornerLink = CHtml::link('<i class="fa fa-plus"></i> Create User', array('/admin/user/create'), array("class" => "btn btn-warning pull-right"));
 ?>
 
 <!-- extra div for emulating position:fixed of the menu -->
 <div class="container-fluid">
-    <div class="page-section">
-        <div class="row">
-            <div class="col-lg-8">
-                <h1 class="text-display-1 margin-none"> 
-                    <?php echo $this->title; ?>
-                </h1>
-            </div>
-            <div class="col-lg-4">
-                <?php echo CHtml::link('<i class="fa fa-plus"></i> Create User', array('/admin/user/create'), array("class" => "btn btn-warning pull-right"));
-                ?>
-            </div>
-        </div>
-    </div>
     <div class="page-section third">
         <div class="row">
             <div class="col-lg-12">

@@ -1,24 +1,15 @@
 <?php
+/* @var $this GigcategoryController */
+
 $this->title = 'Gig Categories';
 $this->breadcrumbs = array(
     $this->title
 );
+$this->rightCornerLink = CHtml::link('<i class="fa fa-plus"></i> Create Gig Category', array('/admin/gigcategory/create'), array("class" => "btn btn-warning pull-right"));
 ?>
 
 
 <div class="container-fluid">
-    <div class="page-section">
-        <div class="row">
-            <div class="col-lg-8">
-                <!--<h1 class="text-display-1 margin-none"><?php echo $this->title; ?></h1>-->
-            </div>
-            <div class="col-lg-4">
-                <?php
-                echo CHtml::link('<i class="fa fa-plus"></i> Create Gig Category', array('/admin/gigcategory/create'), array("class" => "btn btn-warning pull-right"));
-                ?>
-            </div>
-        </div>
-    </div>
     <div class="page-section third">
         <div class="row">
             <div class="col-lg-12">
@@ -29,6 +20,13 @@ $this->breadcrumbs = array(
                         'header' => '',
                     ),
                     'cat_name',
+                    array(
+                        'name' => 'cat_image',
+                        'type' => 'raw',
+                        'value' => function($data){
+                            echo CHtml::image($data->getFilePath(), '', array('height' => 100));
+                        },
+                    ),
                     array(
                         'header' => 'Status',
                         'name' => 'status',

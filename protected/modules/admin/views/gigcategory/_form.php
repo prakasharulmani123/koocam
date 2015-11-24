@@ -13,10 +13,12 @@
                 'htmlOptions' => array('role' => 'form', 'class' => '', 'enctype' => "multipart/form-data"),
                 'clientOptions' => array(
                     'validateOnSubmit' => true,
+                    'hideErrorMessage' => true,
                 ),
                 'enableAjaxValidation' => true,
             ));
             ?>
+            <?php echo $form->errorSummary($model); ?>
 
             <div class="form-group form-control-material static">
                 <?php echo $form->textField($model, 'cat_name', array('class' => 'form-control', 'size' => 60, 'maxlength' => 100, 'placeholder' => 'Category Name')); ?>

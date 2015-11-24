@@ -7,7 +7,9 @@ $this->breadcrumbs=array(
 	'Cms'=>array('index'),
 	$this->title,
 );
-CHtml::link('<i class="fa fa-reply"></i> Back', array('/admin/cms/index'), array("class" => "btn btn-inverse pull-right"));?>
+$this->rightCornerLink = CHtml::link('<i class="fa fa-reply"></i> Back', array('/admin/cms/index'), array("class" => "btn btn-inverse pull-right"));
+?>
 
 <div class="container-fluid">
-    <?php $this->renderPartial('_form', array('model'=>$model)); ?></div>
+    <?php $this->renderPartial('_form', array('model'=>$model)); ?>
+</div>

@@ -9,9 +9,9 @@ $this->breadcrumbs = array(
 
 
 <div class="container-fluid">
-    <div class="page-section">
+<!--    <div class="page-section">
         <h1 class="text-display-1 margin-none">Dashboard</h1>
-    </div>
+    </div>-->
     <div class="panel panel-default">
         <div class="media v-middle">
             <div class="media-left">

@@ -7,21 +7,10 @@ $this->breadcrumbs = array(
     'Gig Categories' => array('index'),
     $this->title
 );
+$this->rightCornerLink = CHtml::link('<i class="fa fa-reply"></i> Back', array('/admin/gigcategory/index'), array("class" => "btn btn-inverse pull-right"));
 ?>
 
 <div class="container-fluid">
-    <div class="page-section">
-        <div class="row">
-            <div class="col-lg-8">
-                <h1 class="text-display-1 margin-none"><?php echo $this->title; ?></h1>
-            </div>
-            <div class="col-lg-4">
-                <?php
-                echo CHtml::link('<i class="fa fa-reply"></i> Back', array('/admin/gigcategory/index'), array("class" => "btn btn-inverse pull-right"));
-                ?>
-            </div>
-        </div>
-    </div>
     <div class="page-section third">
         <?php
         $this->widget('zii.widgets.CDetailView', array(
@@ -31,7 +20,11 @@ $this->breadcrumbs = array(
             'attributes' => array(
                 'cat_name',
                 'cat_description',
-                'cat_image',
+                array(
+                    'label' => $model->getAttributeLabel('cat_image'),
+                    'type' => 'raw',
+                    'value' => CHtml::image($model->getFilePath(), '', array('height' => 200)),
+                ),
                 array(
                     'label' => 'Status',
                     'type' => 'raw',

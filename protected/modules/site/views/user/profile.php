@@ -17,9 +17,17 @@ $user_profile = $model->userProf;
                 <h2>
                     <?php echo CHtml::link($model->fullname, array('/site/user/profile', 'slug' => $model->slug), array()); ?>
                 </h2>
-                <?php echo CHtml::link($user_profile->prof_tag, '#'); ?>
+                <?php
+                $this->widget('ext.editable.EditableField', array(
+                    'type' => 'text',
+                    'model' => $user_profile,
+                    'attribute' => 'prof_tag',
+                    'url' => $this->createUrl('user/update'), //url for submit data
+                ));
+                echo CHtml::link($user_profile->prof_tag, '#');
+                ?>
                 <br/>
-                <?php echo CHtml::image($themeUrl . '/images/ratings.png', ''); ?>
+<?php echo CHtml::image($themeUrl . '/images/ratings.png', ''); ?>
             </div>
         </div>
     </div>
@@ -31,13 +39,13 @@ $user_profile = $model->userProf;
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                 <div class="course-img">
                     <div class="online" data-toggle="tooltip" data-placement="bottom" title="online"> </div>
-                    <?php echo CHtml::image($themeUrl . '/images/profile-img.jpg', ''); ?>
+<?php echo CHtml::image($themeUrl . '/images/profile-img.jpg', ''); ?>
                 </div>
                 <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6"> 
-                        <a href="#" class="big-btn btn  btn-default "> <i class="fa fa-envelope-o"></i> Message </a> 
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <a href="#" class="big-btn btn  btn-default "> <i class="fa fa-envelope-o"></i> Message </a>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 sharethis-share"> 
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 sharethis-share">
                         <span class='st_facebook_large custom-share' displayText='Facebook'></span>
                         <span class='st_twitter_large custom-share' displayText='Tweet'></span>
                         <span class='st_googleplus_large custom-share' displayText='Google +'></span>
@@ -54,8 +62,8 @@ $user_profile = $model->userProf;
                 <p> London </p>
 
                 <h4> Languages </h4>
-                <p> 
-                    <?php echo $model->languages?>
+                <p>
+<?php echo $model->languages ?>
                 </p>
                 <h4> Interests </h4>
                 <p> <?php echo $user_profile->prof_interests; ?></p>
@@ -63,12 +71,12 @@ $user_profile = $model->userProf;
 
 
 
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 comentslist-cont relateditems">  
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 comentslist-cont relateditems">
 
                 <h2> Reflection  Peter Parker Sells</h2>
 
 
-                <div class="row"> 
+                <div class="row">
 
                     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4"> </div>
 

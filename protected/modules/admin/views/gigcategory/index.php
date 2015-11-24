@@ -10,7 +10,7 @@ $this->breadcrumbs = array(
     <div class="page-section">
         <div class="row">
             <div class="col-lg-8">
-                <h1 class="text-display-1 margin-none"><?php echo $this->title; ?></h1>
+                <!--<h1 class="text-display-1 margin-none"><?php echo $this->title; ?></h1>-->
             </div>
             <div class="col-lg-4">
                 <?php

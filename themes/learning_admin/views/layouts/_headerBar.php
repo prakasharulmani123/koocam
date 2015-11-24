@@ -16,49 +16,11 @@
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="main-nav">
-<!--            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Forum <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="app-forum.html">Forum Home</a></li>
-                        <li><a href="app-forum-category.html">Forum Category</a></li>
-                    </ul>
+                    <a href="#" style="font-size: 2rem"><?php echo $this->title; ?> </a>
                 </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Courses <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="app-directory-grid.html">Courses Grid</a></li>
-                        <li><a href="app-directory-list.html">Courses List</a></li>
-                        <li><a href="app-student-course.html">Course Details</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown active">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Student <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li class="active"><a href="app-student-dashboard.html">Dashboard</a></li>
-                        <li><a href="app-student-courses.html">My Courses</a></li>
-                        <li><a href="app-take-course.html">Take Course</a></li>
-                        <li><a href="app-course-forums.html">Course Forums</a></li>
-                        <li><a href="app-take-quiz.html">Take Quiz</a></li>
-                        <li><a href="app-student-profile.html">Edit Profile</a></li>
-                        <li><a href="app-student-billing.html">Edit Billing</a></li>
-                        <li><a href="app-student-messages.html">Messages</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Instructor <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="app-instructor-dashboard.html">Dashboard</a></li>
-                        <li><a href="app-instructor-courses.html">My Courses</a></li>
-                        <li><a href="app-instructor-course-edit-course.html">Edit Course</a></li>
-                        <li><a href="app-instructor-earnings.html">Earnings</a></li>
-                        <li><a href="app-instructor-statement.html">Statement</a></li>
-                        <li><a href="app-instructor-profile.html">Edit Profile</a></li>
-                        <li><a href="app-instructor-billing.html">Edit Billing</a></li>
-                        <li><a href="app-instructor-messages.html">Messages</a></li>
-                    </ul>
-                </li>
-            </ul>-->
+            </ul>
             <ul class="nav navbar-nav navbar-nav-bordered navbar-right">
                 <!-- notifications -->
                 <li class="dropdown notifications updates">
@@ -73,7 +35,7 @@
                                 <span class="label label-success">New</span>
                             </div>
                             <div class="media-left">
-                                <img src="<?php echo $this->themeUrl?>/img/people/50/guy-2.jpg" alt="people" class="img-circle" width="30">
+                                <img src="<?php echo $this->themeUrl ?>/img/people/50/guy-2.jpg" alt="people" class="img-circle" width="30">
                             </div>
                             <div class="media-body">
                                 <a href="#">Adrian D.</a> posted <a href="#">a photo</a> on his timeline.
@@ -86,7 +48,7 @@
                                 <span class="label label-success">New</span>
                             </div>
                             <div class="media-left">
-                                <img src="<?php echo $this->themeUrl?>/img/people/50/guy-6.jpg" alt="people" class="img-circle" width="30">
+                                <img src="<?php echo $this->themeUrl ?>/img/people/50/guy-6.jpg" alt="people" class="img-circle" width="30">
                             </div>
                             <div class="media-body">
                                 <a href="#">Bill</a> posted <a href="#">a comment</a> on Adrian's recent <a href="#">post</a>.
@@ -117,7 +79,7 @@
                 <!-- User -->
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle user" data-toggle="dropdown">
-                        <img src="<?php echo $this->themeUrl?>/img/people/110/avatar5.png" alt="Bill" class="img-circle" width="40" /> <?php echo Yii::app()->user->name; ?> <span class="caret"></span>
+                        <img src="<?php echo $this->themeUrl ?>/img/people/110/avatar5.png" alt="Bill" class="img-circle" width="40" /> <?php echo Yii::app()->user->name; ?> <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li><?php echo CHtml::link('Edit Profile', array('/admin/default/profile')); ?></li>

@@ -17,7 +17,7 @@ $this->breadcrumbs = array(
             </div>
             <div class="col-lg-4">
                 <?php
-                echo CHtml::link('<i class="fa fa-reply"></i> Back', array('/admin/gigCategory/index'), array("class" => "btn btn-inverse pull-right"));
+                echo CHtml::link('<i class="fa fa-reply"></i> Back', array('/admin/gigcategory/index'), array("class" => "btn btn-inverse pull-right"));
                 ?>
             </div>
         </div>

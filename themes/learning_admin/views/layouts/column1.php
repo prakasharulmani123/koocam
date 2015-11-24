@@ -18,17 +18,29 @@
             <?php } ?>
         <?php endif ?>
 
-        <?php
-        $this->widget('zii.widgets.CBreadcrumbs', array(
-            'links' => $this->breadcrumbs,
-            'tagName' => 'ul', // container tag
-            'htmlOptions' => array('class' => 'breadcrumb'), // no attributes on container
-            'separator' => '', // no separator
-            'homeLink' => '<li><a href="' . Yii::app()->baseUrl . '/admin/default/index"><i class="fa fa-home"></i> Home</a></li>',
-            'activeLinkTemplate' => '<li><a href="{url}">{label}</a></li>', // active link template
-            'inactiveLinkTemplate' => '<li class="active">{label}</li>', // in-active link template
-        ));
-        ?>
+        <div class="container-fluid" id="admin-headerbar">
+            <div class="page-section">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <?php
+                        $this->widget('zii.widgets.CBreadcrumbs', array(
+                            'links' => $this->breadcrumbs,
+                            'tagName' => 'ul', // container tag
+                            'htmlOptions' => array('class' => 'breadcrumb'), // no attributes on container
+                            'separator' => '', // no separator
+                            'homeLink' => '<li><a href="' . Yii::app()->baseUrl . '/admin/default/index"><i class="fa fa-home"></i> Home</a></li>',
+                            'activeLinkTemplate' => '<li><a href="{url}">{label}</a></li>', // active link template
+                            'inactiveLinkTemplate' => '<li class="active">{label}</li>', // in-active link template
+                        ));
+                        ?>
+                    </div>
+                    <div class="col-lg-4">
+                        <?php echo $this->rightCornerLink;
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <?php echo $content; ?>
     </div>

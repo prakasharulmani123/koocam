@@ -12,9 +12,9 @@ $this->breadcrumbs=array(
     <div class="page-section">
         <div class="row">
             <div class="col-lg-8">
-                <h1 class="text-display-1 margin-none"> 
+<!--                <h1 class="text-display-1 margin-none"> 
                     <?php echo $this->title; ?>
-                </h1>
+                </h1>-->
             </div>
             <div class="col-lg-4">
                 <?php                echo CHtml::link('<i class="fa fa-plus"></i> Create cms', array('/admin/cms/create'), array("class" => "btn btn-warning pull-right"));

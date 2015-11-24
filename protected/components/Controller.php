@@ -28,6 +28,7 @@ class Controller extends CController {
     public $flashMessages = array();
     public $themeUrl = '';
     public $title = '';
+    public $rightCornerLink = '';
 
     public function init() {
         parent::init();

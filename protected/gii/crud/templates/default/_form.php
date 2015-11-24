@@ -18,10 +18,13 @@
         'htmlOptions' => array('role' => 'form', 'class' => ''),
         'clientOptions'=>array(
             'validateOnSubmit'=>true,
+            'hideErrorMessage' => true,
         ),
 	'enableAjaxValidation'=>true,
 )); ?>\n"; ?>
 
+            <?php echo "<?php echo \$form->errorSummary($model);" ?> ?>
+            
             <?php
             $restrict = $this->giiGenerateHiddenFields();
             $activeFields = $this->giiGenerateActiveInActiveFields();

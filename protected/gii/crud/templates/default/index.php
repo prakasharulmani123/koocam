@@ -15,24 +15,12 @@ echo "\$this->title='$label';\n";
 echo "\$this->breadcrumbs=array(
 	\$this->title,
 );\n";
+echo "\$this->rightCornerLink = ";
 ?>
+CHtml::link('<i class="fa fa-plus"></i> Create <?php echo $classLcName; ?>', array('/admin/<?php echo $classLcName; ?>/create'), array("class" => "btn btn-warning pull-right"));
 ?>
 
 <div class="container-fluid">
-    <div class="page-section">
-        <div class="row">
-            <div class="col-lg-8">
-                <h1 class="text-display-1 margin-none"> 
-                    <?php echo "<?php"; ?> echo $this->title; ?>
-                </h1>
-            </div>
-            <div class="col-lg-4">
-                <?php echo "<?php"; ?>
-                echo CHtml::link('<i class="fa fa-plus"></i> Create <?php echo $classLcName; ?>', array('/admin/<?php echo $classLcName; ?>/create'), array("class" => "btn btn-warning pull-right"));
-                ?>
-            </div>
-        </div>
-    </div>
     <div class="page-section third">
         <div class="row">
             <div class="col-lg-12">
@@ -84,7 +72,7 @@ echo "\$this->breadcrumbs=array(
                 )
                 );
 
-                $this->widget('booster.widgets.TbExtendedGridView', array(
+                $this->widget('application.components.MyExtendedGridView', array(
                 'filter' => $model,
                 'type' => 'striped bordered',
                 'dataProvider' => $model->search(),

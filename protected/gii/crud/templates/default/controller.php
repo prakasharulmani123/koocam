@@ -83,9 +83,9 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
             // Uncomment the following line if AJAX validation is needed
             $this->performAjaxValidation($model);
 
-            if(isset($_POST['<?php echo $this->modelClass; ?>']))
+            if(Yii::app()->request->isPostRequest && Yii::app()->request->getPost('<?php echo $this->modelClass; ?>'))
             {
-                    $model->attributes=$_POST['<?php echo $this->modelClass; ?>'];
+                    $model->attributes=Yii::app()->request->getPost('<?php echo $this->modelClass; ?>');
                     if($model->save()){
                             Yii::app()->user->setFlash('success', '<?php echo $this->modelClass; ?> Created Successfully!!!');
                             $this->redirect(array('/admin/<?php echo strtolower($this->modelClass); ?>/index'));
@@ -109,9 +109,9 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
             // Uncomment the following line if AJAX validation is needed
             $this->performAjaxValidation($model);
 
-            if(isset($_POST['<?php echo $this->modelClass; ?>']))
+            if(Yii::app()->request->isPostRequest && Yii::app()->request->getPost('<?php echo $this->modelClass; ?>'))
             {
-                    $model->attributes=$_POST['<?php echo $this->modelClass; ?>'];
+                    $model->attributes=Yii::app()->request->getPost('<?php echo $this->modelClass; ?>');
                     if($model->save()){
                             Yii::app()->user->setFlash('success', '<?php echo $this->modelClass; ?> Updated Successfully!!!');
                             $this->redirect(array('/admin/<?php echo strtolower($this->modelClass); ?>/index'));

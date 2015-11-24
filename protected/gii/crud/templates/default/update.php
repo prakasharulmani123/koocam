@@ -18,7 +18,9 @@ echo "\$this->breadcrumbs=array(
 	'$label'=>array('index'),
 	\$this->title,
 );\n";
+echo "\$this->rightCornerLink = ";
 ?>
+CHtml::link('<i class="fa fa-reply"></i> Back', array('/admin/<?php echo $classLcName; ?>/index'), array("class" => "btn btn-inverse pull-right"));
 ?>
 
 <div class="container-fluid">

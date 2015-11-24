@@ -209,7 +209,7 @@ $themeUrl = $this->themeUrl;
 
 <?php
 $cs = Yii::app()->getClientScript();
-$login = Yii::app()->createAbsoluteUrl('/site/default/signupsocial');
+
 $js = <<< EOD
     jQuery(document).ready(function ($) {
         $('.counter').counterUp({
@@ -222,12 +222,6 @@ $js = <<< EOD
             interval: 5000,
         });
 
-        $('.oAuthLogin').click(function(e) {
-            var _frameUrl = "$login?provider=" + $(this).data('provider');
-            window.open(_frameUrl, "SignIn", "width=580,height=410,toolbar=0,scrollbars=0,status=0,resizable=0,location=0,menuBar=0,left=400,top=150");
-            e.preventDefault();
-            return false;
-        });
     });
                 
 EOD;

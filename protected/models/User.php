@@ -16,6 +16,7 @@
  * @property string $live_status
  * @property string $created_at
  * @property string $modified_at
+ * @property string $slug
  * 
  * The followings are the available model relations:
  * @property UserProfile $userProf
@@ -33,6 +34,17 @@ class User extends RActiveRecord {
      */
     public function tableName() {
         return '{{user}}';
+    }
+
+    public function behaviors() {
+        return array(
+            'SlugBehavior' => array(
+                'class' => 'application.models.behaviors.SlugBehavior',
+                'slug_col' => 'slug',
+                'title_col' => 'username',
+                'overwrite' => true
+            )
+        );
     }
 
     public function scopes() {
@@ -115,15 +127,15 @@ class User extends RActiveRecord {
         $criteria = new CDbCriteria;
         $alias = $this->getTableAlias(false, false);
 
-        $criteria->compare($alias.'.user_id', $this->user_id);
-        $criteria->compare($alias.'.username', $this->username, true);
-        $criteria->compare($alias.'.password_hash', $this->password_hash, true);
-        $criteria->compare($alias.'.password_reset_token', $this->password_reset_token, true);
-        $criteria->compare($alias.'.email', $this->email, true);
-        $criteria->compare($alias.'.status', $this->status, true);
-        $criteria->compare($alias.'.live_status', $this->live_status, true);
-        $criteria->compare($alias.'.created_at', $this->created_at, true);
-        $criteria->compare($alias.'.modified_at', $this->modified_at, true);
+        $criteria->compare($alias . '.user_id', $this->user_id);
+        $criteria->compare($alias . '.username', $this->username, true);
+        $criteria->compare($alias . '.password_hash', $this->password_hash, true);
+        $criteria->compare($alias . '.password_reset_token', $this->password_reset_token, true);
+        $criteria->compare($alias . '.email', $this->email, true);
+        $criteria->compare($alias . '.status', $this->status, true);
+        $criteria->compare($alias . '.live_status', $this->live_status, true);
+        $criteria->compare($alias . '.created_at', $this->created_at, true);
+        $criteria->compare($alias . '.modified_at', $this->modified_at, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -186,7 +198,7 @@ class User extends RActiveRecord {
         ///////////////////
         return;
     }
-    
+
     public static function getUsersList($status = 'all') {
         return CHtml::listData(self::model()->$status()->findAll(), 'user_id', 'username');
     }
@@ -196,8 +208,9 @@ class User extends RActiveRecord {
         $langArr = CJSON::decode($this->userProf->prof_languages);
         $languages = Language::model()->findAllByAttributes(array('lang_Id' => $langArr));
         foreach ($languages as $key => $language) {
-            $lang .= $language->lang_name.', ';
+            $lang .= $language->lang_name . ', ';
         }
-        return rtrim($lang,', ');
+        return rtrim($lang, ', ');
     }
+
 }

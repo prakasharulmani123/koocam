@@ -53,6 +53,12 @@
                     e.preventDefault();
                     return false;
                 });
+                $('#login-button').on('click', function(){
+                    $('.bs-example-modal-sm').modal('toggle');
+                });
+                $('#signup-button').on('click', function(){
+                    $('.bs-example-modal-sm1').modal('toggle');
+                });
             });
 
 EOD;

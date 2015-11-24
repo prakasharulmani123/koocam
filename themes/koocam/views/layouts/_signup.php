@@ -43,7 +43,7 @@
                 <div class="form-group"> <button data-provider="facebook" class="btn btn-default  btn-lg explorebtn form-btn fb-btn oAuthLogin"> <i class="fa fa-facebook"></i> Facebook</button> </div>
                 <div class="form-group"> <button data-provider="google" class="btn btn-default  btn-lg explorebtn form-btn gplus-btn oAuthLogin"> <i class="fa fa-google-plus"></i> Google +</button> </div>
 
-                <div class="form-group already-member"> Already have an account? <a href="#"> <b> Login </b> </a> </div>
+                <div class="form-group already-member"> Already have an account ? &nbsp;<a href="#" data-toggle="modal" data-target=".bs-example-modal-sm1" data-dismiss=".bs-example-modal-sm" id="login-button"> <b> Login </b></a> </div>
 
                 <?php $this->endWidget(); ?>
 

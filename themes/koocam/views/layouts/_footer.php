@@ -1,3 +1,6 @@
+<?php
+/* @var $this Controller */
+?>
 <div class="clearfix"></div>
 <div class="footer-cont">
     <div class="container">
@@ -5,11 +8,13 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <ul>
-                        <li><a href="#"> Home </a></li>
-                        <li><a href="#">Sell your time </a></li>
-                        <li><a href="#"> How its works </a></li>
-                        <li><a href="#"> Login </a></li>
-                        <li><a href="#"> Signup </a></li>
+                        <li><?php echo CHtml::link(' Home ', $this->homeUrl, array()); ?></li>
+                        <li><?php echo CHtml::link(' Sell your time ', array('/site/gig/create'), array()); ?></li>
+                        <li><?php echo CHtml::link(' How its works ', array('/site/cms/view', 'slug' => 'how-it-works'), array()); ?></li>
+                        <?php if(Yii::app()->user->isGuest){ ?>
+                        <li><?php echo CHtml::link(' Login ', '#', array('data-toggle' => "modal", 'data-target' => ".bs-example-modal-sm1")); ?></li>
+                        <li><?php echo CHtml::link(' Signup ', '#', array('data-toggle' => "modal", 'data-target' => ".bs-example-modal-sm")); ?></li>
+                        <?php } ?>
                     </ul>
                     <p> Copyrights © 2015. Koocam.com. Allrights reserved </p>
                 </div>

@@ -16,14 +16,14 @@
         'items' => array(
             array('label' => '<i class="fa fa-dashboard"></i> <span>Dashboard</span>', 'url' => array('/admin/default/index'), 'visible' => '1'),
             array('label' => '<i class="fa fa-users"></i> <span>Users Management</span>', 'url' => array('/admin/user/index'), 'visible' => '1'),
-            array('label' => '<i class="fa fa-users"></i> <span>CMS Management</span>', 'url' => array('/admin/cms/index'), 'visible' => '1'),
+            array('label' => '<i class="fa fa-file-text"></i> <span>CMS Management</span>', 'url' => array('/admin/cms/index'), 'visible' => '1'),
             array('label' => '<i class="fa fa-th-list"></i> <span>Gig Management</span>', 'url' => '#gig-menu',
                 'itemOptions' => array('class' => 'hasSubmenu'),
                 'submenuOptions' => array('id' => 'gig-menu'),
                 'visible' => '1',
                 'items' => array(
-                    array('label' => '<i class="fa fa-th-list"></i> <span>Gig Category</span>', 'url' => array('/admin/gigcategory/index'), 'visible' => '1'),
-                    array('label' => '<i class="fa fa-th-list"></i> <span>Gig</span>', 'url' => array('/admin/gig/index'), 'visible' => '1'),
+                    array('label' => '<i class="fa fa-cubes"></i> <span>Gig Category</span>', 'url' => array('/admin/gigcategory/index'), 'visible' => '1'),
+                    array('label' => '<i class="fa fa-wechat"></i> <span>Gig</span>', 'url' => array('/admin/gig/index'), 'visible' => '1'),
                 ),
             ),
         ),

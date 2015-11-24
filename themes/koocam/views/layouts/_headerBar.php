@@ -1,4 +1,8 @@
-<?php $themeUrl = $this->themeUrl; ?>
+<?php
+/* @var $this Controller */
+
+$themeUrl = $this->themeUrl; 
+?>
 <div class="header-cont">
     <div class="container homepage-txt">
         <div class="row">
@@ -32,7 +36,7 @@
                                     'activateItems' => true,
                                     'items' => array(
                                         array('label' => 'SELL YOUR TIME', 'url' => array('/site/gig/create')),
-                                        array('label' => 'HOW IT WORKS', 'url' => '#'),
+                                        array('label' => 'HOW IT WORKS', 'url' => array('/site/cms/view', 'slug' => 'how-it-works')),
                                         array('label' => 'LOG OUT', 'url' => array('/site/default/logout'), 'visible' => !Yii::app()->user->isGuest),
                                         array('label' => 'LOGIN', 'url' => '#', 'linkOptions' => array('data-toggle' => "modal", 'data-target' => ".bs-example-modal-sm1"), 'visible' => Yii::app()->user->isGuest),
                                         array('label' => 'SIGN UP', 'url' => '#', 'linkOptions' => array('data-toggle' => "modal", 'data-target' => ".bs-example-modal-sm"), 'visible' => Yii::app()->user->isGuest),

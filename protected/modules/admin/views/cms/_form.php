@@ -23,6 +23,11 @@
                 <?php echo $form->labelEx($model, 'cms_title'); ?>
                 <?php echo $form->error($model, 'cms_title'); ?>
             </div>
+            <div class = "form-group form-control-material static">
+                <?php echo $form->textField($model, 'cms_tag', array('class' => 'form-control', 'size' => 60, 'maxlength' => 255)); ?>
+                <?php echo $form->labelEx($model, 'cms_tag'); ?>
+                <?php echo $form->error($model, 'cms_tag'); ?>
+            </div>
             <div class = "form-group form-control-material static" style="height: 350px">
                 <?php echo $form->labelEx($model, 'cms_description'); ?><br />
                 <?php // echo $form->textArea($model, 'cms_description', array('class' => 'form-control', 'rows' => 6, 'cols' => 50)); ?>

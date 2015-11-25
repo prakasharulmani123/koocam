@@ -22,17 +22,14 @@ $this->breadcrumbs = array(
 //                    'cms_id',
 //                    'slug',
                     'cms_title',
-                    array(
-                        'name' => 'cms_description',
-                        'type' => 'raw',
-                        'htmlOptions' => array('style' => 'width: 600px;'),
-                        'value' => function($data) {
-                    echo $data->cms_description;
-                },
-                    ),
+//                    array(
+//                        'name' => 'cms_description',
+//                        'type'=>array('type'=>'shortText','length' => 250),
+//                        'htmlOptions' => array('style' => 'width: 600px;'),
+//                    ),
 //                    'cms_description',
-//                    'cms_meta_keywords',
-//                    'cms_meta_description',
+                    'cms_meta_keywords',
+                    'cms_meta_description',
                     array(
                         'header' => 'Status',
                         'name' => 'status',

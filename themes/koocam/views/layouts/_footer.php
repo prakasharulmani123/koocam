@@ -8,12 +8,15 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <ul>
-                        <li><?php echo CHtml::link(' Home ', $this->homeUrl, array()); ?></li>
-                        <li><?php echo CHtml::link(' Sell your time ', array('/site/gig/create'), array()); ?></li>
-                        <li><?php echo CHtml::link(' How its works ', array('/site/cms/view', 'slug' => 'how-it-works'), array()); ?></li>
+                        <!--<li><?php echo CHtml::link(' Home ', $this->homeUrl, array()); ?></li>-->
+                        <!--<li><?php echo CHtml::link(' How its works ', array('/site/cms/view', 'slug' => 'how-it-works'), array()); ?></li>-->
+                        <li><?php echo CHtml::link(' About Us ', array('/site/cms/view', 'slug' => 'about-us'), array()); ?></li>
+                        <li><?php echo CHtml::link(' Contact Us ', '#', array()); ?></li>
+                        <li><?php echo CHtml::link(' Privacy Policy ', array('/site/cms/view', 'slug' => 'privacy-policy'), array()); ?></li>
+                        <li><?php echo CHtml::link(' Terms and Conditions ', array('/site/cms/view', 'slug' => 'terms-and-conditions'), array()); ?></li>
                         <?php if(Yii::app()->user->isGuest){ ?>
-                        <li><?php echo CHtml::link(' Login ', '#', array('data-toggle' => "modal", 'data-target' => ".bs-example-modal-sm1")); ?></li>
-                        <li><?php echo CHtml::link(' Signup ', '#', array('data-toggle' => "modal", 'data-target' => ".bs-example-modal-sm")); ?></li>
+<!--                        <li><?php echo CHtml::link(' Login ', '#', array('data-toggle' => "modal", 'data-target' => ".bs-example-modal-sm1")); ?></li>
+                        <li><?php echo CHtml::link(' Signup ', '#', array('data-toggle' => "modal", 'data-target' => ".bs-example-modal-sm")); ?></li>-->
                         <?php } ?>
                     </ul>
                     <p> Copyrights © 2015. Koocam.com. Allrights reserved </p>

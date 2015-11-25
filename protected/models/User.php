@@ -23,6 +23,8 @@
  */
 class User extends RActiveRecord {
 
+    const GIG_PER_USER = 20;
+
     public function getFullname() {
         return $this->userProf->prof_firstname . ' ' . $this->userProf->prof_lastname;
     }

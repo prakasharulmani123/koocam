@@ -3,9 +3,6 @@
 /* @var $model Gig */
 /* @var $form CActiveForm */
 
-?>
-
-<?php
 $form = $this->beginWidget('CActiveForm', array(
     'id' => 'gig-create-form',
     'htmlOptions' => array('role' => 'form', 'class' => '', 'enctype' => "multipart/form-data"),
@@ -23,11 +20,11 @@ $categories = GigCategory::getCategoryList();
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-heading"> gig information </div>
             <div class="form-group">
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
-                    <?php echo $form->textField($model, 'gig_title', array('class' => 'form-control', 'placeholder' => $model->getAttributeLabel('gig_title'))); ?> 
+                    <?php echo $form->textField($model, 'gig_title', array('class' => 'form-control', 'placeholder' => 'Gig Title', 'data-trigger' => "hover", 'data-container' => "body", 'data-toggle' => "popover", 'data-placement' => "right", 'data-content' => "Gig Title")); ?> 
                     <?php echo $form->error($model, 'gig_title'); ?> 
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
-                    <?php echo $form->dropDownList($model, 'cat_id', $categories, array('class' => 'selectpicker', 'prompt' => '')); ?> 
+                    <?php echo $form->dropDownList($model, 'cat_id', $categories, array('class' => 'selectpicker', 'prompt' => '', 'data-container' => "body", 'data-trigger' => "hover", 'data-title' => "Choose Category", 'data-toggle' => "popover", 'data-placement' => "right", 'data-content' => "Vivamus sagittis lacus vel augue laoreet rutrum faucibus.")); ?> 
                     <?php echo $form->error($model, 'cat_id'); ?> 
                 </div>
             </div>
@@ -40,27 +37,45 @@ $categories = GigCategory::getCategoryList();
                     <?php echo $form->error($model, 'gig_media'); ?> 
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
-                    <?php echo $form->textField($model, 'gig_tag', array('class' => 'form-control', 'placeholder' => $model->getAttributeLabel('gig_tag'))); ?> 
+                    <?php echo $form->textField($model, 'gig_tag', array('class' => 'form-control', 'placeholder' => $model->getAttributeLabel('gig_tag'), 'data-trigger' => "hover", 'data-container' => "body", 'data-toggle' => "popover", 'data-placement' => "right", 'data-content' => "Tags")); ?> 
                     <?php echo $form->error($model, 'gig_tag'); ?> 
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">  
-                    <?php echo $form->textArea($model, 'gig_description', array('class' => 'form-control', 'placeholder' => $model->getAttributeLabel('gig_description'))); ?> 
+                    <?php echo $form->textArea($model, 'gig_description', array('class' => 'form-control', 'placeholder' => 'Describe your Gig', 'data-trigger' => "hover", 'data-container' => "body", 'data-toggle' => "popover", 'data-placement' => "right", 'data-content' => "About your Gig")); ?> 
                     <?php echo $form->error($model, 'gig_description'); ?> 
-                </div></div>
+                </div>
+            </div>
 
             <div class="form-group"> 
-                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 ">
-                    <?php echo $form->textField($model, 'gig_duration', array('class' => 'form-control time', 'placeholder' => $model->getAttributeLabel('gig_duration'))); ?> 
-                    <?php echo $form->error($model, 'gig_duration'); ?> 
-                </div>
-                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 ">
-                    <?php echo $form->textField($model, 'gig_price', array('class' => 'form-control', 'placeholder' => $model->getAttributeLabel('gig_price'))); ?> 
-                    <?php echo $form->error($model, 'gig_price'); ?> 
+
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
+                    <?php echo $form->label($model, 'gig_important'); ?>
+                    <?php echo $form->textField($model, 'gig_important', array('class' => 'form-control', 'placeholder' => $model->getAttributeLabel('gig_important'), 'data-trigger' => "hover", 'data-container' => "body", 'data-toggle' => "popover", 'data-placement' => "right", 'data-content' => "Important")); ?> 
+                    <?php echo $form->error($model, 'gig_important'); ?> 
                 </div>
 
+                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 ">
+                    <?php echo $form->label($model, 'gig_duration'); ?>
+                    <div class="input-group" data-max="<?php echo Gig::GIG_MAX_DURATION?>" data-min="<?php echo Gig::GIG_MIN_DURATION?>" data-start-incr="0">
+                        <span class="input-group-addon" data-incr="5">+</span>
+                        <?php echo $form->textField($model, 'gig_duration', array('class' => 'form-control numberonly', 'placeholder' => 'Minutes', 'maxlength' => 2)); ?> 
+                        <span class="input-group-addon" data-incr="5">-</span>
+                    </div>
+                    <?php echo $form->error($model, 'gig_duration'); ?> 
+                </div>
+
+                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 ">
+                    <?php echo $form->label($model, 'gig_price'); ?>
+                    <div class="input-group" data-max="<?php echo Gig::GIG_MAX_AMT?>" data-min="<?php echo Gig::GIG_MIN_AMT?>" data-start-incr="4">
+                        <span class="input-group-addon" data-incr="1">+</span>
+                        <?php echo $form->textField($model, 'gig_price', array('class' => 'form-control numberonly', 'placeholder' => 'Price')); ?> 
+                        <span class="input-group-addon" data-incr="1">-</span>
+                    </div>
+                    <?php echo $form->error($model, 'gig_price'); ?> 
+                </div>
             </div>
 
             <div class="form-group">
@@ -73,16 +88,19 @@ $categories = GigCategory::getCategoryList();
             ?>
             <div class="form-group <?php echo $hide; ?>" id="extras_div">
                 <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 ">
-                    <?php echo $form->textField($model, 'extra_price', array('class' => 'form-control', 'placeholder' => $model->getAttributeLabel('extra_price'))); ?> 
+                    <?php echo $form->label($model, 'extra_price'); ?>
+                    <?php echo $form->textField($model, 'extra_price', array('class' => 'form-control numberonly', 'placeholder' => $model->getAttributeLabel('extra_price'), 'data-trigger' => "hover", 'data-container' => "body", 'data-toggle' => "popover", 'data-placement' => "right", 'data-content' => " Extra Price")); ?> 
                     <?php echo $form->error($model, 'extra_price'); ?> 
                 </div>
                 <div class="col-xs-12 col-sm-3 col-md-3 col-lg-6 ">
-                    <?php echo $form->textField($model, 'extra_description', array('class' => 'form-control', 'placeholder' => $model->getAttributeLabel('extra_description'))); ?> 
+                    <?php echo $form->label($model, 'extra_description'); ?>
+                    <?php echo $form->textField($model, 'extra_description', array('class' => 'form-control', 'placeholder' => 'Extra File Details', 'data-trigger' => "hover", 'data-container' => "body", 'data-toggle' => "popover", 'data-placement' => "right", 'data-content' => " About Extra File")); ?> 
                     <?php echo $form->error($model, 'extra_description'); ?> 
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 ">
+                  <label>&nbsp;   </label>
                     <span class="btn btn-default btn-file">
-                        <i class="fa fa-upload"></i>  Upload File 
+                        <i class="fa fa-upload"></i>  Extra File 
                         <?php echo $form->fileField($model, 'extra_file'); ?>
                     </span>
                     <?php echo $form->error($model, 'extra_file'); ?> 
@@ -92,16 +110,16 @@ $categories = GigCategory::getCategoryList();
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 ">
                     <?php echo $form->checkBox($model, 'gig_avail_visual', array('value' => 'Y', 'uncheckValue' => 'N')); ?>&nbsp;&nbsp; <?php echo $form->labelEx($model, 'gig_avail_visual'); ?>
                 </div>
-                <?php if($model->isNewRecord){ ?>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 ">
-                    <?php echo $form->checkBox($model, 'is_age', array('value' => 'Y', 'uncheckValue' => '')); ?>&nbsp;&nbsp; <?php echo $form->labelEx($model, 'is_age'); ?>
-                    <?php echo $form->error($model, 'is_age'); ?> 
-                </div>
+                <?php if ($model->isNewRecord) { ?>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 ">
+                        <?php echo $form->checkBox($model, 'is_age', array('value' => 'Y', 'uncheckValue' => '')); ?>&nbsp;&nbsp; <?php echo $form->labelEx($model, 'is_age'); ?>
+                        <?php echo $form->error($model, 'is_age'); ?> 
+                    </div>
                 <?php } ?>
             </div>
             <div class="form-group">
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
-                    <?php echo CHtml::submitButton(' Create Your Gig', array('class' => 'btn btn-default  btn-lg explorebtn form-btn')) ?>
+                    <?php echo CHtml::submitButton($model->isNewRecord ? ' Create Your Gig' : ' Update Your Gig', array('class' => 'btn btn-default  btn-lg explorebtn form-btn')) ?>
                 </div>
             </div>
 
@@ -113,18 +131,69 @@ $categories = GigCategory::getCategoryList();
 <?php
 $cs = Yii::app()->getClientScript();
 $cs_pos_end = CClientScript::POS_END;
-$cs->registerScriptFile($themeUrl . '/js/mask.min.js', $cs_pos_end);
+//$cs->registerScriptFile($themeUrl . '/js/mask.min.js', $cs_pos_end);
+
+$price_limit_url = Yii::app()->createAbsoluteUrl('/site/gig/changepricepertime');
 
 $js = <<< EOD
     jQuery(document).ready(function ($) {
-        $('#Gig_is_extra').on('click', function(){
-            if($(this).is(':checked')){
-                $('#extras_div').removeClass('hide');
-            }else{
-                $('#extras_div').addClass('hide');
-            }
+        $('#Gig_is_extra').on('ifChecked', function(event){
+            $('#extras_div').removeClass('hide');
         });
-        $(".time").mask("99:99");
+        $('#Gig_is_extra').on('ifUnchecked', function(event){
+            $('#extras_div').addClass('hide');
+        });
+//        $(".time").mask("99:99");
+        
+        $(".numberonly").keypress(function (e) {
+             if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57))
+               return false;
+        });
+        
+        $(".input-group-addon").on("click", function () {
+            var button = $(this);
+            var input_group = button.closest('.input-group');
+            var oldValue = input_group.find("input").val();
+        
+            if(oldValue == '')
+                oldValue = input_group.data('start-incr');
+        
+            incr = parseFloat(button.data('incr'));
+            if (button.text() == "+") {
+                var newVal = parseFloat(oldValue) + incr;
+        
+                var max = input_group.data('max');
+                if(newVal > max)
+                    newVal = oldValue;
+            } else {
+                // Don't allow decrementing below zero
+                if (oldValue > 0) {
+                    var newVal = parseFloat(oldValue) - incr;
+                } else {
+                    newVal = 0;
+                }
+        
+                var min = input_group.data('min');
+                if(newVal < min)
+                    newVal = min;
+            }
+            input_group.find("input").val(newVal).trigger('change');
+        });
+
+        $('#Gig_gig_duration').on('change', function(){
+            var data=$("#gig-create-form").serialize();
+            $.ajax({
+                type: 'POST',
+                url: '$price_limit_url',
+                data:data,
+                success:function(data){
+                    $('#Gig_gig_price').val(data);
+                },
+                error: function(data) {
+                    alert("Something went wrong. Try again");
+                },
+            });
+        });
     });
 
 EOD;

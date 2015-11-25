@@ -67,9 +67,12 @@ return array(
             'enableCsrfValidation' => false,
         ),
         'tok' => array(
-            'class' => 'ext.yii-opentok.EOpenTok',
-            'key' => '45398152', //provided by your opentok account
+            'class'  => 'ext.yii-opentok.EOpenTok',
+            'key'    => '45398152', //provided by your opentok account
             'secret' => '6e1608f14363fee4e31e5dcb9dc08bd5c77700b3', //provided by your opentok account
+        ),
+        'format'=>array(
+            'class'=>'YFormatter',
         ),
         'image' => array(
             'class' => 'application.extensions.image.CImageComponent',

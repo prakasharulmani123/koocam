@@ -36,10 +36,10 @@ class Gig extends RActiveRecord {
     public $tutorUserName;
     public $gigCategory;
 
-    const MIN_DURATION = '00:05';
-    const MAX_DURATION = '01:00';
+    const GIG_MIN_DURATION = 5;
+    const GIG_MAX_DURATION = 60;
     const GIG_ALLOW_FILE_TYPES = 'jpg, gif, png';
-    const GIG_ALLOW_FILE_SIZE = 5; //In MB
+    const GIG_ALLOW_FILE_SIZE = 1; //In MB
     const EXTRA_ALLOW_FILE_TYPES = 'jpg, gif, png, pdf, doc';
     const EXTRA_ALLOW_FILE_SIZE = 5; //In MB
     const GIG_MIN_AMT = 5;
@@ -54,6 +54,13 @@ class Gig extends RActiveRecord {
         return '{{gig}}';
     }
 
+    public function init() {
+        if($this->isNewRecord){
+            $this->gig_duration = Gig::GIG_MIN_DURATION;
+            $this->gig_price = Gig::GIG_MIN_AMT;
+        }
+        parent::init();
+    }
     /**
      * 
      * @return type
@@ -103,21 +110,22 @@ class Gig extends RActiveRecord {
             array('gig_media', 'length', 'max' => 500),
             array('gig_tag', 'length', 'max' => 255),
             array('gig_price, extra_price', 'length', 'max' => 10),
+            array('gig_duration', 'numerical', 'integerOnly' => true, 'min' => self::GIG_MIN_DURATION, 'max' => self::GIG_MAX_DURATION),
             array('gig_price', 'numerical', 'integerOnly' => false, 'min' => self::GIG_MIN_AMT, 'max' => self::GIG_MAX_AMT),
             array('extra_price', 'numerical', 'integerOnly' => false, 'min' => self::EXTRA_MIN_AMT, 'max' => self::EXTRA_MAX_AMT),
             array('gig_avail_visual, status', 'length', 'max' => 1),
             array('gig_title', 'unique'),
-            array('gig_media', 'file', 'types' => self::GIG_ALLOW_FILE_TYPES, 'maxSize' => 1024 * 1024 * self::GIG_ALLOW_FILE_SIZE, 'tooLarge' => 'File has to be smaller than ' . self::GIG_ALLOW_FILE_SIZE . 'MB', 'allowEmpty' => true, 'on' => 'create'),
-            array('extra_file', 'file', 'types' => self::EXTRA_ALLOW_FILE_TYPES, 'maxSize' => 1024 * 1024 * self::EXTRA_ALLOW_FILE_SIZE, 'tooLarge' => 'File has to be smaller than ' . self::GIG_ALLOW_FILE_SIZE . 'MB', 'allowEmpty' => true, 'on' => 'create'),
+            array('gig_media', 'file', 'types' => self::GIG_ALLOW_FILE_TYPES, 'maxSize' => 1024 * 1024 * self::GIG_ALLOW_FILE_SIZE, 'tooLarge' => 'File has to be smaller than ' . self::GIG_ALLOW_FILE_SIZE . 'MB', 'allowEmpty' => true),
+            array('extra_file', 'file', 'types' => self::EXTRA_ALLOW_FILE_TYPES, 'maxSize' => 1024 * 1024 * self::EXTRA_ALLOW_FILE_SIZE, 'tooLarge' => 'File has to be smaller than ' . self::GIG_ALLOW_FILE_SIZE . 'MB', 'allowEmpty' => true),
             array('gig_media', 'mediaValidate'),
-            array('gig_duration', 'durationValidate'),
+//            array('gig_duration', 'durationValidate'),
             array('gig_price', 'priceValidate'),
             array('extra_price, extra_description', 'extraValidate'),
-            array(
-                'gig_duration',
-                'match', 'pattern' => '/(2[0-3]|[01][0-9]):([0-5][0-9])/',
-                'message' => 'Invalid Format ',
-            ),
+//            array(
+//                'gig_duration',
+//                'match', 'pattern' => '/(2[0-3]|[01][0-9]):([0-5][0-9])/',
+//                'message' => 'Invalid Format ',
+//            ),
             array('gig_description, gig_duration, created_at, modified_at, is_extra, extra_price, extra_description, tutorUserName, gigCategory, extra_file', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
@@ -131,10 +139,10 @@ class Gig extends RActiveRecord {
      * @param type $params
      */
     public function durationValidate($attribute, $params) {
-        if (strtotime($this->gig_duration) < strtotime(self::MIN_DURATION)) {
-            $this->addError($attribute, "Duration should be minimum " . self::MIN_DURATION);
-        } else if (strtotime($this->gig_duration) > strtotime(self::MAX_DURATION)) {
-            $this->addError($attribute, "Duration should not exceed " . self::MAX_DURATION);
+        if (strtotime($this->gig_duration) < strtotime(self::GIG_MIN_DURATION)) {
+            $this->addError($attribute, "Duration should be minimum " . self::GIG_MIN_DURATION);
+        } else if (strtotime($this->gig_duration) > strtotime(self::GIG_MAX_DURATION)) {
+            $this->addError($attribute, "Duration should not exceed " . self::GIG_MAX_DURATION);
         }
     }
 
@@ -158,7 +166,9 @@ class Gig extends RActiveRecord {
     public function priceValidate($attribute, $params) {
         $limits = Myclass::priceLimitation();
         $prev_timestamp = key(array(current($limits)));
-        $given_timestamp = strtotime($this->gig_duration);
+        if($this->gig_duration == '')
+            $this->gig_duration = 0;
+        $given_timestamp = strtotime(date('H:i', mktime(0, $this->gig_duration)));
         $given_price = $this->gig_price;
         
         $i = 1;
@@ -217,14 +227,15 @@ class Gig extends RActiveRecord {
             'gig_media' => 'Media',
             'gig_tag' => 'Tag',
             'gig_description' => 'Description',
-            'gig_duration' => 'Time (hh:mm)',
+            'gig_duration' => 'Time (Minutes)',
             'gig_price' => 'Price',
             'gig_avail_visual' => 'Will be available on visual chat',
             'is_extra' => 'Extras',
-            'extra_price' => 'Extra Price',
-            'extra_description' => 'Extra Description',
+            'extra_price' => 'Extra File Price',
+            'extra_description' => 'About Extra File',
             'is_age' => 'I am atleast 16years Old',
             'status' => 'Status',
+            'gig_important' => 'Important',
             'created_at' => 'Created At',
             'modified_at' => 'Modified At',
             'created_by' => 'Created By',
@@ -317,5 +328,9 @@ class Gig extends RActiveRecord {
             $this->extra_file = $this->gigExtras->extra_file;
         }
         return parent::afterFind();
+    }
+    
+    public static function userGigsCount($user_id, $status = 'active') {
+        return Gig::model()->$status()->count();
     }
 }

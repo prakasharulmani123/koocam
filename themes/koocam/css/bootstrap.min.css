@@ -3383,8 +3383,8 @@ border-bottom-left-radius:0
 	background-color:transparent
 }
 .nav .open>a, .nav .open>a:focus, .nav .open>a:hover {
-	background-color:#eee;
-	border-color:#337ab7
+	/*background-color:#ffffff;*/
+	border-color:#337ab7;
 }
 .nav .nav-divider {
 	height:1px;
@@ -3881,8 +3881,7 @@ margin-right:0
 	border-color:#e7e7e7
 }
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
-	color:#555;
-	background-color:#e7e7e7
+
 }
 @media (max-width:767px) {
 .navbar-default .navbar-nav .open .dropdown-menu>li>a {

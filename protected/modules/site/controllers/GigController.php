@@ -32,7 +32,7 @@ class GigController extends Controller {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'upload', 'update'),
+                'actions' => array('create', 'upload', 'update', 'changepricepertime'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -47,6 +47,12 @@ class GigController extends Controller {
      * 
      */
     public function actionCreate() {
+        $totGigs = Gig::userGigsCount(Yii::app()->user->id);
+        if ($totGigs >= User::GIG_PER_USER) {
+            Yii::app()->user->setFlash('danger', "You reached your maximum Gig limit. Maximum Gigs : " . User::GIG_PER_USER);
+            $this->goHome();
+        }
+
         $model = new Gig('create');
         $this->performAjaxValidation($model);
         if (Yii::app()->request->isPostRequest && Yii::app()->request->getPost('Gig')) {
@@ -81,7 +87,7 @@ class GigController extends Controller {
                             $extra_model->save();
                         }
                     }
-                    Yii::app()->user->setFlash('success', "Gig created");
+                    Yii::app()->user->setFlash('success', "Gig created. Sent for Approval.");
                     $this->refresh();
                 }
             }
@@ -91,6 +97,11 @@ class GigController extends Controller {
 
     public function actionUpdate($id) {
         $model = $this->loadModel($id);
+
+        if ($model->tutor_id != Yii::app()->user->id) {
+            Yii::app()->user->setFlash('danger', "Invalid Access !!!");
+            $this->goHome();
+        }
         $this->performAjaxValidation($model);
         if (Yii::app()->request->isPostRequest && Yii::app()->request->getPost('Gig')) {
             $model->attributes = Yii::app()->request->getPost('Gig');
@@ -124,7 +135,7 @@ class GigController extends Controller {
                             $extra_model->save();
                         }
                     }
-                    Yii::app()->user->setFlash('success', "Gig created");
+                    Yii::app()->user->setFlash('success', "Gig updated successfully");
                     $this->refresh();
                 }
             }
@@ -186,6 +197,35 @@ class GigController extends Controller {
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
+    }
+
+    public function actionChangepricepertime() {
+        if (Yii::app()->request->isPostRequest && Yii::app()->request->getPost('Gig')) {
+            $post = Yii::app()->request->getPost('Gig');
+            $limits = Myclass::priceLimitation();
+            $prev_timestamp = key(array(current($limits)));
+            if ($post['gig_duration'] == '')
+                $post['gig_duration'] = 0;
+            $given_timestamp = strtotime(date('H:i', mktime(0, $post['gig_duration'])));
+            $given_price = $err_price = $post['gig_price'];
+
+            $i = 1;
+            $iMax = count($limits);
+
+            foreach ($limits as $calc_timestamp => $calc_price) {
+                if ($given_price < $calc_price) {
+                    if (($given_timestamp > $prev_timestamp && $given_timestamp <= $calc_timestamp)) {
+                        $err_price = $calc_price;
+                    } else if ($given_timestamp > $calc_timestamp && $i == $iMax) {
+                        $err_price = $calc_price;
+                    }
+                }
+                $prev_timestamp = $calc_timestamp;
+                $i++;
+            }
+            echo $err_price;
+        }
+        Yii::app()->end();
     }
 
 }

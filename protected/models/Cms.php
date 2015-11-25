@@ -10,6 +10,7 @@
  * @property string $cms_description
  * @property string $cms_meta_keywords
  * @property string $cms_meta_description
+ * @property string $cms_tag
  * @property string $status
  * @property string $created_at
  * @property string $modified_at
@@ -43,7 +44,7 @@ class Cms extends RActiveRecord {
         return array(
             array('cms_title, cms_description', 'required'),
             array('cms_description', 'compare', 'compareValue' => '<br>', 'operator' => '!=', 'message' => 'Description cannot be blank'),
-            array('slug, cms_title', 'length', 'max' => 255),
+            array('slug, cms_title, cms_tag', 'length', 'max' => 255),
             array('status', 'length', 'max' => 1),
             array('cms_meta_keywords, cms_meta_description, modified_at', 'safe'),
             // The following rule is used by search().
@@ -73,6 +74,7 @@ class Cms extends RActiveRecord {
             'cms_description' => 'Description',
             'cms_meta_keywords' => 'Meta Keywords',
             'cms_meta_description' => 'Meta Description',
+            'cms_tag' => 'Tag',
             'status' => 'Status',
             'created_at' => 'Created At',
             'modified_at' => 'Modified At',

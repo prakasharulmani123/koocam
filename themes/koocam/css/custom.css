@@ -11,3 +11,7 @@ and open the template in the editor.
 label{
     font-weight: 400 !important;
 }
+
+.has-error .bootstrap-select .dropdown-toggle, .error .bootstrap-select .dropdown-toggle{
+    border-color: #e2e0e0 !important;
+}

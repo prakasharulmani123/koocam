@@ -21,7 +21,11 @@ $this->rightCornerLink = CHtml::link('<i class="fa fa-reply"></i> Back', array('
 //        		'cms_id',
 //		'slug',
 		'cms_title',
-		'cms_description',
+                array(
+                    'name' => 'cms_description',
+                    'type' => 'raw',
+                ),
+//		'cms_description',
 		'cms_meta_keywords',
 		'cms_meta_description',
 		array(

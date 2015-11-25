@@ -43,6 +43,7 @@
         $cs->registerScriptFile($themeUrl . '/js/bootstrap-select.js', $cs_pos_end);
         $cs->registerScriptFile($themeUrl . '/js/bootstrap-select.js', $cs_pos_end);
         $cs->registerScriptFile($themeUrl . '/js/notification/smoke.min.js', $cs_pos_end);
+        $cs->registerScriptFile($themeUrl . '/js/icheck.js', $cs_pos_end);
 
         $login = Yii::app()->createAbsoluteUrl('/site/default/signupsocial');
         $js = <<< EOD
@@ -59,6 +60,15 @@
                 $('#signup-button').on('click', function(){
                     $('.bs-example-modal-sm1').modal('toggle');
                 });
+                
+                $('input:checkbox:not(.simple),input:radio').iCheck({
+                    checkboxClass: 'icheckbox_flat-blue',
+                    radioClass: 'iradio_flat-blue'
+                });
+            });
+                
+            $(window).load(function(){
+                $('[data-toggle="popover"]').popover();
             });
 
 EOD;

@@ -28,11 +28,11 @@ class UserController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('profile', 'update'),
+                'actions' => array('profile'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'upload', 'profileupdate'),
+                'actions' => array('profileupdate'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -67,11 +67,14 @@ class UserController extends Controller {
             if ($user_profile->validate()) {
                 $user_profile->setUploadDirectory(UPLOAD_DIR . '/users/' . Yii::app()->user->id);
                 $user_profile->uploadFile();
+
                 if ($user_profile->save()) {
                     Yii::app()->user->setFlash('success', "Profile updated successfully!!!");
                     $this->redirect(array('/site/user/profile', 'slug' => $model->slug));
                 }
             }
+        } else {
+            $this->redirect(array('/site/user/profile', 'slug' => $model->slug));
         }
     }
 

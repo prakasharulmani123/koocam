@@ -14,7 +14,7 @@ return array(
     'import' => array(
         'application.models.*',
         'application.components.*',
-        'ext.editable.*',
+        'application.helpers.*',
     ),
     'modules' => array(
         'admin',
@@ -67,9 +67,16 @@ return array(
             'enableCsrfValidation' => false,
         ),
         'tok' => array(
-            'class'  => 'ext.yii-opentok.EOpenTok',
-            'key'    => '45398152', //provided by your opentok account
+            'class' => 'ext.yii-opentok.EOpenTok',
+            'key' => '45398152', //provided by your opentok account
             'secret' => '6e1608f14363fee4e31e5dcb9dc08bd5c77700b3', //provided by your opentok account
+        ),
+        'image' => array(
+            'class' => 'application.extensions.image.CImageComponent',
+            // GD or ImageMagick
+            'driver' => 'GD',
+            // ImageMagick setup path
+            'params' => array('directory' => '/opt/local/bin'),
         ),
     ),
     // application-level parameters that can be accessed

@@ -287,6 +287,7 @@
     constructor: Selectpicker,
 
     init: function () {
+		"use strict";
       var that = this,
           id = this.$element.attr('id');
 
@@ -314,6 +315,37 @@
         });
       }
 
+//data-container="body" data-trigger="hover"  data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+
+var _data_cont = this.$element.attr('data-container');
+if (typeof _data_cont !== 'undefined') {
+        this.$button.attr('data-container', _data_cont);
+      }
+	var _data_trig = this.$element.attr('data-trigger');
+if (typeof _data_trig !== 'undefined') {
+        this.$button.attr('data-trigger', _data_trig);
+      }
+	  
+	  var _data_togg = this.$element.attr('data-toggle');
+if (typeof _data_togg !== 'undefined') {
+        this.$button.attr('data-toggle', _data_togg);
+      }
+	  
+	  var _data_place= this.$element.attr('data-placement');
+if (typeof _data_place !== 'undefined') {
+        this.$button.attr('data-placement', _data_place);
+      }
+
+	  	  var _data_tit= this.$element.attr('data-title');
+if (typeof _data_tit !== 'undefined') {
+        this.$button.attr('data-title', _data_tit);
+      }
+	  	  
+	  	  var _data_cont= this.$element.attr('data-content');
+if (typeof _data_cont !== 'undefined') {
+        this.$button.attr('data-content', _data_cont);
+      }
+	  
       this.checkDisabled();
       this.clickListener();
       if (this.options.liveSearch) this.liveSearchListener();
@@ -588,6 +620,7 @@
           } else {
             subtext = '';
           }
+
           if (typeof $this.attr('title') !== 'undefined') {
             return $this.attr('title');
           } else if ($this.data('content') && that.options.showContent) {

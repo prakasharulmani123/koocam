@@ -47,6 +47,10 @@ class Gig extends RActiveRecord {
     const EXTRA_MIN_AMT = 5;
     const EXTRA_MAX_AMT = 100000;
 
+    const IMG_WIDTH = 750;
+    const IMG_HEIGHT = 528;
+    const THUMB_WIDTH = 500;
+    const THUMB_HEIGHT = 440;
     /**
      * @return string the associated database table name
      */
@@ -228,10 +232,10 @@ class Gig extends RActiveRecord {
             'gig_tag' => 'Tag',
             'gig_description' => 'Description',
             'gig_duration' => 'Time (Minutes)',
-            'gig_price' => 'Price',
+            'gig_price' => 'Price ($)',
             'gig_avail_visual' => 'Will be available on visual chat',
             'is_extra' => 'Extras',
-            'extra_price' => 'Extra File Price',
+            'extra_price' => 'Extra File Price ($)',
             'extra_description' => 'About Extra File',
             'is_age' => 'I am atleast 16years Old',
             'status' => 'Status',
@@ -327,10 +331,45 @@ class Gig extends RActiveRecord {
             $this->extra_description = $this->gigExtras->extra_description;
             $this->extra_file = $this->gigExtras->extra_file;
         }
+        $time = explode(":", $this->gig_duration);
+        $this->gig_duration = intval($time[0])*60 + intval($time[1]);
+        
+        $this->gig_price = $this->gig_price + 0;
+        $this->extra_price = $this->extra_price + 0;
         return parent::afterFind();
     }
     
     public static function userGigsCount($user_id, $status = 'active') {
         return Gig::model()->$status()->count();
+    }
+    
+    protected function afterSave() {
+        if ($this->gig_media) {
+            $gig_path = UPLOAD_DIR . '/users/' . $this->tutor_id;
+            $source = $destination1 = $gig_path . $this->gig_media;
+
+            $width1 = self::IMG_WIDTH;
+            $height1 = self::IMG_HEIGHT;
+
+            $this->setUploadDirectory($gig_path . '/thumb/gig');
+            $destination2 = $gig_path . '/thumb' . $this->gig_media;
+            $width2 = self::THUMB_WIDTH;
+            $height2 = self::THUMB_HEIGHT;
+
+            $image = Yii::app()->image->load($source);
+
+            $image->resize($width1, $height1, Image::NONE);
+            $image->save($destination1);
+
+            $image->resize($width2, $height2, Image::NONE);
+            $image->save($destination2);
+        }
+
+        return parent::afterSave();
+    }
+    
+    protected function beforeSave() {
+        $this->gig_duration = date('H:i:s', mktime(0, $this->gig_duration));
+        return parent::beforeSave();
     }
 }

@@ -20,11 +20,11 @@ $categories = GigCategory::getCategoryList();
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-heading"> gig information </div>
             <div class="form-group">
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
-                    <?php echo $form->textField($model, 'gig_title', array('class' => 'form-control', 'placeholder' => 'Gig Title', 'data-trigger' => "hover", 'data-container' => "body", 'data-toggle' => "popover", 'data-placement' => "right", 'data-content' => "Gig Title")); ?> 
+                    <?php echo $form->textField($model, 'gig_title', array('class' => 'form-control', 'placeholder' => 'Gig Title', 'data-trigger' => "hover", 'data-container' => "body", 'data-toggle' => "popover", 'data-placement' => "bottom", 'data-content' => "Gig Title")); ?> 
                     <?php echo $form->error($model, 'gig_title'); ?> 
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
-                    <?php echo $form->dropDownList($model, 'cat_id', $categories, array('class' => 'selectpicker', 'prompt' => '', 'data-container' => "body", 'data-trigger' => "hover", 'data-title' => "Choose Category", 'data-toggle' => "popover", 'data-placement' => "right", 'data-content' => "Vivamus sagittis lacus vel augue laoreet rutrum faucibus.")); ?> 
+                    <?php echo $form->dropDownList($model, 'cat_id', $categories, array('class' => 'selectpicker', 'prompt' => '', 'data-container' => "body", 'data-trigger' => "hover", 'data-title' => "Choose Category", 'data-toggle' => "popover", 'data-placement' => "bottom", 'data-content' => "Vivamus sagittis lacus vel augue laoreet rutrum faucibus.")); ?> 
                     <?php echo $form->error($model, 'cat_id'); ?> 
                 </div>
             </div>
@@ -37,14 +37,14 @@ $categories = GigCategory::getCategoryList();
                     <?php echo $form->error($model, 'gig_media'); ?> 
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
-                    <?php echo $form->textField($model, 'gig_tag', array('class' => 'form-control', 'placeholder' => $model->getAttributeLabel('gig_tag'), 'data-trigger' => "hover", 'data-container' => "body", 'data-toggle' => "popover", 'data-placement' => "right", 'data-content' => "Tags")); ?> 
+                    <?php echo $form->textField($model, 'gig_tag', array('class' => 'form-control', 'placeholder' => $model->getAttributeLabel('gig_tag'), 'data-trigger' => "hover", 'data-container' => "body", 'data-toggle' => "popover", 'data-placement' => "bottom", 'data-content' => "Tags")); ?> 
                     <?php echo $form->error($model, 'gig_tag'); ?> 
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">  
-                    <?php echo $form->textArea($model, 'gig_description', array('class' => 'form-control', 'placeholder' => 'Describe your Gig', 'data-trigger' => "hover", 'data-container' => "body", 'data-toggle' => "popover", 'data-placement' => "right", 'data-content' => "About your Gig")); ?> 
+                    <?php echo $form->textArea($model, 'gig_description', array('class' => 'form-control', 'placeholder' => 'Describe your Gig', 'data-trigger' => "hover", 'data-container' => "body", 'data-toggle' => "popover", 'data-placement' => "bottom", 'data-content' => "About your Gig")); ?> 
                     <?php echo $form->error($model, 'gig_description'); ?> 
                 </div>
             </div>
@@ -53,7 +53,7 @@ $categories = GigCategory::getCategoryList();
 
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
                     <?php echo $form->label($model, 'gig_important'); ?>
-                    <?php echo $form->textField($model, 'gig_important', array('class' => 'form-control', 'placeholder' => $model->getAttributeLabel('gig_important'), 'data-trigger' => "hover", 'data-container' => "body", 'data-toggle' => "popover", 'data-placement' => "right", 'data-content' => "Important")); ?> 
+                    <?php echo $form->textField($model, 'gig_important', array('class' => 'form-control', 'placeholder' => $model->getAttributeLabel('gig_important'), 'data-trigger' => "hover", 'data-container' => "body", 'data-toggle' => "popover", 'data-placement' => "bottom", 'data-content' => "Important")); ?> 
                     <?php echo $form->error($model, 'gig_important'); ?> 
                 </div>
 
@@ -89,12 +89,12 @@ $categories = GigCategory::getCategoryList();
             <div class="form-group <?php echo $hide; ?>" id="extras_div">
                 <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 ">
                     <?php echo $form->label($model, 'extra_price'); ?>
-                    <?php echo $form->textField($model, 'extra_price', array('class' => 'form-control numberonly', 'placeholder' => $model->getAttributeLabel('extra_price'), 'data-trigger' => "hover", 'data-container' => "body", 'data-toggle' => "popover", 'data-placement' => "right", 'data-content' => " Extra Price")); ?> 
+                    <?php echo $form->textField($model, 'extra_price', array('class' => 'form-control numberonly', 'placeholder' => $model->getAttributeLabel('extra_price'), 'data-trigger' => "hover", 'data-container' => "body", 'data-toggle' => "popover", 'data-placement' => "bottom", 'data-content' => " Extra Price")); ?> 
                     <?php echo $form->error($model, 'extra_price'); ?> 
                 </div>
                 <div class="col-xs-12 col-sm-3 col-md-3 col-lg-6 ">
                     <?php echo $form->label($model, 'extra_description'); ?>
-                    <?php echo $form->textField($model, 'extra_description', array('class' => 'form-control', 'placeholder' => 'Extra File Details', 'data-trigger' => "hover", 'data-container' => "body", 'data-toggle' => "popover", 'data-placement' => "right", 'data-content' => " About Extra File")); ?> 
+                    <?php echo $form->textField($model, 'extra_description', array('class' => 'form-control', 'placeholder' => 'Extra File Details', 'data-trigger' => "hover", 'data-container' => "body", 'data-toggle' => "popover", 'data-placement' => "bottom", 'data-content' => " About Extra File")); ?> 
                     <?php echo $form->error($model, 'extra_description'); ?> 
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 ">

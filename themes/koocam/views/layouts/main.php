@@ -41,7 +41,6 @@
         $cs->registerScriptFile($themeUrl . '/js/jquery.counterup.min.js', $cs_pos_end);
         $cs->registerScriptFile($themeUrl . '/js/owl.carousel.min.js', $cs_pos_end);
         $cs->registerScriptFile($themeUrl . '/js/bootstrap-select.js', $cs_pos_end);
-        $cs->registerScriptFile($themeUrl . '/js/bootstrap-select.js', $cs_pos_end);
         $cs->registerScriptFile($themeUrl . '/js/notification/smoke.min.js', $cs_pos_end);
         $cs->registerScriptFile($themeUrl . '/js/icheck.js', $cs_pos_end);
 

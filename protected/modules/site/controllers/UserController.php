@@ -28,11 +28,11 @@ class UserController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('profile'),
+                'actions' => array('profile', 'update'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'upload'),
+                'actions' => array('create', 'upload', 'profileupdate'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -42,12 +42,38 @@ class UserController extends Controller {
             ),
         );
     }
-    
+
     public function actionProfile($slug) {
         $model = $this->loadModelSlug($slug);
-        $this->render('profile', compact('model'));
+        $user_profile = $model->userProf;
+        if (empty($user_profile)) {
+            $user_profile = new UserProfile;
+        }
+        $this->render('profile', compact('model', 'user_profile'));
     }
-    
+
+    public function actionProfileupdate() {
+        $model = $this->loadModel(Yii::app()->user->id);
+        $user_profile = $model->userProf;
+        if (empty($user_profile)) {
+            $user_profile = new UserProfile;
+        }
+        $this->performAjaxValidation($user_profile);
+        if (Yii::app()->request->isPostRequest && Yii::app()->request->getPost('UserProfile')) {
+            $user_profile->attributes = Yii::app()->request->getPost('UserProfile');
+            $user_profile->user_id = Yii::app()->user->id;
+            $user_profile->setAttribute('prof_picture', isset($_FILES['UserProfile']['name']['prof_picture']) ? $_FILES['UserProfile']['name']['prof_picture'] : '');
+
+            if ($user_profile->validate()) {
+                $user_profile->setUploadDirectory(UPLOAD_DIR . '/users/' . Yii::app()->user->id);
+                $user_profile->uploadFile();
+                if ($user_profile->save()) {
+                    Yii::app()->user->setFlash('success', "Profile updated successfully!!!");
+                    $this->redirect(array('/site/user/profile', 'slug' => $model->slug));
+                }
+            }
+        }
+    }
 
     /**
      * Returns the data model based on the primary key given in the GET variable.
@@ -57,7 +83,7 @@ class UserController extends Controller {
      * @throws CHttpException
      */
     public function loadModel($id) {
-        $model = Gig::model()->findByPk($id);
+        $model = User::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;

@@ -23,6 +23,7 @@
  * @property string $modified_at
  * @property integer $created_by
  * @property integer $modified_by
+ * @property integer $country_id
  *
  * The followings are the available model relations:
  * @property User $user
@@ -34,6 +35,15 @@ class UserProfile extends RActiveRecord {
      */
     public function tableName() {
         return '{{user_profile}}';
+    }
+    
+    public function behaviors() {
+        return array(
+            'NUploadFile' => array(
+                'class' => 'ext.nuploadfile.NUploadFile',
+                'fileField' => 'prof_picture',
+            ),
+        );
     }
 
     /**
@@ -50,7 +60,7 @@ class UserProfile extends RActiveRecord {
             array('prof_tag, prof_skype, prof_website, prof_languages', 'length', 'max' => 100),
             array('prof_phone', 'length', 'max' => 30),
             array('prof_picture, prof_cover_photo', 'length', 'max' => 500),
-            array('prof_address, prof_about, prof_interests, created_at, modified_at', 'safe'),
+            array('prof_address, prof_about, prof_interests, created_at, modified_at, country_id', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('prof_id, user_id, prof_firstname, prof_lastname, prof_tag, prof_address, prof_phone, prof_skype, prof_website, prof_about, prof_languages, prof_interests, prof_rating, prof_picture, prof_cover_photo, created_at, modified_at, created_by, modified_by', 'safe', 'on' => 'search'),
@@ -65,6 +75,7 @@ class UserProfile extends RActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'user' => array(self::BELONGS_TO, 'User', 'user_id'),
+            'country' => array(self::BELONGS_TO, 'Country', 'country_id'),
         );
     }
 
@@ -157,6 +168,12 @@ class UserProfile extends RActiveRecord {
                 'pageSize' => PAGE_SIZE,
             )
         ));
+    }
+    
+    protected function beforeValidate() {
+        if($this->prof_languages && is_array($this->prof_languages))
+            $this->prof_languages = CJSON::encode($this->prof_languages);
+        return parent::beforeValidate();
     }
 
 }

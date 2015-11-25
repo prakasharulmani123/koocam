@@ -203,14 +203,22 @@ class User extends RActiveRecord {
         return CHtml::listData(self::model()->$status()->findAll(), 'user_id', 'username');
     }
 
-    public function getLanguages() {
+    public function getLanguages($return_type = 'string') {
         $lang = '';
         $langArr = CJSON::decode($this->userProf->prof_languages);
+        if($return_type == 'array'){
+            return $langArr;
+        }
         $languages = Language::model()->findAllByAttributes(array('lang_Id' => $langArr));
         foreach ($languages as $key => $language) {
             $lang .= $language->lang_name . ', ';
         }
         return rtrim($lang, ', ');
+    }
+    
+    public function getCountry(){
+        $Country = Country::model()->findByPk($this->userProf->country_id);
+        return $Country->country_name;
     }
 
 }

@@ -10,53 +10,65 @@
             <?php
             $form = $this->beginWidget('CActiveForm', array(
                 'id' => 'user-form',
-                'htmlOptions' => array('role' => 'form', 'class' => ''),
+                'htmlOptions' => array('role' => 'form', 'class' => '', 'enctype' => 'multipart/form-data'),
                 'clientOptions' => array(
                     'validateOnSubmit' => true,
-                    'hideErrorMessage'=>true,
+                    'hideErrorMessage' => true,
                 ),
                 'enableAjaxValidation' => true,
             ));
             ?>
-            
-            <?php echo $form->errorSummary(array($model,$userProfile)); ?>
+
+            <?php echo $form->errorSummary(array($model, $userProfile)); ?>
 
             <div class = "form-group form-control-material static">
                 <?php echo $form->textField($model, 'username', array('class' => 'form-control', 'size' => 60, 'maxlength' => 255)); ?>
                 <?php echo $form->labelEx($model, 'username'); ?>
                 <?php echo $form->error($model, 'username'); ?>
             </div>
-            
+
             <div class = "form-group form-control-material static">
                 <?php echo $form->textField($model, 'password_hash', array('class' => 'form-control', 'size' => 60, 'maxlength' => 255)); ?>
                 <?php echo $form->labelEx($model, 'password_hash'); ?>
                 <?php echo $form->error($model, 'password_hash'); ?>
             </div>
-            
+
             <div class = "form-group form-control-material static">
                 <?php echo $form->textField($model, 'email', array('class' => 'form-control', 'size' => 60, 'maxlength' => 255)); ?>
                 <?php echo $form->labelEx($model, 'email'); ?>
                 <?php echo $form->error($model, 'email'); ?>
             </div>
-            
+
             <div class = "form-group checkbox checkbox-primary">
                 <?php echo $form->checkBox($model, 'status', array('class' => 'form-control')); ?>
                 <?php echo $form->labelEx($model, 'status'); ?>
                 <?php echo $form->error($model, 'status'); ?>
             </div>
-            
+
             <div class = "form-group form-control-material static">
                 <?php echo $form->textField($userProfile, 'prof_firstname', array('class' => 'form-control')); ?>
                 <?php echo $form->labelEx($userProfile, 'prof_firstname'); ?>
                 <?php echo $form->error($userProfile, 'prof_firstname'); ?>
             </div>
-            
+
             <div class = "form-group form-control-material static">
                 <?php echo $form->textField($userProfile, 'prof_lastname', array('class' => 'form-control')); ?>
                 <?php echo $form->labelEx($userProfile, 'prof_lastname'); ?>
                 <?php echo $form->error($userProfile, 'prof_lastname'); ?>
             </div>
-            
+
+            <div class = "form-group form-control-material static">
+                <?php echo $form->fileField($userProfile, 'prof_picture', array('class' => 'form-control')); ?>
+                <?php echo $form->labelEx($userProfile, 'prof_picture'); ?>
+                <?php echo $form->error($userProfile, 'prof_picture'); ?>
+            </div>
+
+            <div class = "form-group">
+                <?php echo $form->labelEx($userProfile, 'country_id'); ?>
+                <?php echo $form->dropDownList($userProfile, 'country_id', Country::getCountryList(), array('class' => 'selectpicker', "data-style" => "btn-white", "data-size" => "5")); ?>
+                <?php echo $form->error($userProfile, 'country_id'); ?>
+            </div>
+
             <div class="form-group">
                 <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array('class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary')); ?>
             </div>

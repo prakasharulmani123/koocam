@@ -54,8 +54,10 @@
                             $lang_array = $model->getLanguages('array');
 
                             $selected = array();
-                            foreach ($lang_array as $value) {
-                                $selected[$value] = array('selected' => 'selected');
+                            if ($lang_array && is_array($lang_array)) {
+                                foreach ($lang_array as $value) {
+                                    $selected[$value] = array('selected' => 'selected');
+                                }
                             }
                             ?>
                             <?php echo $form->labelEx($user_profile, 'prof_languages'); ?>

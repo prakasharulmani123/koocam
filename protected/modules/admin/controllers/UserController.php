@@ -76,6 +76,8 @@ class UserController extends Controller {
             $model->attributes = $_POST['User'];
             $userProfile->attributes = $_POST['UserProfile'];
 
+            $userProfile->setAttribute('prof_picture', isset($_FILES['UserProfile']['name']['prof_picture']) ? $_FILES['UserProfile']['name']['prof_picture'] : '');
+
             // validate BOTH $a and $b
             $valid = $model->validate();
             $valid = $userProfile->validate() && $valid;
@@ -85,6 +87,9 @@ class UserController extends Controller {
                 $model->save(false);
 
                 $userProfile->user_id = $model->user_id;
+                $userProfile->setUploadDirectory(UPLOAD_DIR . '/users/' . $userProfile->user_id);
+                $userProfile->uploadFile();
+
                 $userProfile->save(false);
 
                 Yii::app()->user->setFlash('success', 'User Created Successfully!!!');

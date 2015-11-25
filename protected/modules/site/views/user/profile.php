@@ -13,7 +13,7 @@ $themeUrl = $this->themeUrl;
             <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8 col-md-offset-1  col-lg-offset-2 page-details ">
                 <h2> 
                     <?php echo CHtml::link($model->fullname, array('/site/user/profile', 'slug' => $model->slug)); ?> 
-                    <?php if (!Yii::app()->user->isGuest) { ?>
+                    <?php if (!Yii::app()->user->isGuest && (Yii::app()->user->id == $model->user_id)) { ?>
                         <button class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-sm2" data-dismiss=".bs-example-modal-sm2"> <i class="fa fa-pencil"></i> </button>
                     <?php } ?>
 
@@ -81,7 +81,7 @@ $themeUrl = $this->themeUrl;
 </div>
 
 <?php
-if (!Yii::app()->user->isGuest) {
+if (!Yii::app()->user->isGuest && (Yii::app()->user->id == $model->user_id)) {
     $this->renderPartial('_profile_edit', compact('model', 'user_profile'));
 }
 ?>

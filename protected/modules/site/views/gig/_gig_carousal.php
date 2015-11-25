@@ -16,7 +16,7 @@
                         <p> <?php echo CHtml::image($themeUrl . '/images/rating.jpg', '', array()); ?></p>
                     </div>
                     <div class="coures-pricedetails">
-                        <div class="course-price"> <i class="fa fa-clock-o"></i> <b><?php echo $gig->totalminutes; ?></b> <span> min </span> </div>
+                        <div class="course-price"> <i class="fa fa-clock-o"></i> <b><?php echo $gig->gig_duration; ?></b> <span> min </span> </div>
                         <div class="course-price course-hour"> <i class="fa fa-dollar"></i> <b><?php echo (int) $gig->gig_price; ?></b> </div>
                         <div class="course-price letcame"> <a href="#"> Let's Cam <i class="fa fa-video-camera"></i></a> </div>
                     </div>

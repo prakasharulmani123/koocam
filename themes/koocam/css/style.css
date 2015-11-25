@@ -780,7 +780,7 @@ a:hover {
 .course-details h4 {
 	font-size:25px;
 	font-weight:400;
-/*	border-bottom:#f0f0f0 solid 1px;*/
+	/*	border-bottom:#f0f0f0 solid 1px;*/
 	padding-bottom:10px;
 	margin-top:28px;
 }
@@ -952,7 +952,7 @@ a:hover {
 
 /* HiDPI support */
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi), (min-resolution: 1.25dppx) {
- .icheckbox_flat-blue,  .iradio_flat-blue {
+ .icheckbox_flat-blue, .iradio_flat-blue {
  background-image: url(../images/grey@2x.png);
  -webkit-background-size: 176px 22px;
  background-size: 176px 22px;
@@ -1072,7 +1072,6 @@ a:hover {
 	border-radius: 5px;
 	line-height:20px;
 	margin-top:0px;
-	
 }
 .extras-prices-bg:hover {
 	background:#2e2e2e
@@ -1128,16 +1127,19 @@ a:hover {
 	position:relative;
 	top:0px;
 	right:0px;
-	margin-left:10px;
+	margin-left:0px;
 }
 .dropdown-menu > li > a {
 	clear: both;
 	color: #333;
 	display: block;
+	float: left;
 	font-weight: 400;
 	line-height: 1.42857;
 	padding: 5px 20px;
 	white-space: nowrap;
+	width: 80%;
+	text-overflow: ellipsis;
 }
 .dropdown-menu {
 	color:#1e1e1e;
@@ -1147,35 +1149,67 @@ a:hover {
 	-moz-border-radius: 4px;
 	border-radius: 4px;
 }
-
-
 .nav.navbar-nav {
-  float: right;
+	float: right;
 }
-
-
-a:focus
-{
+a:focus {
 	text-decoration:none;
 }
-
 label {
-  font-weight: 400;
-  color:#2e2e2e;
-  font-size:13px;
+	font-weight: 400;
+	color:#2e2e2e;
+	font-size:13px;
 }
-
-.input-group-addon
-{
+.input-group-addon {
 	font-size:20px;
 	font-weight:700;
 	cursor:pointer;
 	-webkit-border-radius: 0px;
--moz-border-radius: 0px;
-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+}
+.popover-title {
+	display:none !important;
 }
 
-.popover-title
+.dropdown-menu {
+  min-width: 290px;
+
+}
+
+.dropdown-menu2 {
+  min-width: 160px;
+}
+
+.divider
 {
-	display:none !important;
+	width:100%;
+}
+
+.dropdown-menu2 ul li
+{
+	width:100%;
+}
+
+.dropdown-menu2 li a
+{
+	width:100%;
+	display:block;
+}
+
+
+.page-details i
+{
+	font-size:20px;
+}
+
+.importants-heading
+{
+	color:#b41b20;
+}
+
+.edit-btn
+{
+	background:#b81a1e;
+	color:#ffffff;
 }

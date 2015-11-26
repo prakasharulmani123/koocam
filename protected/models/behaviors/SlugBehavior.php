@@ -139,6 +139,9 @@ class SlugBehavior extends CActiveRecordBehavior {
             $title = urldecode($title);
         }
 
+        $rand = Myclass::getRandomString(5);
+        $title .= $title.'-'.$rand;
+        
         return $title;
     }
 

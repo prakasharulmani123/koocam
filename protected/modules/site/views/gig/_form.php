@@ -9,7 +9,7 @@ $form = $this->beginWidget('CActiveForm', array(
     'clientOptions' => array(
         'validateOnSubmit' => true,
     ),
-    'enableAjaxValidation' => true,
+    'enableAjaxValidation' => false,
         ));
 $categories = GigCategory::getCategoryList();
 ?>            
@@ -24,7 +24,8 @@ $categories = GigCategory::getCategoryList();
                     <?php echo $form->error($model, 'gig_title'); ?> 
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
-                    <?php echo $form->dropDownList($model, 'cat_id', $categories, array('class' => 'selectpicker', 'prompt' => '', 'data-container' => "body", 'data-trigger' => "hover", 'data-title' => "Choose Category", 'data-toggle' => "popover", 'data-placement' => "bottom", 'data-content' => "Vivamus sagittis lacus vel augue laoreet rutrum faucibus.")); ?> 
+                    <?php // echo $form->dropDownList($model, 'cat_id', $categories, array('class' => 'selectpicker', 'prompt' => '', 'data-container' => "body", 'data-trigger' => "hover", 'data-title' => "Choose Category", 'data-toggle' => "popover", 'data-placement' => "bottom", 'data-content' => "Gig Category")); ?> 
+                    <?php echo $form->dropDownList($model, 'cat_id', $categories, array('class' => 'selectpicker', 'prompt' => '', 'data-title' => "Choose Category")); ?> 
                     <?php echo $form->error($model, 'cat_id'); ?> 
                 </div>
             </div>
@@ -53,7 +54,7 @@ $categories = GigCategory::getCategoryList();
 
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
                     <?php echo $form->label($model, 'gig_important'); ?>
-                    <?php echo $form->textField($model, 'gig_important', array('class' => 'form-control', 'placeholder' => $model->getAttributeLabel('gig_important'), 'data-trigger' => "hover", 'data-container' => "body", 'data-toggle' => "popover", 'data-placement' => "bottom", 'data-content' => "Important")); ?> 
+                    <?php echo $form->textField($model, 'gig_important', array('class' => 'form-control', 'placeholder' => 'Important', 'data-trigger' => "hover", 'data-container' => "body", 'data-toggle' => "popover", 'data-placement' => "bottom", 'data-content' => "Important")); ?> 
                     <?php echo $form->error($model, 'gig_important'); ?> 
                 </div>
 
@@ -89,7 +90,7 @@ $categories = GigCategory::getCategoryList();
             <div class="form-group <?php echo $hide; ?>" id="extras_div">
                 <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 ">
                     <?php echo $form->label($model, 'extra_price'); ?>
-                    <?php echo $form->textField($model, 'extra_price', array('class' => 'form-control numberonly', 'placeholder' => $model->getAttributeLabel('extra_price'), 'data-trigger' => "hover", 'data-container' => "body", 'data-toggle' => "popover", 'data-placement' => "bottom", 'data-content' => " Extra Price")); ?> 
+                    <?php echo $form->textField($model, 'extra_price', array('class' => 'form-control numberonly', 'placeholder' => 'Extra File Price', 'data-trigger' => "hover", 'data-container' => "body", 'data-toggle' => "popover", 'data-placement' => "bottom", 'data-content' => " Extra Price")); ?> 
                     <?php echo $form->error($model, 'extra_price'); ?> 
                 </div>
                 <div class="col-xs-12 col-sm-3 col-md-3 col-lg-6 ">

@@ -63,6 +63,7 @@ class UserIdentity extends CUserIdentity {
         $this->_id = $user->user_id;
         $this->setState('name', $user->username);
         $this->setState('id', $user->user_id);
+        $this->setState('slug', $user->slug);
         return;
     }
 }

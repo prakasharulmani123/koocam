@@ -75,8 +75,8 @@ class GigController extends Controller {
                         if ($extra_model->validate()) {
                             /* temp solution */
                             if (!empty($_FILES['Gig']['name']['extra_file'])) {
-                                $extra_model->setUploadDirectory(UPLOAD_DIR . '/users/' . Yii::app()->user->id);
-                                $upl_dir = $extra_model->getUploadDirectory();
+                                $user_path = $upl_dir = UPLOAD_DIR . '/users/' . Yii::app()->user->id;
+                                $extra_model->setUploadDirectory($user_path . '/gigextra');
                                 $newName = trim(md5(time())) . '.' . CFileHelper::getExtension($_FILES['Gig']['name']['extra_file']);
                                 $dir = DIRECTORY_SEPARATOR . strtolower(get_class($extra_model)) . DIRECTORY_SEPARATOR;
                                 if (move_uploaded_file($_FILES['Gig']['tmp_name']['extra_file'], $upl_dir . $newName))
@@ -97,6 +97,7 @@ class GigController extends Controller {
 
     public function actionUpdate($id) {
         $model = $this->loadModel($id);
+        $model->scenario = 'update';
 
         if ($model->tutor_id != Yii::app()->user->id) {
             Yii::app()->user->setFlash('danger', "Invalid Access !!!");
@@ -123,8 +124,8 @@ class GigController extends Controller {
                         if ($extra_model->validate()) {
                             /* temp solution */
                             if (!empty($_FILES['Gig']['name']['extra_file'])) {
-                                $extra_model->setUploadDirectory(UPLOAD_DIR . '/users/' . Yii::app()->user->id);
-                                $upl_dir = $extra_model->getUploadDirectory();
+                                $user_path = $upl_dir = UPLOAD_DIR . '/users/' . Yii::app()->user->id;
+                                $extra_model->setUploadDirectory($user_path . '/gigextra');
                                 $newName = trim(md5(time())) . '.' . CFileHelper::getExtension($_FILES['Gig']['name']['extra_file']);
                                 $dir = DIRECTORY_SEPARATOR . strtolower(get_class($extra_model)) . DIRECTORY_SEPARATOR;
                                 if (move_uploaded_file($_FILES['Gig']['tmp_name']['extra_file'], $upl_dir . $newName))

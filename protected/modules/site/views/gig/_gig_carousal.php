@@ -11,8 +11,8 @@
                         <?php echo CHtml::link(CHtml::image($gig->getFilePath(false, '/users/' . $gig->tutor->user_id.'/thumb'), '', array()), array('/site/gig/view', 'slug' => $gig->slug), array()); ?>
                     </div>
                     <div class="course-thumbdetails">
-                        <h2><?php echo CHtml::link($gig->gig_title, '#', array()); ?></h2>
-                        <p> <span> <?php echo CHtml::link($gig->tutor->fullname, '#', array()); ?> </span> </p>
+                        <h2><?php echo CHtml::link($gig->gig_title, array('/site/gig/view', 'slug' => $gig->slug), array()); ?></h2>
+                        <p> <span> <?php echo CHtml::link(($gig->tutor->fullname == ' ') ? $gig->tutor->username : $gig->tutor->fullname, array('/site/user/profile', 'slug' => $gig->tutor->slug), array()); ?> </span> </p>
                         <p> <?php echo CHtml::image($themeUrl . '/images/rating.jpg', '', array()); ?></p>
                     </div>
                     <div class="coures-pricedetails">

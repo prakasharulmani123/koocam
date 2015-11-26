@@ -33,8 +33,8 @@ return array(
         'clientScript' => array(
             'packages' => array(
                 'jquery' => array(
-//                    'baseUrl' => '//code.jquery.com/',
-                    'baseUrl' => 'http://localhost/koocam/branches/dev/themes/koocam/js/',
+                    'baseUrl' => '//code.jquery.com/',
+//                    'baseUrl' => 'http://localhost/koocam/branches/dev/themes/koocam/js/',
                     'js' => array('jquery-1.10.2.min.js', 'jquery-migrate-1.2.1.min.js'),
                 ),
             )

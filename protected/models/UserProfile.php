@@ -27,6 +27,7 @@
  *
  * The followings are the available model relations:
  * @property User $user
+ * @property Country $country
  */
 class UserProfile extends RActiveRecord {
 

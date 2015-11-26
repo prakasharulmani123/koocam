@@ -12,4 +12,5 @@ return array(
     'gig/<slug:[a-zA-Z0-9-]+>/' => 'site/gig/view',
     'category/<slug:[a-zA-Z0-9-]+>/' => 'site/gigcategory/view',
     'page/<slug:[a-zA-Z0-9-]+>/' => 'site/cms/view',
+    'profile/<slug:[a-zA-Z0-9-]+>/' => 'site/user/profile',
 );

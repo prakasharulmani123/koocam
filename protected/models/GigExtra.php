@@ -135,4 +135,8 @@ class GigExtra extends CActiveRecord {
         ));
     }
 
+    protected function afterFind() {
+        $this->extra_price = $this->extra_price + 0;
+        return parent::afterFind();
+    }
 }
